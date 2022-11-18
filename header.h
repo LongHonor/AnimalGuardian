@@ -26,14 +26,14 @@ typedef struct _Position {
 typedef struct _PC {
 	int speed;
 	int gun_load_speed;
-	int posX, posY;
+	Pos pos;
 	int life_point;
 } PC;
 
 //NPC - enemy
 typedef struct _EnemyNPC {
 	int speed;
-	int posX, posY;
+	Pos pos;
 	int id;
 } EnemyNPC;
 
@@ -41,7 +41,7 @@ typedef struct _EnemyNPC {
 //NPC - animal
 typedef struct _AnimalNPC {
 	int speed;
-	int posX, posY;
+	Pos pos;
 	int id;
 }AnimalNPC;
 
