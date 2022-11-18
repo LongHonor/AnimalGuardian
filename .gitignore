@@ -1,0 +1,8 @@
+\.vscode\*
+*.sln
+*.exe
+*.user
+*.filters
+*.vxcproj
+.vscode/
+AnimalGuardian/.vs/
