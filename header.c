@@ -41,7 +41,7 @@ char bulletModel[1][2] ={
 //커서
 int curPosX = GBOARD_O_X, curPosY = GBOARD_O_Y;
 
-void RemoveCursor(void)
+void removeCursor(void)
 {
 	CONSOLE_CURSOR_INFO curInfo;
 	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
@@ -49,7 +49,7 @@ void RemoveCursor(void)
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
 }
 
-void SetCurrentCursorPos(int posX, int posY)
+void setCurrentCursorPos(int posX, int posY)
 {
 	COORD pos = { posX, posY };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
