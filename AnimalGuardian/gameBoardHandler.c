@@ -15,7 +15,7 @@ char animalModel[1][2] = {
 
 char enemyModel[2][1] = {
 	{1},
-	{1}
+	{2}
 };
 //temoporary functions for waiting global functions end
 
@@ -63,15 +63,18 @@ void drawPC() {
 	//temporal code
 	
 
-	PC curPos = getPCCurrentPos();
+	PC pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
 
 	for (posY = 0; posY < 2; posY++) {
-		setCurrentCursorPos(curPos.pos.X, curPos.pos.Y + posY);
+		setCurrentCursorPos(pcCurPos.pos.X, pcCurPos.pos.Y + posY);
 		if (pcModel[posY][0] == 1) printf("＠");
 		else printf("■");
 	}
-	setCurrentCursorPos(curPos.pos.X, curPos.pos.Y);
+	//좌표 전역변수 활용에 맞게 수정가능성 있음
+	setCurrentCursorPos(pcCurPos.pos.X, pcCurPos.pos.Y);
+	curPosX = pcCurPos.pos.X;
+	curPosY = pcCurPos.pos.Y;
 }
 void deletePC() {
 	int posX, posY;
@@ -79,15 +82,17 @@ void deletePC() {
 	//temporal code
 	
 
-	PC curPos = getPCCurrentPos();
+	PC pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
 
 	for (posY = 0; posY < 2; posY++) {
-		setCurrentCursorPos(curPos.pos.X, curPos.pos.Y + posY);
+		setCurrentCursorPos(pcCurPos.pos.X, pcCurPos.pos.Y + posY);
 		printf("  ");
 	}
 
-	setCurrentCursorPos(curPos.pos.X, curPos.pos.Y);
+	setCurrentCursorPos(pcCurPos.pos.X, pcCurPos.pos.Y);
+	curPosX = pcCurPos.pos.X;
+	curPosY = pcCurPos.pos.Y;
 }
 void drawAnimal() {
 	int posX, posY;
@@ -95,15 +100,17 @@ void drawAnimal() {
 	//temporal code
 	
 
-	Pos curPos = getAnimalCurrentPos(&temp_animal);
+	Pos animalCurPos = getAnimalCurrentPos(&temp_animal);
 	//animal npc위치 받아와서 setCurrentCursorPos()호출
 
 	for (posX = 0; posX < 2; posX++) {
-		setCurrentCursorPos(curPos.X + posX, curPos.Y);
+		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
 		if (animalModel[0][posX] == 1) printf("♧");
 		else printf("■");
 	}
-	setCurrentCursorPos(curPos.X, curPos.Y);
+	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+	curPosX = animalCurPos.X;
+	curPosY = animalCurPos.Y;
 }
 void deleteAnimal() {
 	int posX, posY;
@@ -111,14 +118,16 @@ void deleteAnimal() {
 	//temporal code
 	
 
-	Pos curPos = getAnimalCurrentPos(&temp_animal);
+	Pos animalCurPos = getAnimalCurrentPos(&temp_animal);
 	//pc위치 받아와서 setCurrentCursorPos()호출
 
 	for (posX = 0; posX < 2; posX++) {
-		setCurrentCursorPos(curPos.X + posX, curPos.Y);
+		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
 		printf("  ");
 	}
-	setCurrentCursorPos(curPos.X, curPos.Y);
+	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+	curPosX = animalCurPos.X;
+	curPosY = animalCurPos.Y;
 }
 void drawEnemy() {
 	int posX, posY;
@@ -126,15 +135,17 @@ void drawEnemy() {
 	//temporal code
 	//setCurrentCursorPos(25, 16);
 
-	Pos curPos = getEnemyCurrentPos(&temp_enemy);
+	Pos enemyCurPos = getEnemyCurrentPos(&temp_enemy);
 	//pc위치 받아와서 setCurrentCursorPos()호출
 
 	for (posY = 0; posY < 2; posY++) {
-		setCurrentCursorPos(curPos.X, curPos.Y + posY);
-		if (pcModel[posY][0] == 1) printf("▲");
+		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
+		if (enemyModel[posY][0] == 1) printf("▲");
 		else printf("■");
 	}
-	setCurrentCursorPos(curPos.X, curPos.Y);
+	setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+	curPosX = enemyCurPos.X;
+	curPosY = enemyCurPos.Y;
 }
 void deleteEnemy() {
 	int posX, posY;
@@ -142,14 +153,16 @@ void deleteEnemy() {
 	//temporal code
 	
 
-	Pos curPos = getEnemyCurrentPos(&temp_enemy);
+	Pos enemyCurPos = getEnemyCurrentPos(&temp_enemy);
 	//pc위치 받아와서 setCurrentCursorPos()호출
 
 	for (posY = 0; posY < 2; posY++) {
-		setCurrentCursorPos(curPos.X, curPos.Y + posY);
+		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
 		printf("  ");
 	}
 
-	setCurrentCursorPos(curPos.X, curPos.Y);
+	setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+	curPosX = enemyCurPos.X;
+	curPosY = enemyCurPos.Y;
 }
 void drawUI();
