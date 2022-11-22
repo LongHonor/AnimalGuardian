@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <windows.h>
 
 #define LEFT 75
@@ -17,62 +17,68 @@
 //gameboard 2차원 배열
 //int gameBoardInfo[GBOARD_HEIGHT + 2][GBOARD_WIDTH + 2];
 
+//모델
+char bulletModel[2][1];
+char enemyModel[2][1];
+char animalModel[1][2];
+char pcModel[2][1];
+
+//UI
+int enemyNumber;
+int bulletNumber;
+int itemNumber;
+int score;
+
+//커서
+int curPosX, curPosY;
+
 //Position
 typedef struct _Position {
 	int X;
 	int Y;
-} Pos;
+} pos;
 
 //PC
 typedef struct _PC {
+	pos pos;
 	int speed;
-	int gun_load_speed;
-	Pos pos;
-	int life_point;
-} PC;
+	int gunLoadSpeed;
+	int lifePoint;
+} pc;
 
 //NPC - enemy
 typedef struct _EnemyNPC {
+	pos pos;
 	int speed;
-	Pos pos;
 	int id;
-} EnemyNPC;
-
+	struct _EnemyNPC *next;
+} enemyNPC;
 
 //NPC - animal
 typedef struct _AnimalNPC {
+	pos pos;
 	int speed;
-	Pos pos;
 	int id;
-}AnimalNPC;
-
-//bullet
-char bulletModel[2][1];
-
-//UI
-int enemy_number;
-int bullet_number;
-int item_number;
-int score;
+}animalNPC;
 
 //one-player 전역변수
-PC real_pc;
+pc tempPc;
 
 //test용 NPC 전역변수
-AnimalNPC temp_animal;
-EnemyNPC temp_enemy;
+animalNPC tempAnimals[3];
+enemyNPC *tempEnemies;
 
-//커서
-int curPosX ,curPosY;
 
 //함수 선언부
-PC getPCCurrentPos();
+pos getPCCurrentPos();
 void setPCCurrentPos(int moveX, int moveY);
-Pos getEnemyCurrentPos(EnemyNPC * enemyNPC);
-void setEnemyCurrentPos(EnemyNPC * enemyNPC, int moveX, int moveY);
-Pos getAnimalCurrentPos(AnimalNPC * animalNPC);
-void setAnimalCurrentPos(AnimalNPC * animalNPC, int moveX, int moveY);
+pos getEnemyCurrentPos(enemyNPC * enemyNPC);
+void setEnemyCurrentPos(enemyNPC * enemyNPC, int moveX, int moveY);
+pos getAnimalCurrentPos(animalNPC * animalNPC);
+void setAnimalCurrentPos(animalNPC * animalNPC, int moveX, int moveY);
 
 void removeCursor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
+
+int enemyNPCDetectCollision(int posX, int posY);
