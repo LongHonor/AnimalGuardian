@@ -14,8 +14,8 @@
 #define GBOARD_O_X 4
 #define GBOARD_O_Y 2
 
-//gameboard 2Â÷¿ø ¹è¿­
-int gameBoardInfo[GBOARD_HEIGHT + 1][GBOARD_WIDTH + 2];
+//gameboard 2ì°¨ì› ë°°ì—´
+int gameBoardInfo[GBOARD_HEIGHT + 2][GBOARD_WIDTH + 2];
 
 //Position
 typedef struct _Position {
@@ -55,17 +55,17 @@ int bullet_number;
 int item_number;
 int score;
 
-//one-player Àü¿ªº¯¼ö
+//one-player ì „ì—­ë³€ìˆ˜
 PC real_pc;
 
-//test¿ë NPC Àü¿ªº¯¼ö
+//testìš© NPC ì „ì—­ë³€ìˆ˜
 AnimalNPC temp_animal;
 EnemyNPC temp_enemy;
 
-//Ä¿¼­
+//ì»¤ì„œ
 int curPosX ,curPosY;
 
-//ÇÔ¼ö ¼±¾ğºÎ
+//í•¨ìˆ˜ ì„ ì–¸ë¶€
 PC getPCCurrentPos();
 void setPCCurrentPos(int moveX, int moveY);
 Pos getEnemyCurrentPos(EnemyNPC * enemyNPC);
