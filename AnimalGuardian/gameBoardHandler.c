@@ -1,4 +1,4 @@
-#include "gameBoardHandler.h"
+﻿#include "gameBoardHandler.h"
 #include "globalVariable.h"
 #include <windows.h>
 #include <stdio.h>

@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <windows.h>
 #include "globalVariable.h"
 #include "gameBoardHandler.h"
@@ -7,7 +7,7 @@
 
 int main() {
 	
-	RemoveCursor();
+	removeCursor();
 	drawGameBoard();
 
 	while (1) {

@@ -1,10 +1,10 @@
-#include "globalVariable.h"
+﻿#include "globalVariable.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 
 
-//PC ��ǥ �ڵ鷯
+//PC 좌표 핸들러
 PC getPCCurrentPos() {
 	return real_pc;
 }
@@ -12,7 +12,7 @@ void setPCCurrentPos( int moveX, int moveY) {
 	real_pc.pos.X = moveX; real_pc.pos.Y = moveY;
 }
 
-//Enemy NPC ��ǥ �ڵ鷯
+//Enemy NPC 좌표 핸들러
 Pos getEnemyCurrentPos(EnemyNPC * enemyNPC) {
 	Pos curPos;
 	curPos.X = enemyNPC->pos.X; curPos.Y = enemyNPC->pos.Y;
@@ -23,7 +23,7 @@ void setEnemyCurrentPos(EnemyNPC * enemyNPC, int moveX, int moveY) {
 }
 
 
-//Animal NPC ��ǥ �ڵ鷯
+//Animal NPC 좌표 핸들러
 Pos getAnimalCurrentPos(AnimalNPC * animalNPC) {
 	Pos curPos;
 	curPos.X = animalNPC->pos.X; curPos.Y = animalNPC->pos.Y;
@@ -33,12 +33,12 @@ void setAnimalCurrentPos(AnimalNPC * animalNPC, int moveX, int moveY) {
 	animalNPC->pos.X = moveX; animalNPC->pos.Y = moveY;
 }
 
-//bullet ��
+//bullet 모델
 char bulletModel[2][1] =
 	{	{1},
 		{1}	 };
 
-//Ŀ��
+//커서
 int curPosX = GBOARD_O_X, curPosY = GBOARD_O_Y;
 
 void removeCursor()

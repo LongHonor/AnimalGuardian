@@ -1,38 +1,39 @@
-#include "gameItem.h"
+ï»¿#include "gameItem.h"
 #include "globalVariable.h"
 
 void reduceEnemySpeed() {
-	//enemy¹è¿­ ¹Þ¾Æ¿Í¼­ ¼Óµµ °ª ¼¼ÆÃ
+	//enemyë°°ì—´ ë°›ì•„ì™€ì„œ ì†ë„ ê°’ ì„¸íŒ…
 }
 
 void restoreEnemySpeed() {
-	//enemy¹è¿­ ¹Þ¾Æ¿Í¼­ ¼Óµµ °ª ÃÊ±â»óÅÂ·Î ¼¼ÆÃ
+	//enemyë°°ì—´ ë°›ì•„ì™€ì„œ ì†ë„ ê°’ ì´ˆê¸°ìƒíƒœë¡œ ì„¸íŒ…
 }
 
 void modifyReloadSpeed(int status) {
-	//status¿¡ µû¶ó ÀçÀåÀü ¼Óµµ Áõ°¨
+	//statusì— ë”°ë¼ ìž¬ìž¥ì „ ì†ë„ ì¦ê°
 	if (status == 1);
 	else;
 }
 
 void restoreReloadSpeed() {
-	//ÀçÀåÀü ¼Óµµ ÃÊ±â»óÅÂ·Î ¼¼ÆÃ
+	//ìž¬ìž¥ì „ ì†ë„ ì´ˆê¸°ìƒíƒœë¡œ ì„¸íŒ…
 }
 
 int isBarricadePlaceable() {
-	//ÀÎÀÚ ¹Ù¸®ÄÉÀÌµå ÁÂÇ¥
-	//°ÔÀÓº¸µå Àü¿ªº¯¼ö °ÔÅÍ·Î °¡Á®¿Í¼­ ¼³Ä¡ °¡´ÉÇÑÁö È®ÀÎ
+	//ì¸ìž ë°”ë¦¬ì¼€ì´ë“œ ì¢Œí‘œ
+	//ê²Œìž„ë³´ë“œ ì „ì—­ë³€ìˆ˜ ê²Œí„°ë¡œ ê°€ì ¸ì™€ì„œ ì„¤ì¹˜ ê°€ëŠ¥í•œì§€ í™•ì¸
 	// 0 : false 1 : true
+	return 0;
 }
 
 void placeBarricade() {
-	//¹Ù¸®ÄÉÀÌµå ¼³Ä¡
-	//°ÔÀÓ ½Ã°£ Á¤Áö
+	//ë°”ë¦¬ì¼€ì´ë“œ ì„¤ì¹˜
+	//ê²Œìž„ ì‹œê°„ ì •ì§€
 
-	//¹Ù¸®ÄÉÀÌµå ±×¸®±â
-	//ÀÔ·Â ´ë±â
-	//¼³Ä¡ Å° ´©¸£¸é ¼³Ä¡ °¡´ÉÇÑÁö È®ÀÎ
-	//¼³Ä¡ °¡´ÉÇÏ¸é °ÔÀÓº¸µå °»½Å
-	//ºÒ°¡´ÉÇÏ¸é °æ°í ¸Þ½ÃÁö Ãâ·Â
-	//ÀÌµ¿Å° ´©¸£¸é ¹Ù¸®ÄÉÀÌµå À§Ä¡ ÀÌµ¿
+	//ë°”ë¦¬ì¼€ì´ë“œ ê·¸ë¦¬ê¸°
+	//ìž…ë ¥ ëŒ€ê¸°
+	//ì„¤ì¹˜ í‚¤ ëˆ„ë¥´ë©´ ì„¤ì¹˜ ê°€ëŠ¥í•œì§€ í™•ì¸
+	//ì„¤ì¹˜ ê°€ëŠ¥í•˜ë©´ ê²Œìž„ë³´ë“œ ê°±ì‹ 
+	//ë¶ˆê°€ëŠ¥í•˜ë©´ ê²½ê³  ë©”ì‹œì§€ ì¶œë ¥
+	//ì´ë™í‚¤ ëˆ„ë¥´ë©´ ë°”ë¦¬ì¼€ì´ë“œ ìœ„ì¹˜ ì´ë™
 }
