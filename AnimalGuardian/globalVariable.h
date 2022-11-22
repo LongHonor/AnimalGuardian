@@ -51,6 +51,7 @@ typedef struct _EnemyNPC {
 	pos pos;
 	int speed;
 	int id;
+	struct _EnemyNPC *next;
 } enemyNPC;
 
 //NPC - animal
