@@ -1,5 +1,6 @@
 ﻿#include "gameBoardHandler.h"
 #include "globalVariable.h"
+#include "gameModel.h"
 #include <windows.h>
 #include <stdio.h>
 
@@ -32,25 +33,32 @@ void initGameBoard() {
 
 void drawGameBoard() {
 	int posX, posY;
-	int pcAreaLine = 18;
+	int pcAreaLine = 19;
 
-	for (posY = 0; posY < GBOARD_HEIGHT + 2; posY++) {
+	for (posY = 0; posY < GBOARD_HEIGHT + 3; posY++) {
 		setCurrentCursorPos(0, posY);
-		if (posY == GBOARD_HEIGHT + 1) printf("└");
+		if (posY == GBOARD_HEIGHT + 2) printf("└");
 		else if (posY == 0) printf("┌");
 		else if (posY == pcAreaLine) printf("├");
 		else printf("│");
 		setCurrentCursorPos((GBOARD_WIDTH + 1) * 2, posY);
-		if (posY == GBOARD_HEIGHT + 1) printf("┘");
+		if (posY == GBOARD_HEIGHT + 2) printf("┘");
 		else if (posY == 0) printf("┐");
 		else if (posY == pcAreaLine) printf("┤");
 		else printf("│");
 
-
-		if (posY == GBOARD_HEIGHT + 1 || posY == pcAreaLine || posY == 0) {
-			for (posX = 2; posX <= GBOARD_WIDTH * 2; posX += 2) {
-				setCurrentCursorPos(posX, posY);
+		for (posX = 1; posX < GBOARD_WIDTH + 1; posX++) {
+			if (gameBoardInfo[posY][posX] == 1) {
+				setCurrentCursorPos(posX * 2, posY);
 				printf("─");
+			}
+			else if (gameBoardInfo[posY][posX] == 4) {
+				setCurrentCursorPos(posX * 2, posY);
+				printf("♣");
+			}
+			else if (gameBoardInfo[posY][posX] == 5) {
+				setCurrentCursorPos(posX * 2, posY);
+				printf("■");
 			}
 		}
 	}
