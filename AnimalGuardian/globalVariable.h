@@ -15,7 +15,7 @@
 #define GBOARD_O_Y 2
 
 //gameboard 2차원 배열
-int gameBoardInfo[GBOARD_HEIGHT + 2][GBOARD_WIDTH + 2];
+//int gameBoardInfo[GBOARD_HEIGHT + 2][GBOARD_WIDTH + 2];
 
 //Position
 typedef struct _Position {
