@@ -26,6 +26,17 @@ typedef struct _Position {
 	int Y;
 } Pos;
 
+//BULLET
+typedef struct _Bullet {
+	int speed;
+	Pos pos;
+	struct _Bullet* link;
+}Bullet;
+
+extern Bullet* bullet_head;
+extern int max_bullet;
+extern char bulletModel[][1];
+
 //PC
 typedef struct _PC {
 	int speed;
@@ -50,8 +61,6 @@ typedef struct _AnimalNPC {
 	int id;
 }AnimalNPC;
 
-//bullet
-extern char bulletModel[][1];
 
 //UI
 extern int enemy_number;
@@ -78,9 +87,12 @@ void setCurrentCursorPos(int posX, int posY);
 void initGameBoard();
 //void drawPC();
 void drawGameBoard();
-void showPc(char modelinfo[][1], PC pc);
-void deletePc(char modelinfo[][1], PC pc);
+void showPc(PC pc);
+void deletePc(PC pc);
 int detectCollisionPC(int posX, int posY, char blockModel[][1]);
 int shiftLeftPc();
 int shiftRightPc();
 void processKeyInput();
+void showBullet(Pos pos);
+void deleteBullet(Pos pos);
+void shootBullet();
