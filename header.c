@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <windows.h>
-#include<conio.h>
+#include <conio.h>
 
 
 int gameBoardInfo[GBOARD_HEIGHT + 1][GBOARD_WIDTH + 2] = { {0} };
@@ -40,6 +40,9 @@ void setAnimalCurrentPos(AnimalNPC* animalNPC, int moveX, int moveY) {
 
 //bullet: 숫자3
 char bulletModel[][1] = { {3} };
+int max_bullet = 10;
+Bullet* bullet_head = NULL;
+
 
 int enemy_number = 1;
 int bullet_number = 1;
@@ -103,12 +106,12 @@ void drawGameBoard() {
 //		printf("  ");
 //	}
 //}
-void showPc(char modelinfo[][1],PC pc) {
+void showPc(PC pc) {
 	setCurrentCursorPos(pc.pos.X, pc.pos.Y);
 	printf("●");
 	setCurrentCursorPos(pc.pos.X, pc.pos.Y);    //cursor위치 처음 위치로 다시 설정
 }
-void deletePc(char modelinfo[][1], PC pc) {
+void deletePc(PC pc) {
 	setCurrentCursorPos(pc.pos.X, pc.pos.Y);
 	printf("  ");
 	setCurrentCursorPos(pc.pos.X, pc.pos.Y);    //cursor위치 처음 위치로 다시 설정
@@ -129,10 +132,10 @@ int shiftLeftPc() {
 		return 0;
 	}
 	//deletePcFromBoard();
-	deletePc(pcModel,pc);
+	deletePc(pc);
 	pc.pos.X -= 2;
 	setCurrentCursorPos(pc.pos.X, pc.pos.Y);
-	showPc(pcModel, pc);
+	showPc(pc);
 	//addPctoBoard();
 	return 1;
 }
@@ -142,12 +145,70 @@ int shiftRightPc() {
 		return 0;
 	}
 	//deletePcFromBoard();
-	deletePc(pcModel,pc);
+	deletePc(pc);
 	pc.pos.X += 2;
 	setCurrentCursorPos(pc.pos.X, pc.pos.Y);
-	showPc(pcModel,pc);
+	showPc(pc);
 	//addPctoBoard();
 	return 1;
+}
+void showBullet(Pos pos) {
+	setCurrentCursorPos(pos.X, pos.Y);
+	printf("ο");
+	//setCurrentCursorPos(pos.X, pos.Y);    //cursor위치 처음 위치로 다시 설정
+}
+void deleteBullet(Pos pos) {
+	setCurrentCursorPos(pos.X, pos.Y);
+	printf("  ");
+	//setCurrentCursorPos(pos.X, pos.Y);    //cursor위치 처음 위치로 다시 설정
+}
+void shootBullet() {
+	Bullet* curr = bullet_head;
+	Bullet* first_bullet = bullet_head;
+	while (1) {
+		if (curr == NULL) {
+			curr = first_bullet;
+		}
+		curr->pos.Y -= 2;
+		showBullet(curr->pos);
+		Sleep(curr->speed);
+		deleteBullet(curr->pos);
+		if (_kbhit() != 0) {
+			int key = _getch();
+			switch (key) {
+			case LEFT:
+				shiftLeftPc();
+				break;
+			case RIGHT:
+				shiftRightPc();
+				break;
+			case SPACE:
+				if (max_bullet > 0) {
+					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
+					newbullet->pos = pc.pos;
+					newbullet->speed = 30;
+					newbullet->link = NULL;
+					curr->link = newbullet;
+					//curr = curr->link;
+					max_bullet--;
+				}
+				break;
+			}
+		}
+		if (curr->pos.Y < 3) {
+			//deleteBullet(curr->pos);
+			first_bullet = curr->link;
+			//curr->link = NULL;
+			//curr = first_bullet;
+			//continue;
+			//curr->link = NULL;
+		}
+		if (first_bullet == NULL) {
+			//free(bullet_head);
+			break;
+		}
+		curr = curr->link;
+	}
 }
 void processKeyInput() {
 	int key;
@@ -162,6 +223,17 @@ void processKeyInput() {
 			case RIGHT:
 				shiftRightPc();
 				break;
+			case SPACE:
+				if (max_bullet > 0) {
+					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
+					newbullet->pos = pc.pos;
+					newbullet->speed = 30;
+					newbullet->link = NULL;
+					bullet_head = newbullet;
+					max_bullet--;
+					shootBullet();
+				}
+				break;
 			}
 		}
 		Sleep(20);
@@ -169,9 +241,7 @@ void processKeyInput() {
 }
 void initGameBoard() {
 	//맵, pc, animal, enemy, UI 출력 
-
 	int posX, posY;
-
 	for (posY = 0; posY < gameBoardHeight + 1; posY++) {
 		gameBoardInfo[posY][0] = 1;
 		gameBoardInfo[posY][gameBoardWidth + 1] = 1;
@@ -180,8 +250,6 @@ void initGameBoard() {
 		gameBoardInfo[0][posX] = 1;
 		gameBoardInfo[gameBoardHeight][posX] = 1;
 	}
-
 	drawGameBoard();
 	//drawPC();
-
 }
