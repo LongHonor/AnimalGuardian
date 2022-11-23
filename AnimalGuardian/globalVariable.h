@@ -1,23 +1,22 @@
-#pragma once
+﻿#pragma once
 #include <windows.h>
 
-#define LEFT 75
-#define RIGHT 77
-#define UP 72
-#define SPACE 32
-#define ATTACK 82
-#define ITEM 81
+#define left 75
+#define right 77
+#define up 72
+#define space 32
+#define attack 82
+#define item 81
 
-#define DoubleSpeed 115
-#define GBOARD_WIDTH 40
-#define GBOARD_HEIGHT 20
-#define GBOARD_O_X 4
-#define GBOARD_O_Y 2
+#define doubleSpeed 115
+#define gBoardWidth 40
+#define gBoardHeight 20
+#define gBoardOx 0
+#define gBoardOy 0
 
-//gameboard 2차원 배열
-//int gameBoardInfo[GBOARD_HEIGHT + 2][GBOARD_WIDTH + 2];
 
 //모델
+
 char bulletModel[2][1];
 char enemyModel[2][1];
 char animalModel[1][2];
@@ -36,11 +35,11 @@ int curPosX, curPosY;
 typedef struct _Position {
 	int X;
 	int Y;
-} pos;
+} posn;
 
 //PC
 typedef struct _PC {
-	pos pos;
+	posn pos;
 	int speed;
 	int gunLoadSpeed;
 	int lifePoint;
@@ -48,15 +47,21 @@ typedef struct _PC {
 
 //NPC - enemy
 typedef struct _EnemyNPC {
-	pos pos;
+	posn pos;
 	int speed;
 	int id;
 	struct _EnemyNPC *next;
 } enemyNPC;
 
+//NPC - enemylist
+typedef struct _EnemyNPCList {
+	int enemyCurrentNumber;
+	enemyNPC *enemyHeader;
+} enemyNPCList;
+
 //NPC - animal
 typedef struct _AnimalNPC {
-	pos pos;
+	posn pos;
 	int speed;
 	int id;
 }animalNPC;
@@ -66,19 +71,23 @@ pc tempPc;
 
 //test용 NPC 전역변수
 animalNPC tempAnimals[3];
-enemyNPC *tempEnemies;
+animalNPC tempAnimal;
+enemyNPCList *tempEnemies;
 
 
 //함수 선언부
-pos getPCCurrentPos();
+posn getPCCurrentPos();
 void setPCCurrentPos(int moveX, int moveY);
-pos getEnemyCurrentPos(enemyNPC * enemyNPC);
-void setEnemyCurrentPos(enemyNPC * enemyNPC, int moveX, int moveY);
-pos getAnimalCurrentPos(animalNPC * animalNPC);
-void setAnimalCurrentPos(animalNPC * animalNPC, int moveX, int moveY);
+posn getEnemyCurrentPos(int enemyId);
+void setEnemyCurrentPos(int enemyId, int moveX, int moveY);
+posn getAnimalCurrentPos(animalNPC * animal);
+void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY);
 
 void removeCursor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
 
-int enemyNPCDetectCollision(int posX, int posY);
+void makeEnemyList();
+void freeEnemuList();
+//void makeEnemy();
+//void dieEnemy(enemyNPC * deadEnemyNPC);

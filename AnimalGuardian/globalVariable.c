@@ -1,4 +1,5 @@
-#include "globalVariable.h"
+﻿#include "globalVariable.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -23,11 +24,18 @@ char enemyModel[2][1] = {
 	{2}
 };
 
+//UI
+enemyNumber = 10;
+bulletNumber = 0;
+itemNumber=0;
+score = 0;;
+
+
 //커서 전역변수
-int curPosX = GBOARD_O_X, curPosY = GBOARD_O_Y;
+int curPosX = gBoardOx, curPosY = gBoardOy;
 
 //PC 좌표 핸들러
-pos getPCCurrentPos() {
+posn getPCCurrentPos() {
 	return tempPc.pos;
 }
 void setPCCurrentPos( int moveX, int moveY) {
@@ -35,24 +43,47 @@ void setPCCurrentPos( int moveX, int moveY) {
 }
 
 //Enemy NPC 좌표 핸들러
-pos getEnemyCurrentPos(enemyNPC * enemyNPC) {
-	pos curPos;
-	curPos.X = enemyNPC->pos.X; curPos.Y = enemyNPC->pos.Y;
+posn getEnemyCurrentPos(int enemyId) {
+	enemyNPC *findEnemy = tempEnemies->enemyHeader;
+	posn curPos = { -1,-1 };
+
+	if (findEnemy == NULL) {
+		return curPos;
+	}
+	while (findEnemy != NULL) {
+		if (findEnemy->id == enemyId) {
+			curPos.X = findEnemy->pos.X; curPos.Y = findEnemy->pos.Y;
+			return curPos;
+		}
+		findEnemy = findEnemy->next;
+	}
+	
 	return curPos;
 }
-void setEnemyCurrentPos(enemyNPC * enemyNPC, int moveX, int moveY) {
-	enemyNPC->pos.X = moveX; enemyNPC->pos.Y = moveY;
+void setEnemyCurrentPos(int enemyId, int moveX, int moveY) {
+	enemyNPC *findEnemy = tempEnemies->enemyHeader;
+	if (findEnemy == NULL) {
+		return ;
+	}
+	while (findEnemy != NULL) {
+		if (findEnemy->id == enemyId) {
+
+			findEnemy->pos.X = moveX; findEnemy->pos.Y = moveY;
+			return ;
+		}
+		findEnemy = findEnemy->next;
+	}
 }
 
 
 //Animal NPC 좌표 핸들러
-pos getAnimalCurrentPos(animalNPC * animalNPC) {
-	pos curPos;
-	curPos.X = animalNPC->pos.X; curPos.Y = animalNPC->pos.Y;
+posn getAnimalCurrentPos(animalNPC * animal) {
+	posn curPos;
+	curPos.X = animal->pos.X; curPos.Y = animal->pos.Y;
 	return curPos;
 }
-void setAnimalCurrentPos(animalNPC * animalNPC, int moveX, int moveY) {
-	animalNPC->pos.X = moveX; animalNPC->pos.Y = moveY;
+void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY) {
+	animal->pos.X = moveX; animal->pos.Y = moveY;
 }
 
 //커서 삭제
@@ -85,19 +116,19 @@ COORD getCurrentCursorPos(void) {
 	return curPoint;
 }
 
-//enemyNPC 충돌 관리
-int enemyNPCDetectCollision(int posX, int posY) {
-	int x, y;
-	int arrX = (posX - GBOARD_O_X) / 2;
-	int arrY = posY - GBOARD_O_Y;
-	for (x = 0; x < 1; x++)
-	{
-		for (y = 0; y < 2; y++)
-		{
-			if (enemyModel[y][x] != 0 && gameBoardInfo[arrY + y][arrX + x] == 1) {
-				return 0;
-			}
-		}
+//enemyList 동적할당 구현부
+void makeEnemyList() {
+	tempEnemies = (enemyNPCList*)malloc(sizeof(enemyNPCList));
+	tempEnemies->enemyCurrentNumber = 0;
+	tempEnemies->enemyHeader = NULL;
+}
+
+void freeEnemuList() {
+	enemyNPC *freeEnemy = NULL, *freeEnemyNext = freeEnemy;
+	while (freeEnemyNext != NULL) {
+		freeEnemy = freeEnemyNext;
+		freeEnemyNext = freeEnemyNext->next;
+		free(freeEnemy);
 	}
-	return 1;
+	free(tempEnemies);
 }
