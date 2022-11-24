@@ -62,8 +62,6 @@ void drawPC() {
 		else printf("■");
 	}
 	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
-	curPosX = pcCurPos.X;
-	curPosY = pcCurPos.Y;
 }
 void deletePC() {
 	int posX, posY;
@@ -76,8 +74,6 @@ void deletePC() {
 		printf("  ");
 	}
 	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
-	curPosX = pcCurPos.X;
-	curPosY = pcCurPos.Y;
 }
 
 
@@ -93,8 +89,6 @@ void drawAnimal() {
 		else printf("■");
 	}
 	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
-	curPosX = animalCurPos.X;
-	curPosY = animalCurPos.Y;
 }
 void deleteAnimal() {
 	int posX, posY;
@@ -107,8 +101,6 @@ void deleteAnimal() {
 		printf("  ");
 	}
 	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
-	curPosX = animalCurPos.X;
-	curPosY = animalCurPos.Y;
 }
 
 
@@ -126,8 +118,6 @@ void drawEnemy() {
 			else printf("■");
 		}
 		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
-		curPosX = enemyCurPos.X;
-		curPosY = enemyCurPos.Y;
 		search = search->next;
 	}
 }
@@ -145,8 +135,6 @@ void deleteEnemy() {
 		}
 
 		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
-		curPosX = enemyCurPos.X;
-		curPosY = enemyCurPos.Y;
 		search = search->next;
 	}
 }
