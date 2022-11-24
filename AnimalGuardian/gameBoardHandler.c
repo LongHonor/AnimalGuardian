@@ -22,28 +22,28 @@ void drawGameBoard() {
 
 	for (posY = 0; posY < gBoardHeight + 3; posY++) {
 		setCurrentCursorPos(0, posY);
-		if (posY == gBoardHeight + 2) printf("¦¦");
-		else if (posY == 0) printf("¦£");
-		else if (posY == pcAreaLine) printf("¦§");
-		else printf("¦¢");
+		if (posY == gBoardHeight + 2) printf("â””");
+		else if (posY == 0) printf("â”Œ");
+		else if (posY == pcAreaLine) printf("â”œ");
+		else printf("â”‚");
 		setCurrentCursorPos((gBoardWidth + 1) * 2, posY);
-		if (posY == gBoardHeight + 2) printf("¦¥");
-		else if (posY == 0) printf("¦¤");
-		else if (posY == pcAreaLine) printf("¦©");
-		else printf("¦¢");
+		if (posY == gBoardHeight + 2) printf("â”˜");
+		else if (posY == 0) printf("â”");
+		else if (posY == pcAreaLine) printf("â”¤");
+		else printf("â”‚");
 
 		for (posX = 1; posX < gBoardWidth + 1; posX++) {
 			if (gameBoardInfo[posY][posX] == 1) {
 				setCurrentCursorPos(posX * 2, posY);
-				printf("¦¡");
+				printf("â”€");
 			}
 			else if (gameBoardInfo[posY][posX] == 4) {
 				setCurrentCursorPos(posX * 2, posY);
-				printf("¢À");
+				printf("â™£");
 			}
 			else if (gameBoardInfo[posY][posX] == 5) {
 				setCurrentCursorPos(posX * 2, posY);
-				printf("¡á");
+				printf("â– ");
 			}
 		}
 	}
@@ -57,14 +57,14 @@ void drawPC() {
 	
 
 	posStruct pcCurPos = getPCCurrentPos();
-	//pcÀ§Ä¡ ¹Þ¾Æ¿Í¼­ setCurrentCursorPos()È£Ãâ
+	//pcìœ„ì¹˜ ë°›ì•„ì™€ì„œ setCurrentCursorPos()í˜¸ì¶œ
 
 	for (posY = 0; posY < 2; posY++) {
 		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
-		if (pcModel[posY][0] == 1) printf("£À");
-		else printf("¡á");
+		if (pcModel[posY][0] == 1) printf("ï¼ ");
+		else printf("â– ");
 	}
-	//ÁÂÇ¥ Àü¿ªº¯¼ö È°¿ë¿¡ ¸Â°Ô ¼öÁ¤°¡´É¼º ÀÖÀ½
+	//ì¢Œí‘œ ì „ì—­ë³€ìˆ˜ í™œìš©ì— ë§žê²Œ ìˆ˜ì •ê°€ëŠ¥ì„± ìžˆìŒ
 	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
 	curPosX = pcCurPos.X;
 	curPosY = pcCurPos.Y;
@@ -76,7 +76,7 @@ void deletePC() {
 	
 
 	posStruct pcCurPos = getPCCurrentPos();
-	//pcÀ§Ä¡ ¹Þ¾Æ¿Í¼­ setCurrentCursorPos()È£Ãâ
+	//pcìœ„ì¹˜ ë°›ì•„ì™€ì„œ setCurrentCursorPos()í˜¸ì¶œ
 
 	for (posY = 0; posY < 2; posY++) {
 		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
@@ -94,12 +94,12 @@ void drawAnimal() {
 	
 
 	posStruct animalCurPos = getAnimalCurrentPos(&tempAnimal);
-	//animal npcÀ§Ä¡ ¹Þ¾Æ¿Í¼­ setCurrentCursorPos()È£Ãâ
+	//animal npcìœ„ì¹˜ ë°›ì•„ì™€ì„œ setCurrentCursorPos()í˜¸ì¶œ
 
 	for (posX = 0; posX < 2; posX++) {
 		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
-		if (animalModel[0][posX] == 1) printf("¢¿");
-		else printf("¡á");
+		if (animalModel[0][posX] == 1) printf("â™§");
+		else printf("â– ");
 	}
 	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 	curPosX = animalCurPos.X;
@@ -112,7 +112,7 @@ void deleteAnimal() {
 	
 
 	posStruct animalCurPos = getAnimalCurrentPos(&tempAnimal);
-	//pcÀ§Ä¡ ¹Þ¾Æ¿Í¼­ setCurrentCursorPos()È£Ãâ
+	//pcìœ„ì¹˜ ë°›ì•„ì™€ì„œ setCurrentCursorPos()í˜¸ì¶œ
 
 	for (posX = 0; posX < 2; posX++) {
 		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
@@ -130,12 +130,12 @@ void drawEnemy() {
 
 	while (search != NULL) {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
-		//pcÀ§Ä¡ ¹Þ¾Æ¿Í¼­ setCurrentCursorPos()È£Ãâ
+		//pcìœ„ì¹˜ ë°›ì•„ì™€ì„œ setCurrentCursorPos()í˜¸ì¶œ
 
 		for (posY = 0; posY < 2; posY++) {
 			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-			if (enemyModel[posY][0] == 1) printf("¡ã");
-			else printf("¡á");
+			if (enemyModel[posY][0] == 1) printf("â–²");
+			else printf("â– ");
 		}
 		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 		curPosX = enemyCurPos.X;
@@ -151,7 +151,7 @@ void deleteEnemy() {
 	enemyNPC * search = tempEnemies->enemyHeader;
 	while (search != NULL) {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
-		//pcÀ§Ä¡ ¹Þ¾Æ¿Í¼­ setCurrentCursorPos()È£Ãâ
+		//pcìœ„ì¹˜ ë°›ì•„ì™€ì„œ setCurrentCursorPos()í˜¸ì¶œ
 
 		for (posY = 0; posY < 2; posY++) {
 			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
