@@ -84,7 +84,7 @@ void deletePC() {
 void drawAnimal() {
 	int posX, posY;
 
-	posStruct animalCurPos = getAnimalCurrentPos(&tempAnimal);
+	posStruct animalCurPos = getAnimalCurrentPos(&animalArray);
 	//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 
 	for (posX = 0; posX < 2; posX++) {
@@ -99,7 +99,7 @@ void drawAnimal() {
 void deleteAnimal() {
 	int posX, posY;
 	
-	posStruct animalCurPos = getAnimalCurrentPos(&tempAnimal);
+	posStruct animalCurPos = getAnimalCurrentPos(&animalArray);
 	//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 
 	for (posX = 0; posX < 2; posX++) {
@@ -114,7 +114,7 @@ void deleteAnimal() {
 
 void drawEnemy() {
 	int posX, posY;
-	enemyNPC * search = tempEnemies->enemyHeader;
+	enemyNPC * search = enemyList->enemyHeader;
 
 	while (search != NULL) {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
@@ -134,7 +134,7 @@ void drawEnemy() {
 void deleteEnemy() {
 	int posX, posY;
 
-	enemyNPC * search = tempEnemies->enemyHeader;
+	enemyNPC * search = enemyList->enemyHeader;
 	while (search != NULL) {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
 		//enemyNPC 위치 받아와서 setCurrentCursorPos()호출

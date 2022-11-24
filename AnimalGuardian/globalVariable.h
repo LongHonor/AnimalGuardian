@@ -43,7 +43,7 @@ typedef struct _Position {
 typedef struct _PC {
 	posStruct pos;
 	int speed;
-	int gunLoadSpeed;
+	int reloadSpeed;
 	int lifePoint;
 } pc;
 
@@ -69,12 +69,11 @@ typedef struct _AnimalNPC {
 }animalNPC;
 
 //one-player 전역변수
-pc tempPc;
+pc playableCharacter;
 
 //test용 NPC 전역변수
-animalNPC tempAnimals[3];
-animalNPC tempAnimal;
-enemyNPCList *tempEnemies;
+animalNPC animalArray[3];
+enemyNPCList *enemyList;
 
 
 //함수 선언부

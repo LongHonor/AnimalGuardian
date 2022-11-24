@@ -59,15 +59,16 @@ int curPosX = gBoardOx, curPosY = gBoardOy;
 
 //PC 좌표 핸들러
 posStruct getPCCurrentPos() {
-	return tempPc.pos;
+	return playableCharacter.pos;
 }
 void setPCCurrentPos( int moveX, int moveY) {
-	tempPc.pos.X = moveX; tempPc.pos.Y = moveY;
+	playableCharacter.pos.X = moveX;
+	playableCharacter.pos.Y = moveY;
 }
 
 //Enemy NPC 좌표 핸들러
 posStruct getEnemyCurrentPos(int enemyId) {
-	enemyNPC *findEnemy = tempEnemies->enemyHeader;
+	enemyNPC *findEnemy = enemyList->enemyHeader;
 
 	//enemy 존재하지 않을 때 반환값, 추후 변경 가능
 	posStruct curPos = { -1,-1 };
@@ -86,7 +87,7 @@ posStruct getEnemyCurrentPos(int enemyId) {
 	return curPos;
 }
 void setEnemyCurrentPos(int enemyId, int moveX, int moveY) {
-	enemyNPC *findEnemy = tempEnemies->enemyHeader;
+	enemyNPC *findEnemy = enemyList->enemyHeader;
 	if (findEnemy == NULL) {
 		return ;
 	}
@@ -143,26 +144,26 @@ COORD getCurrentCursorPos(void) {
 
 //enemyList 동적할당 구현부
 void makeEnemyList() {
-	tempEnemies = (enemyNPCList*)malloc(sizeof(enemyNPCList));
-	tempEnemies->enemyCurrentNumber = 0;
-	tempEnemies->enemyHeader = NULL;
+	enemyList = (enemyNPCList*)malloc(sizeof(enemyNPCList));
+	enemyList->enemyCurrentNumber = 0;
+	enemyList->enemyHeader = NULL;
 }
 
 //newEnemy를 동적할당
 void makeEnemy() {
-	enemyNPC *newEnemy, *findTail = tempEnemies->enemyHeader;
+	enemyNPC *newEnemy, *findTail = enemyList->enemyHeader;
 	newEnemy = (enemyNPC*)malloc(sizeof(enemyNPC));
-	tempEnemies->enemyCurrentNumber += 1;
+	enemyList->enemyCurrentNumber += 1;
 
-	newEnemy->id = tempEnemies->enemyCurrentNumber;
+	newEnemy->id = enemyList->enemyCurrentNumber;
 	newEnemy->next = NULL;
-	newEnemy->pos.X = 24 - tempEnemies->enemyCurrentNumber * 4; newEnemy->pos.Y = 15;
+	newEnemy->pos.X = 24 - enemyList->enemyCurrentNumber * 4; newEnemy->pos.Y = 15;
 
 
 	//list 순회 구현은 편한 방식으로, 이건 참고용
 	//처음 생성인 경우 / id 1
 	if (findTail == NULL) {
-		tempEnemies->enemyHeader = newEnemy; return;
+		enemyList->enemyHeader = newEnemy; return;
 	}
 	//처음 생성이 아닌 경우 / id 2~
 	while (findTail->next != NULL) findTail = findTail->next;
