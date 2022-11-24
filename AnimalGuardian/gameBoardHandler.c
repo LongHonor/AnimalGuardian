@@ -1,9 +1,8 @@
-#include "gameBoardHandler.h"
+﻿#include "gameBoardHandler.h"
 #include "globalVariable.h"
 #include <windows.h>
 #include <stdio.h>
 
-extern char gameBoardInfo[23][42];
 
 void initGameBoard() {
 	int posX, posY;
@@ -47,14 +46,12 @@ void drawGameBoard() {
 			}
 		}
 	}
-
 	setCurrentCursorPos(10, 19);
 }
+
+
 void drawPC() {
 	int posX, posY;
-
-	//temporal code
-	
 
 	posStruct pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
@@ -64,16 +61,12 @@ void drawPC() {
 		if (pcModel[posY][0] == 1) printf("＠");
 		else printf("■");
 	}
-	//좌표 전역변수 활용에 맞게 수정가능성 있음
 	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
 	curPosX = pcCurPos.X;
 	curPosY = pcCurPos.Y;
 }
 void deletePC() {
 	int posX, posY;
-
-	//temporal code
-	
 
 	posStruct pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
@@ -82,19 +75,17 @@ void deletePC() {
 		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
 		printf("  ");
 	}
-
 	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
 	curPosX = pcCurPos.X;
 	curPosY = pcCurPos.Y;
 }
+
+
 void drawAnimal() {
 	int posX, posY;
 
-	//temporal code
-	
-
 	posStruct animalCurPos = getAnimalCurrentPos(&tempAnimal);
-	//animal npc위치 받아와서 setCurrentCursorPos()호출
+	//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 
 	for (posX = 0; posX < 2; posX++) {
 		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
@@ -107,12 +98,9 @@ void drawAnimal() {
 }
 void deleteAnimal() {
 	int posX, posY;
-
-	//temporal code
 	
-
 	posStruct animalCurPos = getAnimalCurrentPos(&tempAnimal);
-	//pc위치 받아와서 setCurrentCursorPos()호출
+	//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 
 	for (posX = 0; posX < 2; posX++) {
 		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
@@ -122,15 +110,15 @@ void deleteAnimal() {
 	curPosX = animalCurPos.X;
 	curPosY = animalCurPos.Y;
 }
+
+
 void drawEnemy() {
 	int posX, posY;
 	enemyNPC * search = tempEnemies->enemyHeader;
-	//temporal code
-	//setCurrentCursorPos(25, 16);
 
 	while (search != NULL) {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
-		//pc위치 받아와서 setCurrentCursorPos()호출
+		//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
 
 		for (posY = 0; posY < 2; posY++) {
 			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
@@ -146,12 +134,10 @@ void drawEnemy() {
 void deleteEnemy() {
 	int posX, posY;
 
-	//temporal code
-	
 	enemyNPC * search = tempEnemies->enemyHeader;
 	while (search != NULL) {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
-		//pc위치 받아와서 setCurrentCursorPos()호출
+		//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
 
 		for (posY = 0; posY < 2; posY++) {
 			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
@@ -164,4 +150,5 @@ void deleteEnemy() {
 		search = search->next;
 	}
 }
+
 void drawUI();
