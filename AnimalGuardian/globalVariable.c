@@ -1,6 +1,7 @@
 ﻿#include "globalVariable.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <Windows.h>
 
 //이차원 배열 모델
 char gameBoardInfo[23][42] = {
@@ -139,33 +140,4 @@ COORD getCurrentCursorPos(void) {
 	curPoint.Y = curInfo.dwCursorPosition.Y;
 
 	return curPoint;
-}
-
-
-//enemyList 동적할당 구현부
-void makeEnemyList() {
-	enemyList = (enemyNPCList*)malloc(sizeof(enemyNPCList));
-	enemyList->enemyCurrentNumber = 0;
-	enemyList->enemyHeader = NULL;
-}
-
-//newEnemy를 동적할당
-void makeEnemy() {
-	enemyNPC *newEnemy, *findTail = enemyList->enemyHeader;
-	newEnemy = (enemyNPC*)malloc(sizeof(enemyNPC));
-	enemyList->enemyCurrentNumber += 1;
-
-	newEnemy->id = enemyList->enemyCurrentNumber;
-	newEnemy->next = NULL;
-	newEnemy->pos.X = 24 - enemyList->enemyCurrentNumber * 4; newEnemy->pos.Y = 15;
-
-
-	//list 순회 구현은 편한 방식으로, 이건 참고용
-	//처음 생성인 경우 / id 1
-	if (findTail == NULL) {
-		enemyList->enemyHeader = newEnemy; return;
-	}
-	//처음 생성이 아닌 경우 / id 2~
-	while (findTail->next != NULL) findTail = findTail->next;
-	findTail->next = newEnemy;
 }

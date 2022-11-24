@@ -87,6 +87,3 @@ void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY);
 void removeCursor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
-
-void makeEnemyList();
-void makeEnemy();
