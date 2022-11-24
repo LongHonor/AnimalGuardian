@@ -1,10 +1,34 @@
-#include "globalVariable.h"
-
+ï»¿#include "globalVariable.h"
 #include <stdlib.h>
 #include <stdio.h>
 
+//ì´ì°¨ì› ë°°ì—´ ëª¨ë¸
+char gameBoardInfo[23][42] = {
+	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,4,0,0,0,0,0,0,0,1},
+	{1,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,4,0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,0,4,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,4,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,1},
+	{1,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,4,0,1},
+	{1,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,4,0,1},
+	{1,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,4,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,4,0,0,0,0,5,5,5,0,0,4,0,0,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,1},
+	{1,0,0,0,0,0,0,4,0,0,0,0,5,5,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+};
 
-//¸ðµ¨
 char bulletModel[2][1] ={ 
 	{1},
 	{1} 
@@ -25,16 +49,15 @@ char enemyModel[2][1] = {
 };
 
 //UI
-enemyNumber = 10;
+enemyNumber = 0;
 bulletNumber = 0;
 itemNumber=0;
 score = 0;;
 
-
-//Ä¿¼­ Àü¿ªº¯¼ö
+//ì»¤ì„œ ì „ì—­ë³€ìˆ˜
 int curPosX = gBoardOx, curPosY = gBoardOy;
 
-//PC ÁÂÇ¥ ÇÚµé·¯
+//PC ì¢Œí‘œ í•¸ë“¤ëŸ¬
 posStruct getPCCurrentPos() {
 	return tempPc.pos;
 }
@@ -42,9 +65,11 @@ void setPCCurrentPos( int moveX, int moveY) {
 	tempPc.pos.X = moveX; tempPc.pos.Y = moveY;
 }
 
-//Enemy NPC ÁÂÇ¥ ÇÚµé·¯
+//Enemy NPC ì¢Œí‘œ í•¸ë“¤ëŸ¬
 posStruct getEnemyCurrentPos(int enemyId) {
 	enemyNPC *findEnemy = tempEnemies->enemyHeader;
+
+	//enemy ì¡´ìž¬í•˜ì§€ ì•Šì„ ë•Œ ë°˜í™˜ê°’, ì¶”í›„ ë³€ê²½ ê°€ëŠ¥
 	posStruct curPos = { -1,-1 };
 
 	if (findEnemy == NULL) {
@@ -75,8 +100,7 @@ void setEnemyCurrentPos(int enemyId, int moveX, int moveY) {
 	}
 }
 
-
-//Animal NPC ÁÂÇ¥ ÇÚµé·¯
+//Animal NPC ì¢Œí‘œ í•¸ë“¤ëŸ¬
 posStruct getAnimalCurrentPos(animalNPC * animal) {
 	posStruct curPos;
 	curPos.X = animal->pos.X; curPos.Y = animal->pos.Y;
@@ -86,7 +110,7 @@ void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY) {
 	animal->pos.X = moveX; animal->pos.Y = moveY;
 }
 
-//Ä¿¼­ »èÁ¦
+//ì»¤ì„œ ì‚­ì œ
 void removeCursor()
 {
 	CONSOLE_CURSOR_INFO curInfo;
@@ -95,16 +119,16 @@ void removeCursor()
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
 }
 
-//Ä¿¼­ À§Ä¡ ¼³Á¤
+//í˜„ìž¬ ì»¤ì„œ ìœ„ì¹˜ ì„¤ì •
 void setCurrentCursorPos(int posX, int posY)
 {
-	COORD pos = { posX, posY };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+	COORD curPoint = { posX, posY };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), curPoint);
 	curPosX = posX;
 	curPosY = posY;
 }
 
-//ÇöÀç Ä¿¼­ À§Ä¡ ¹ÝÈ¯
+//í˜„ìž¬ ì»¤ì„œ ìœ„ì¹˜ ë°˜í™˜
 COORD getCurrentCursorPos(void) {
 	COORD curPoint;
 	CONSOLE_SCREEN_BUFFER_INFO curInfo;
@@ -116,46 +140,31 @@ COORD getCurrentCursorPos(void) {
 	return curPoint;
 }
 
-//enemyList µ¿ÀûÇÒ´ç ±¸ÇöºÎ
+
+//enemyList ë™ì í• ë‹¹ êµ¬í˜„ë¶€
 void makeEnemyList() {
 	tempEnemies = (enemyNPCList*)malloc(sizeof(enemyNPCList));
 	tempEnemies->enemyCurrentNumber = 0;
 	tempEnemies->enemyHeader = NULL;
 }
 
-void freeEnemuList() {
-	enemyNPC *freeEnemy = NULL, *freeEnemyNext = freeEnemy;
-	while (freeEnemyNext != NULL) {
-		freeEnemy = freeEnemyNext;
-		freeEnemyNext = freeEnemyNext->next;
-		free(freeEnemy);
-	}
-	free(tempEnemies);
-}
-
-//newEnemy¸¦ µ¿ÀûÇÒ´ç ÇÏ´Â °æ¿ì¿Í ÇÏÁö ¾Ê´Â °æ¿ì
+//newEnemyë¥¼ ë™ì í• ë‹¹
 void makeEnemy() {
 	enemyNPC *newEnemy, *findTail = tempEnemies->enemyHeader;
 	newEnemy = (enemyNPC*)malloc(sizeof(enemyNPC));
 	tempEnemies->enemyCurrentNumber += 1;
+
 	newEnemy->id = tempEnemies->enemyCurrentNumber;
 	newEnemy->next = NULL;
 	newEnemy->pos.X = 24 - tempEnemies->enemyCurrentNumber * 4; newEnemy->pos.Y = 15;
-	newEnemy->speed = 10;
+
+
+	//list ìˆœíšŒ êµ¬í˜„ì€ íŽ¸í•œ ë°©ì‹ìœ¼ë¡œ, ì´ê±´ ì°¸ê³ ìš©
+	//ì²˜ìŒ ìƒì„±ì¸ ê²½ìš° / id 1
 	if (findTail == NULL) {
 		tempEnemies->enemyHeader = newEnemy; return;
 	}
+	//ì²˜ìŒ ìƒì„±ì´ ì•„ë‹Œ ê²½ìš° / id 2~
 	while (findTail->next != NULL) findTail = findTail->next;
 	findTail->next = newEnemy;
 }
-
-void dieEnemy(enemyNPC * deadEnemyNPC) {
-	enemyNPC *findNext = tempEnemies->enemyHeader, *deadEnemy = deadEnemyNPC;
-	if (findNext->id == deadEnemy->id) {
-		tempEnemies->enemyHeader = deadEnemy->next; free(deadEnemyNPC);
-		return;
-	}
-	while (findNext->next->id != deadEnemy->id) findNext = findNext->next;
-	findNext->next = deadEnemy->next; free(deadEnemyNPC);
-}
-

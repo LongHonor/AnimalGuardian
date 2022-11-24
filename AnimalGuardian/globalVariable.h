@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <windows.h>
 
 #define left 75
@@ -14,11 +14,10 @@
 #define gBoardOx 0
 #define gBoardOy 0
 
-//gameboard 2Â÷¿ø ¹è¿­
+//gameboard 2ì°¨ì› ë°°ì—´
+char gameBoardInfo[23][42];
 
-
-//¸ğµ¨
-
+//ëª¨ë¸
 char bulletModel[2][1];
 char enemyModel[2][1];
 char animalModel[1][2];
@@ -30,7 +29,7 @@ int bulletNumber;
 int itemNumber;
 int score;
 
-//Ä¿¼­
+//ì»¤ì„œ
 int curPosX, curPosY;
 
 //Position
@@ -69,16 +68,16 @@ typedef struct _AnimalNPC {
 	int id;
 }animalNPC;
 
-//one-player Àü¿ªº¯¼ö
+//one-player ì „ì—­ë³€ìˆ˜
 pc tempPc;
 
-//test¿ë NPC Àü¿ªº¯¼ö
+//testìš© NPC ì „ì—­ë³€ìˆ˜
 animalNPC tempAnimals[3];
 animalNPC tempAnimal;
 enemyNPCList *tempEnemies;
 
 
-//ÇÔ¼ö ¼±¾ğºÎ
+//í•¨ìˆ˜ ì„ ì–¸ë¶€
 posStruct getPCCurrentPos();
 void setPCCurrentPos(int moveX, int moveY);
 posStruct getEnemyCurrentPos(int enemyId);
@@ -91,6 +90,4 @@ void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
 
 void makeEnemyList();
-void freeEnemyList();
 void makeEnemy();
-void dieEnemy(enemyNPC * deadEnemyNPC);
