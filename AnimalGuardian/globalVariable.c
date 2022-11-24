@@ -1,10 +1,10 @@
-ï»¿#include "globalVariable.h"
+#include "globalVariable.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 
 
-//ëª¨ë¸
+//¸ðµ¨
 char bulletModel[2][1] ={ 
 	{1},
 	{1} 
@@ -31,21 +31,21 @@ itemNumber=0;
 score = 0;;
 
 
-//ì»¤ì„œ ì „ì—­ë³€ìˆ˜
+//Ä¿¼­ Àü¿ªº¯¼ö
 int curPosX = gBoardOx, curPosY = gBoardOy;
 
-//PC ì¢Œí‘œ í•¸ë“¤ëŸ¬
-posn getPCCurrentPos() {
+//PC ÁÂÇ¥ ÇÚµé·¯
+posStruct getPCCurrentPos() {
 	return tempPc.pos;
 }
 void setPCCurrentPos( int moveX, int moveY) {
 	tempPc.pos.X = moveX; tempPc.pos.Y = moveY;
 }
 
-//Enemy NPC ì¢Œí‘œ í•¸ë“¤ëŸ¬
-posn getEnemyCurrentPos(int enemyId) {
+//Enemy NPC ÁÂÇ¥ ÇÚµé·¯
+posStruct getEnemyCurrentPos(int enemyId) {
 	enemyNPC *findEnemy = tempEnemies->enemyHeader;
-	posn curPos = { -1,-1 };
+	posStruct curPos = { -1,-1 };
 
 	if (findEnemy == NULL) {
 		return curPos;
@@ -76,9 +76,9 @@ void setEnemyCurrentPos(int enemyId, int moveX, int moveY) {
 }
 
 
-//Animal NPC ì¢Œí‘œ í•¸ë“¤ëŸ¬
-posn getAnimalCurrentPos(animalNPC * animal) {
-	posn curPos;
+//Animal NPC ÁÂÇ¥ ÇÚµé·¯
+posStruct getAnimalCurrentPos(animalNPC * animal) {
+	posStruct curPos;
 	curPos.X = animal->pos.X; curPos.Y = animal->pos.Y;
 	return curPos;
 }
@@ -86,7 +86,7 @@ void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY) {
 	animal->pos.X = moveX; animal->pos.Y = moveY;
 }
 
-//ì»¤ì„œ ì‚­ì œ
+//Ä¿¼­ »èÁ¦
 void removeCursor()
 {
 	CONSOLE_CURSOR_INFO curInfo;
@@ -95,7 +95,7 @@ void removeCursor()
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
 }
 
-//ì»¤ì„œ ìœ„ì¹˜ ì„¤ì •
+//Ä¿¼­ À§Ä¡ ¼³Á¤
 void setCurrentCursorPos(int posX, int posY)
 {
 	COORD pos = { posX, posY };
@@ -104,7 +104,7 @@ void setCurrentCursorPos(int posX, int posY)
 	curPosY = posY;
 }
 
-//í˜„ìž¬ ì»¤ì„œ ìœ„ì¹˜ ë°˜í™˜
+//ÇöÀç Ä¿¼­ À§Ä¡ ¹ÝÈ¯
 COORD getCurrentCursorPos(void) {
 	COORD curPoint;
 	CONSOLE_SCREEN_BUFFER_INFO curInfo;
@@ -116,7 +116,7 @@ COORD getCurrentCursorPos(void) {
 	return curPoint;
 }
 
-//enemyList ë™ì í• ë‹¹ êµ¬í˜„ë¶€
+//enemyList µ¿ÀûÇÒ´ç ±¸ÇöºÎ
 void makeEnemyList() {
 	tempEnemies = (enemyNPCList*)malloc(sizeof(enemyNPCList));
 	tempEnemies->enemyCurrentNumber = 0;
@@ -132,3 +132,30 @@ void freeEnemuList() {
 	}
 	free(tempEnemies);
 }
+
+//newEnemy¸¦ µ¿ÀûÇÒ´ç ÇÏ´Â °æ¿ì¿Í ÇÏÁö ¾Ê´Â °æ¿ì
+void makeEnemy() {
+	enemyNPC *newEnemy, *findTail = tempEnemies->enemyHeader;
+	newEnemy = (enemyNPC*)malloc(sizeof(enemyNPC));
+	tempEnemies->enemyCurrentNumber += 1;
+	newEnemy->id = tempEnemies->enemyCurrentNumber;
+	newEnemy->next = NULL;
+	newEnemy->pos.X = 24 - tempEnemies->enemyCurrentNumber * 4; newEnemy->pos.Y = 15;
+	newEnemy->speed = 10;
+	if (findTail == NULL) {
+		tempEnemies->enemyHeader = newEnemy; return;
+	}
+	while (findTail->next != NULL) findTail = findTail->next;
+	findTail->next = newEnemy;
+}
+
+void dieEnemy(enemyNPC * deadEnemyNPC) {
+	enemyNPC *findNext = tempEnemies->enemyHeader, *deadEnemy = deadEnemyNPC;
+	if (findNext->id == deadEnemy->id) {
+		tempEnemies->enemyHeader = deadEnemy->next; free(deadEnemyNPC);
+		return;
+	}
+	while (findNext->next->id != deadEnemy->id) findNext = findNext->next;
+	findNext->next = deadEnemy->next; free(deadEnemyNPC);
+}
+
