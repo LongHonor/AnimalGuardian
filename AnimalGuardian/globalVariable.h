@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include <windows.h>
 
 #define left 75
@@ -14,8 +14,10 @@
 #define gBoardOx 0
 #define gBoardOy 0
 
+//gameboard 2Â÷¿ø ¹è¿­
 
-//ëª¨ë¸
+
+//¸ğµ¨
 
 char bulletModel[2][1];
 char enemyModel[2][1];
@@ -28,18 +30,19 @@ int bulletNumber;
 int itemNumber;
 int score;
 
-//ì»¤ì„œ
+//Ä¿¼­
 int curPosX, curPosY;
 
 //Position
 typedef struct _Position {
 	int X;
 	int Y;
-} posn;
+} posStruct;
 
 //PC
+
 typedef struct _PC {
-	posn pos;
+	posStruct pos;
 	int speed;
 	int gunLoadSpeed;
 	int lifePoint;
@@ -47,7 +50,7 @@ typedef struct _PC {
 
 //NPC - enemy
 typedef struct _EnemyNPC {
-	posn pos;
+	posStruct pos;
 	int speed;
 	int id;
 	struct _EnemyNPC *next;
@@ -61,26 +64,26 @@ typedef struct _EnemyNPCList {
 
 //NPC - animal
 typedef struct _AnimalNPC {
-	posn pos;
+	posStruct pos;
 	int speed;
 	int id;
 }animalNPC;
 
-//one-player ì „ì—­ë³€ìˆ˜
+//one-player Àü¿ªº¯¼ö
 pc tempPc;
 
-//testìš© NPC ì „ì—­ë³€ìˆ˜
+//test¿ë NPC Àü¿ªº¯¼ö
 animalNPC tempAnimals[3];
 animalNPC tempAnimal;
 enemyNPCList *tempEnemies;
 
 
-//í•¨ìˆ˜ ì„ ì–¸ë¶€
-posn getPCCurrentPos();
+//ÇÔ¼ö ¼±¾ğºÎ
+posStruct getPCCurrentPos();
 void setPCCurrentPos(int moveX, int moveY);
-posn getEnemyCurrentPos(int enemyId);
+posStruct getEnemyCurrentPos(int enemyId);
 void setEnemyCurrentPos(int enemyId, int moveX, int moveY);
-posn getAnimalCurrentPos(animalNPC * animal);
+posStruct getAnimalCurrentPos(animalNPC * animal);
 void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY);
 
 void removeCursor();
@@ -88,6 +91,6 @@ void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
 
 void makeEnemyList();
-void freeEnemuList();
-//void makeEnemy();
-//void dieEnemy(enemyNPC * deadEnemyNPC);
+void freeEnemyList();
+void makeEnemy();
+void dieEnemy(enemyNPC * deadEnemyNPC);
