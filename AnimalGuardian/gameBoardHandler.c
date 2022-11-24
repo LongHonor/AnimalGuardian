@@ -22,12 +22,12 @@ char enemyModel[2][1] = {
 
 void initGameBoard() {
 	int posX, posY;
-	for (posY = 0; posY < GBOARD_HEIGHT + 1; posY++) {
+	for (posY = 0; posY < gBoardHeight + 1; posY++) {
 		gameBoardInfo[posY][0] = 1;
-		gameBoardInfo[posY][GBOARD_WIDTH + 1] = 1;
+		gameBoardInfo[posY][gBoardWidth + 1] = 1;
 	}
-	for (posX = 0; posX < GBOARD_WIDTH + 2; posX++) {
-		gameBoardInfo[GBOARD_HEIGHT][posX] = 1;
+	for (posX = 0; posX < gBoardWidth + 2; posX++) {
+		gameBoardInfo[gBoardHeight][posX] = 1;
 	}
 }
 
@@ -35,19 +35,19 @@ void drawGameBoard() {
 	int posX, posY;
 	int pcAreaLine = 19;
 
-	for (posY = 0; posY < GBOARD_HEIGHT + 3; posY++) {
+	for (posY = 0; posY < gBoardHeight + 3; posY++) {
 		setCurrentCursorPos(0, posY);
-		if (posY == GBOARD_HEIGHT + 2) printf("└");
+		if (posY == gBoardHeight + 2) printf("└");
 		else if (posY == 0) printf("┌");
 		else if (posY == pcAreaLine) printf("├");
 		else printf("│");
-		setCurrentCursorPos((GBOARD_WIDTH + 1) * 2, posY);
-		if (posY == GBOARD_HEIGHT + 2) printf("┘");
+		setCurrentCursorPos((gBoardWidth + 1) * 2, posY);
+		if (posY == gBoardHeight + 2) printf("┘");
 		else if (posY == 0) printf("┐");
 		else if (posY == pcAreaLine) printf("┤");
 		else printf("│");
 
-		for (posX = 1; posX < GBOARD_WIDTH + 1; posX++) {
+		for (posX = 1; posX < gBoardWidth + 1; posX++) {
 			if (gameBoardInfo[posY][posX] == 1) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("─");
