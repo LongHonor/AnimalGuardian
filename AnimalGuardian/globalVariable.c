@@ -58,13 +58,6 @@ score = 0;;
 //커서 전역변수
 int curPosX = gBoardOx, curPosY = gBoardOy;
 
-//PC 초기화
-pc player = { {40,20},1,3,3 };
-
-//bullet 초기화
-int max_bullet = 10;
-Bullet* bullet_head = NULL;
-int bulletItem = 0;
 
 //PC 좌표 핸들러
 posStruct getPCCurrentPos() {

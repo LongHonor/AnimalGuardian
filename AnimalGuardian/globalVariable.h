@@ -68,12 +68,6 @@ typedef struct _AnimalNPC {
 	int id;
 }animalNPC;
 
-//Bullet
-typedef struct _Bullet {
-	int speed;
-	posStruct pos;
-	struct _Bullet* link;
-}Bullet;
 
 //one-player 전역변수
 pc playableCharacter;
@@ -82,13 +76,6 @@ pc playableCharacter;
 animalNPC animalArray[3];
 enemyNPCList *enemyList;
 
-//pc 전역변수
-pc player;
-
-//bullet 전역변수
-extern Bullet* bullet_head;
-extern int max_bullet;
-extern int bulletItem;
 
 //함수 선언부
 posStruct getPCCurrentPos();
