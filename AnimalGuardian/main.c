@@ -26,7 +26,7 @@ int main() {
 	}*/
 
 	//키보드 입력 및 pc 구현
-	drawPC(player);
+	showPC(player);
 	while (1) {
 		pcKeyInput();
 	}
