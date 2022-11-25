@@ -50,32 +50,32 @@ void drawGameBoard() {
 }
 
 
-//drawPC, deletePC -> pcHandler에서 처리 
-//void drawPC() {
-//	int posX, posY;
-//
-//	posStruct pcCurPos = getPCCurrentPos();
-//	//pc위치 받아와서 setCurrentCursorPos()호출
-//
-//	for (posY = 0; posY < 2; posY++) {
-//		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
-//		if (pcModel[posY][0] == 1) printf("＠");
-//		else printf("■");
-//	}
-//	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
-//}
-//void deletePC() {
-//	int posX, posY;
-//
-//	posStruct pcCurPos = getPCCurrentPos();
-//	//pc위치 받아와서 setCurrentCursorPos()호출
-//
-//	for (posY = 0; posY < 2; posY++) {
-//		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
-//		printf("  ");
-//	}
-//	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
-//}
+
+void drawPC() {
+	int posX, posY;
+
+	posStruct pcCurPos = getPCCurrentPos();
+	//pc위치 받아와서 setCurrentCursorPos()호출
+
+	for (posY = 0; posY < 2; posY++) {
+		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
+		if (pcModel[posY][0] == 1) printf("＠");
+		else printf("■");
+	}
+	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
+}
+void deletePC() {
+	int posX, posY;
+
+	posStruct pcCurPos = getPCCurrentPos();
+	//pc위치 받아와서 setCurrentCursorPos()호출
+
+	for (posY = 0; posY < 2; posY++) {
+		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
+		printf("  ");
+	}
+	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
+}
 
 
 void drawAnimal() {
