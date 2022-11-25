@@ -3,14 +3,21 @@
 #include "detectCollisionPC.h"
 #include <stdio.h>
 #include <conio.h>
+//PC 초기화
+PC player = { {40,20},1,3,3 };
 
-void drawPC(pc player) {
+//bullet 초기화
+int max_bullet = 10;
+Bullet* bullet_head = NULL;
+int bulletItem = 0;
+
+void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
 	printf("●");
 	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursor위치 처음 위치로 다시 설정
 }
 
-void deletePC(pc player) {
+void erasePC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
 	printf("  ");
 	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursor위치 처음 위치로 다시 설정
@@ -20,30 +27,28 @@ void showBullet(posStruct pos) {
 	setCurrentCursorPos(pos.X, pos.Y);
 	printf("ο");
 }
-void deleteBullet(posStruct pos) {
+void eraseBullet(posStruct pos) {
 	setCurrentCursorPos(pos.X, pos.Y);
 	printf("  ");
 }
 
 void shiftLeftPc() {
-	//총돌시 리턴 0
-	if (!detectCollisionPC(player.pos.X - 2, player.pos.Y)) {
+	/*if (!detectCollisionPC(player.pos.X - 2, player.pos.Y)) {
 		return;
-	}
-	deletePC(player);
+	}*/
+	erasePC(player);
 	player.pos.X -= 2;
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
-	drawPC(player);
+	showPC(player);
 }
 void shiftRightPc() {
-	//총돌시 리턴 0
-	if (!detectCollisionPC(player.pos.X + 2, player.pos.Y)) {
+	/*if (!detectCollisionPC(player.pos.X + 2, player.pos.Y)) {
 		return;
-	}
-	deletePC(player);
+	}*/
+	erasePC(player);
 	player.pos.X += 2;
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
-	drawPC(player);
+	showPC(player);
 }
 void shootBullet() {
 	Bullet* curr = bullet_head;
@@ -54,34 +59,38 @@ void shootBullet() {
 		}
 		//일반 모드
 		if (bulletItem == 0) {
-			if (!detectCollisionBullet(curr->pos.X, curr->pos.Y - 1)) {
+			curr->pos.Y -= 2;
+			showBullet(curr->pos);
+			Sleep(curr->speed);
+			eraseBullet(curr->pos);
+			/*if (!detectCollisionBullet(curr->pos.X, curr->pos.Y - 1)) {
 				first_bullet = curr->link;
 			}
 			else if (!detectCollisionBullet(curr->pos.X, curr->pos.Y - 2)) {
 				curr->pos.Y -= 1;
 				showBullet(curr->pos);
 				Sleep(curr->speed);
-				deleteBullet(curr->pos);
+				eraseBullet(curr->pos);
 			}
 			else {
 				curr->pos.Y -= 2;
 				showBullet(curr->pos);
 				Sleep(curr->speed);
-				deleteBullet(curr->pos);
-			}
+				eraseBullet(curr->pos);
+			}*/
 		}
 		//관통 모드
-		else if (bulletItem == 1) {
+		/*else if (bulletItem == 1) {
 			curr->pos.Y -= 2;
 			if (detectCollisionBullet(curr->pos.X, curr->pos.Y)) {
 				showBullet(curr->pos);
 				Sleep(curr->speed);
-				deleteBullet(curr->pos);
+				eraseBullet(curr->pos);
 			}
 			else {
 				Sleep(curr->speed);
 			}
-		}
+		}*/
 		if (_kbhit() != 0) {
 			int key = _getch();
 			switch (key) {
