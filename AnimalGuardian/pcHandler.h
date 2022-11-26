@@ -1,5 +1,7 @@
 #pragma once
 #include "globalVariable.h"
+#define load 114
+
 typedef struct _Player {
 	posStruct pos;
 	int speed;
@@ -30,3 +32,5 @@ void showBullet(struct _Position pos);
 void eraseBullet(struct _Position pos);
 void shootBullet();
 void pcKeyInput();
+void loadBullet();
+void blockKeyInput();

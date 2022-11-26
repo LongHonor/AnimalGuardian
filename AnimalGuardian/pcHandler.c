@@ -1,10 +1,9 @@
 #include "pcHandler.h"
 #include "globalVariable.h"
-#include "detectCollisionPC.h"
 #include <stdio.h>
 #include <conio.h>
 //PC 초기화
-PC player = { {40,20},1,3,3 };
+PC player = { {40,20},1,200,3 };
 
 //bullet 초기화
 int max_bullet = 10;
@@ -121,6 +120,20 @@ void shootBullet() {
 		curr = curr->link;
 	}
 }
+void loadBullet() {
+	max_bullet = 10;
+}
+void blockKeyInput() {
+	int t = 0;
+	int key;
+	while (t < player.reloadSpeed) {
+		if (_kbhit()) {
+			key = _getch();
+		}
+		Sleep(10);
+		t++;
+	}
+}
 void pcKeyInput() {
 	int key;
 	for (int i = 0; i < 20; i++) {
@@ -144,6 +157,10 @@ void pcKeyInput() {
 					max_bullet--;
 					shootBullet();
 				}
+				break;
+			case load:
+				loadBullet();
+				blockKeyInput();
 				break;
 			}
 		}
