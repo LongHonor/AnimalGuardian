@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "globalVariable.h"
 #define load 114
 
@@ -16,10 +16,10 @@ typedef struct _Bullet {
 	struct _Bullet* link;
 }Bullet;
 
-//pc Àü¿ªº¯¼ö
+//pc ì „ì—­ë³€ìˆ˜
 PC player;
 
-//bullet Àü¿ªº¯¼ö
+//bullet ì „ì—­ë³€ìˆ˜
 extern Bullet* bullet_head;
 extern int max_bullet;
 extern int bulletItem;

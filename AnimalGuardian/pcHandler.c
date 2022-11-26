@@ -1,30 +1,30 @@
-#include "pcHandler.h"
+ï»¿#include "pcHandler.h"
 #include "globalVariable.h"
 #include <stdio.h>
 #include <conio.h>
-//PC ÃÊ±âÈ­
+//PC ì´ˆê¸°í™”
 PC player = { {40,20},1,200,3 };
 
-//bullet ÃÊ±âÈ­
+//bullet ì´ˆê¸°í™”
 int max_bullet = 10;
 Bullet* bullet_head = NULL;
 int bulletItem = 0;
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
-	printf("¡Ü");
-	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursorÀ§Ä¡ Ã³À½ À§Ä¡·Î ´Ù½Ã ¼³Á¤
+	printf("â—");
+	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursorìœ„ì¹˜ ì²˜ìŒ ìœ„ì¹˜ë¡œ ë‹¤ì‹œ ì„¤ì •
 }
 
 void erasePC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
 	printf("  ");
-	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursorÀ§Ä¡ Ã³À½ À§Ä¡·Î ´Ù½Ã ¼³Á¤
+	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursorìœ„ì¹˜ ì²˜ìŒ ìœ„ì¹˜ë¡œ ë‹¤ì‹œ ì„¤ì •
 }
 
 void showBullet(posStruct pos) {
 	setCurrentCursorPos(pos.X, pos.Y);
-	printf("¥ï");
+	printf("Î¿");
 }
 void eraseBullet(posStruct pos) {
 	setCurrentCursorPos(pos.X, pos.Y);
@@ -56,7 +56,7 @@ void shootBullet() {
 		if (curr == NULL) {
 			curr = first_bullet;
 		}
-		//ÀÏ¹Ý ¸ðµå
+		//ì¼ë°˜ ëª¨ë“œ
 		if (bulletItem == 0) {
 			curr->pos.Y -= 2;
 			showBullet(curr->pos);
@@ -78,7 +78,7 @@ void shootBullet() {
 				eraseBullet(curr->pos);
 			}*/
 		}
-		//°üÅë ¸ðµå
+		//ê´€í†µ ëª¨ë“œ
 		/*else if (bulletItem == 1) {
 			curr->pos.Y -= 2;
 			if (detectCollisionBullet(curr->pos.X, curr->pos.Y)) {
@@ -137,7 +137,7 @@ void blockKeyInput() {
 void pcKeyInput() {
 	int key;
 	for (int i = 0; i < 20; i++) {
-		//_kbhit Àº ÀÔ·Â½Ã 1 ¸®ÅÏ
+		//_kbhit ì€ ìž…ë ¥ì‹œ 1 ë¦¬í„´
 		if (_kbhit() != 0) {
 			key = _getch();
 			switch (key) {
