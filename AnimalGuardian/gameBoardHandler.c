@@ -52,7 +52,10 @@ void drawGameBoard() {
 }
 
 //좌표를 인자로 받아 gameBoardInfo에 추가
-void AddBlockToBoard(posStruct barricadeCurPos) {	int x, y, arrCurX, arrCurY;	arrCurX = (barricadeCurPos.X - gBoardOx) / 2;
+void AddBlockToBoard(posStruct barricadeCurPos) {
+
+	int x, y, arrCurX, arrCurY;
+	arrCurX = (barricadeCurPos.X - gBoardOx) / 2;
 	arrCurY = barricadeCurPos.Y - gBoardOy;
 	for (y = 0; y < 1; y++)
 	{
@@ -60,7 +63,8 @@ void AddBlockToBoard(posStruct barricadeCurPos) {	int x, y, arrCurX, arrCurY;	
 		{
 			currentGameBoard[arrCurY + y][arrCurX + x] = 5;
 		}
-	}}
+	}
+}
 
 void drawPC() {
 	int posX, posY;
