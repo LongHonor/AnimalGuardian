@@ -4,9 +4,10 @@
 #define left 75
 #define right 77
 #define up 72
+#define down 80
 #define space 32
 #define attack 82
-#define item 81
+#define item 113
 
 #define initialReloadSpeed 10
 #define doubleSpeed 115
@@ -94,5 +95,3 @@ void changeConsoleColor(int colorIndex);
 void restroreConsoleColor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
-
-void tempdraw();
