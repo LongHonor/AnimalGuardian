@@ -4,8 +4,6 @@
 #include "gameBoardHandler.h"
 #include <conio.h>
 
-//temporal code
-#define down 80
 
 void reduceEnemySpeed() {
 	//enemy배열 받아와서 속도 값 세팅
