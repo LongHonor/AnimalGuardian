@@ -39,11 +39,21 @@ void restoreReloadSpeed() {
 	setPcReloadSpeed(initialReloadSpeed);
 }
 
-int isBarricadePlaceable(int barcX, int barcY) {
+boolean isBarricadePlaceable(int barcX, int barcY) {
 	//인자 바리케이드 좌표
 	//게임보드 전역변수 게터로 가져와서 설치 가능한지 확인
 	// 0 : false 1 : true
-	return 0;
+
+	setCurrentGameBoard(0);
+
+	char barcModel[2] = { {1},{1} };
+	int i;
+
+	for (i = 0; i < 2; i++) {
+		if (currentGameBoard[barcY][barcX + i] != 0) return FALSE;
+	}
+
+	return TRUE;
 }
 
 void placeBarricade() {
