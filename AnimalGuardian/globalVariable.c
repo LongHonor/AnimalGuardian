@@ -122,6 +122,22 @@ void removeCursor()
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
 }
 
+void changeConsoleColor(int colorIndex) {
+	/*0.검정색 1.파란색 2.초록색
+	3.옥색	 4.빨간색 5.자주색
+	6.노란색 7.흰색   8.회색
+	9.연파랑 10.연초록 11.연한옥색
+	12.연빨강 13.연자주 14.연노랑 15. 진한흰색*/
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorIndex);
+}
+
+void restroreConsoleColor() {
+	//원래 콘솔 출력 색상 7(흰색)
+	int colorIndex = 7;
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorIndex);
+}
+
 //현재 커서 위치 설정
 void setCurrentCursorPos(int posX, int posY)
 {

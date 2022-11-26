@@ -86,5 +86,7 @@ posStruct getAnimalCurrentPos(animalNPC * animal);
 void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY);
 
 void removeCursor();
+void changeConsoleColor(int colorIndex);
+void restroreConsoleColor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
