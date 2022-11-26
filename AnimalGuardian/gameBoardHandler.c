@@ -4,20 +4,22 @@
 #include <stdio.h>
 
 
-void initGameBoard() {
-	int posX, posY;
-	for (posY = 0; posY < gBoardHeight + 3; posY++) {
-		gameBoardInfo[posY][0] = 1;
-		gameBoardInfo[posY][gBoardWidth + 1] = 1;
-	}
-	for (posX = 0; posX < gBoardWidth + 2; posX++) {
-		gameBoardInfo[gBoardHeight][posX] = 1;
-	}
-}
+//void initGameBoard() {
+//	int posX, posY;
+//	for (posY = 0; posY < gBoardHeight + 3; posY++) {
+//		gameBoardInfo[posY][0] = 1;
+//		gameBoardInfo[posY][gBoardWidth + 1] = 1;
+//	}
+//	for (posX = 0; posX < gBoardWidth + 2; posX++) {
+//		gameBoardInfo[gBoardHeight][posX] = 1;
+//	}
+//}
 
 void drawGameBoard() {
 	int posX, posY;
 	int pcAreaLine = 19;
+
+	setCurrentGameBoard(0);
 
 	for (posY = 0; posY < gBoardHeight + 3; posY++) {
 		setCurrentCursorPos(0, posY);
@@ -32,15 +34,15 @@ void drawGameBoard() {
 		else printf("│");
 
 		for (posX = 1; posX < gBoardWidth + 1; posX++) {
-			if (gameBoardInfo[posY][posX] == 1) {
+			if (currentGameBoard[posY][posX] == 1) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("─");
 			}
-			else if (gameBoardInfo[posY][posX] == 4) {
+			else if (currentGameBoard[posY][posX] == 4) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("♣");
 			}
-			else if (gameBoardInfo[posY][posX] == 5) {
+			else if (currentGameBoard[posY][posX] == 5) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("■");
 			}
@@ -49,7 +51,16 @@ void drawGameBoard() {
 	setCurrentCursorPos(10, 19);
 }
 
-
+//좌표를 인자로 받아 gameBoardInfo에 추가
+void AddBlockToBoard(posStruct barricadeCurPos) {	int x, y, arrCurX, arrCurY;	arrCurX = (barricadeCurPos.X - gBoardOx) / 2;
+	arrCurY = barricadeCurPos.Y - gBoardOy;
+	for (y = 0; y < 1; y++)
+	{
+		for (x = 0; x < 3; x++)
+		{
+			currentGameBoard[arrCurY + y][arrCurX + x] = 5;
+		}
+	}}
 
 void drawPC() {
 	int posX, posY;

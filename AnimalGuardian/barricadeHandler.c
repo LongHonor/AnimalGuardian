@@ -44,7 +44,7 @@ void shiftLeftBarricade() {
 	deleteBarricade();
 	barcX -= 2;
 	restroreConsoleColor();
-	tempdraw();
+	drawGameBoard();
 	setCurrentCursorPos(barcX, barcY);
 	changeConsoleColor(barricadeColor);
 	drawBarricade();
@@ -64,7 +64,7 @@ void shiftRightBarricade() {
 	deleteBarricade();
 	barcX += 2;
 	restroreConsoleColor();
-	tempdraw();
+	drawGameBoard();
 	setCurrentCursorPos(barcX, barcY);
 	changeConsoleColor(barricadeColor);
 	drawBarricade();
@@ -84,7 +84,7 @@ void shiftUpBarricade() {
 	deleteBarricade();
 	barcY -= 1;
 	restroreConsoleColor();
-	tempdraw();
+	drawGameBoard();
 	setCurrentCursorPos(barcX, barcY);
 	changeConsoleColor(barricadeColor);
 	drawBarricade();
@@ -104,7 +104,7 @@ void shiftDownBarricade() {
 	deleteBarricade();
 	barcY += 1;
 	restroreConsoleColor();
-	tempdraw();
+	drawGameBoard();
 	setCurrentCursorPos(barcX, barcY);
 	changeConsoleColor(barricadeColor);
 	drawBarricade();
