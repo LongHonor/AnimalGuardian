@@ -71,6 +71,11 @@ void setPCCurrentPos( int moveX, int moveY) {
 	playableCharacter.pos.Y = moveY;
 }
 
+//PC 재장전속도 핸들러
+void setPcReloadSpeed(int inReloadSpeed) {
+	playableCharacter.reloadSpeed = inReloadSpeed;
+}
+
 //Enemy NPC 좌표 핸들러
 posStruct getEnemyCurrentPos(int enemyId) {
 	enemyNPC *findEnemy = enemyList->enemyHeader;

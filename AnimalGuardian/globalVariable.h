@@ -8,6 +8,7 @@
 #define attack 82
 #define item 81
 
+#define initialReloadSpeed 10
 #define doubleSpeed 115
 #define gBoardWidth 40
 #define gBoardHeight 20
@@ -85,6 +86,7 @@ posStruct getEnemyCurrentPos(int enemyId);
 void setEnemyCurrentPos(int enemyId, int moveX, int moveY);
 posStruct getAnimalCurrentPos(animalNPC * animal);
 void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY);
+void setPcReloadSpeed(int reloadSpeed);
 
 void removeCursor();
 void changeConsoleColor(int colorIndex);
