@@ -15,7 +15,8 @@
 #define gBoardOy 0
 
 //gameboard 2차원 배열
-char gameBoardInfo[23][42];
+char gameBoardInfo[][23][42];
+char** currentGameBoard;
 
 //모델
 char bulletModel[2][1];
