@@ -28,16 +28,18 @@ void restoreEnemySpeed() {
 void modifyReloadSpeed(int status) {
 	//status에 따라 재장전 속도 증감
 	//증가 : 1, 감소 : 0;
-	if (status == 1);
-	else;
+
+	int increasedSpeed = 20, decreasedSpeed = 5;
+	if (status == 1) setPcReloadSpeed(increasedSpeed);
+	else setPcReloadSpeed(decreasedSpeed);
 }
 
 void restoreReloadSpeed() {
 	//재장전 속도 초기상태로 세팅
-	
+	setPcReloadSpeed(initialReloadSpeed);
 }
 
-int isBarricadePlaceable() {
+int isBarricadePlaceable(int barcX, int barcY) {
 	//인자 바리케이드 좌표
 	//게임보드 전역변수 게터로 가져와서 설치 가능한지 확인
 	// 0 : false 1 : true
