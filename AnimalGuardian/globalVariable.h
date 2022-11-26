@@ -17,7 +17,7 @@
 
 //gameboard 2차원 배열
 char gameBoardInfo[][23][42];
-char** currentGameBoard;
+char currentGameBoard[23][42];
 
 //모델
 char bulletModel[2][1];
@@ -29,7 +29,7 @@ char pcModel[2][1];
 int enemyNumber;
 int bulletNumber;
 int itemNumber;
-int score;
+int stage;
 
 //커서
 int curPosX, curPosY;
@@ -87,9 +87,12 @@ void setEnemyCurrentPos(int enemyId, int moveX, int moveY);
 posStruct getAnimalCurrentPos(animalNPC * animal);
 void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY);
 void setPcReloadSpeed(int reloadSpeed);
+void setCurrentGameBoard(int stage);
 
 void removeCursor();
 void changeConsoleColor(int colorIndex);
 void restroreConsoleColor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
+
+void tempdraw();

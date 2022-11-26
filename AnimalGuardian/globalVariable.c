@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <Windows.h>
+#pragma warning(disable:4996)
 
 //이차원 배열 모델
 char gameBoardInfo[][23][42] = {
@@ -56,7 +57,7 @@ char enemyModel[2][1] = {
 enemyNumber = 0;
 bulletNumber = 0;
 itemNumber=0;
-score = 0;;
+stage = 0;;
 
 //커서 전역변수
 int curPosX = gBoardOx, curPosY = gBoardOy;
@@ -121,6 +122,17 @@ void setAnimalCurrentPos(animalNPC * animal, int moveX, int moveY) {
 	animal->pos.X = moveX; animal->pos.Y = moveY;
 }
 
+//맵 변경
+void setCurrentGameBoard(int stage) {
+	int i,j;
+
+	for (i = 0; i < 23; i++) {
+		for (j = 0; j < 42; j++) {
+			currentGameBoard[i][j] = gameBoardInfo[stage][i][j];
+		}
+	}
+}
+
 //커서 삭제
 void removeCursor()
 {
@@ -165,4 +177,41 @@ COORD getCurrentCursorPos(void) {
 	curPoint.Y = curInfo.dwCursorPosition.Y;
 
 	return curPoint;
+}
+
+//스테이지화한 drawGameBoard 쓰려면 쓰셈
+void tempdraw() {
+	int posX, posY;
+	int pcAreaLine = 19;
+
+	setCurrentGameBoard(0);
+
+	for (posY = 0; posY < gBoardHeight + 3; posY++) {
+		setCurrentCursorPos(0, posY);
+		if (posY == gBoardHeight + 2) printf("└");
+		else if (posY == 0) printf("┌");
+		else if (posY == pcAreaLine) printf("├");
+		else printf("│");
+		setCurrentCursorPos((gBoardWidth + 1) * 2, posY);
+		if (posY == gBoardHeight + 2) printf("┘");
+		else if (posY == 0) printf("┐");
+		else if (posY == pcAreaLine) printf("┤");
+		else printf("│");
+
+		for (posX = 1; posX < gBoardWidth + 1; posX++) {
+			if (currentGameBoard[posY][posX] == 1) {
+				setCurrentCursorPos(posX * 2, posY);
+				printf("─");
+			}
+			else if (currentGameBoard[posY][posX] == 4) {
+				setCurrentCursorPos(posX * 2, posY);
+				printf("♣");
+			}
+			else if (currentGameBoard[posY][posX] == 5) {
+				setCurrentCursorPos(posX * 2, posY);
+				printf("■");
+			}
+		}
+	}
+	setCurrentCursorPos(10, 19);
 }
