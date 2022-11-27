@@ -23,7 +23,7 @@ char currentGameBoard[23][42];
 
 //모델
 char bulletModel[2][1];
-char enemyModel[2][1];
+char enemyModel[1][1];
 char animalModel[1][2];
 char pcModel[2][1];
 
