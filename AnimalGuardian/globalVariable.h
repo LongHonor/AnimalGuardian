@@ -57,7 +57,7 @@ typedef struct _EnemyNPC {
 	int id;
 	//장애물을 만났을 때 우선 왼쪽으로 틀지 오른쪽으로 틀지 정하는 값입니다. Enemy가 생성되었을 때 랜덤으로 지정 됩니다. 
 	//-1은 왼쪽, 1은 오른쪽
-    int priorityTurnDirection;
+    int direction;
 	struct _EnemyNPC *next;
 } enemyNPC;
 

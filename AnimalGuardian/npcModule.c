@@ -7,7 +7,6 @@
 #include <conio.h>
 #include <time.h>
 
-
 normal_enemy_start = 0;
 normal_enemy_end = 0;
 //start이상 end이하중 랜덤 변수 반환
@@ -39,8 +38,8 @@ void setRandomArray(int* arr, const int start, const int end, const int count) {
 
 //적의 이동방향을 재설정합니다. 위 좌 우 다막혔을 경우 0을 return 합니다.
 int setDirection(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)) {
-        enemy->firstTrunDirection = 0;
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1) {
+        enemy->direction = 0;
         return 1;
     }
 
@@ -48,13 +47,13 @@ int setDirection(enemyNPC* enemy) {
     if (randInt(1, 2) == 1) randomDirection = -1;
     else randomDirection = 1;
 
-    if (enemyNPCDetectCollision(enemy->pos.X + 2 * randomDirection, enemy->pos.Y)) {
-        enemy->firstTrunDirection = randomDirection;
+    if (enemyNPCDetectCollision(enemy->pos.X + 2 * randomDirection, enemy->pos.Y) == 1) {
+        enemy->direction = randomDirection;
         return 1;
     }
 
-    if(enemyNPCDetectCollision(enemy->pos.X - 2 * randomDirection, enemy->pos.Y)) {
-        enemy->firstTrunDirection = -randomDirection;
+    if(enemyNPCDetectCollision(enemy->pos.X - 2 * randomDirection, enemy->pos.Y) == 1) {
+        enemy->direction = -randomDirection;
         return 1;
     }
 
@@ -63,8 +62,8 @@ int setDirection(enemyNPC* enemy) {
 
 //지정된 방향으로 움직입니다 성공여부를 반환합니다.
 int tryMove(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) && 
-        enemy->firstTrunDirection == 0) {
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1 && 
+        enemy->direction == 0) {
 
         deleteEnemy(enemy);
         enemy->pos.Y -= 1;
@@ -73,9 +72,9 @@ int tryMove(enemyNPC* enemy) {
         return 1;
     }
 
-    if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->firstTrunDirection)), enemy->pos.Y) &&
-        enemy->firstTrunDirection != 0) {
-        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)) {
+    if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->direction)), enemy->pos.Y) == 1 &&
+        enemy->direction != 0) {
+        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1) {
 
             deleteEnemy(enemy);
             enemy->pos.Y -= 1;
@@ -84,7 +83,7 @@ int tryMove(enemyNPC* enemy) {
             return 1;
         }
         deleteOneEnemy(enemy);
-        enemy->pos.X += 2 * (enemy->firstTrunDirection);
+        enemy->pos.X += 2 * (enemy->direction);
         showOneEnemy(enemy);
 
         return 1;
@@ -139,14 +138,12 @@ void deleteNormalEnemy() {
 }
 
 void makeNormalEnemy(int x) {
-
     enemyNPC* enemy_npc = (enemyNPC*)malloc(sizeof(enemyNPC));
-    
-    
+
     enemy_npc->pos.X = x;
     enemy_npc->pos.Y = gBoardOy + 17;
     enemy_npc->next = NULL;
-    enemy_npc->firstTrunDirection = 0;
+    enemy_npc->direction = 0;
 
     if (enemyList->enemyHeader == NULL) {
         enemyList->enemyHeader = enemy_npc;
@@ -172,6 +169,7 @@ void makeEnemyList(int enemyCount) {
 
     int* enemyPosArray = (int*)malloc(sizeof(int) * enemyCount);
     setRandomArray(enemyPosArray, 1, gBoardWidth , enemyCount);
+
     for (int i = 0; i < enemyCount; i++) {
         int x = enemyPosArray[i];
         makeNormalEnemy(x * 2);
