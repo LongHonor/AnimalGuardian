@@ -14,4 +14,4 @@ void deleteOneEnemy(enemyNPC* enemyNpc);
 void deleteNormalEnemy();
 void makeNormalEnemy(int x);
 void makeEnemyList(int enemyCount);
-
+void makeAnimal();

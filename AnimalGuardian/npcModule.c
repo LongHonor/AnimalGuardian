@@ -101,20 +101,20 @@ void moveOneEnemy(enemyNPC* enemy) {
 }
 
 void moveEnemy() {
-    enemyNPC* enemy = enemyList->enemyHeader;
+    enemyNPC* enemyNpc = enemyList->enemyHeader;
 
-    while (enemy != NULL) {
-        moveOneEnemy(enemy);
-        enemy = enemy->next;
+    while (enemyNpc != NULL) {
+        moveOneEnemy(enemyNpc);
+        enemyNpc = enemyNpc->next;
     }
 }
 
 void showNormalEnemy() {
-    enemyNPC* enemy_npc = enemyList->enemyHeader;
-    while (enemy_npc != NULL) {
-        setCurrentCursorPos(enemy_npc->pos.X, enemy_npc->pos.Y);
-        drawEnemy(enemy_npc->pos.X, enemy_npc->pos.Y);
-        enemy_npc = enemy_npc->next;
+    enemyNPC* enemyNpc = enemyList->enemyHeader;
+    while (enemyNpc != NULL) {
+        setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
+        drawEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
+        enemyNpc = enemyNpc->next;
     }
 }
 
@@ -129,36 +129,36 @@ void deleteOneEnemy(enemyNPC* enemyNpc) {
 }
 
 void deleteNormalEnemy() {
-    enemyNPC* enemy_npc = enemyList->enemyHeader;
-    while (enemy_npc != NULL) {
-        setCurrentCursorPos(enemy_npc->pos.X, enemy_npc->pos.Y);
-        drawEnemy(enemy_npc->pos.X, enemy_npc->pos.Y);
-        enemy_npc = enemy_npc->next;
+    enemyNPC* enemyNpc = enemyList->enemyHeader;
+    while (enemyNpc != NULL) {
+        setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
+        drawEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
+        enemyNpc = enemyNpc->next;
     }
 }
 
 void makeNormalEnemy(int x) {
-    enemyNPC* enemy_npc = (enemyNPC*)malloc(sizeof(enemyNPC));
+    enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
 
-    enemy_npc->pos.X = x;
-    enemy_npc->pos.Y = gBoardOy + 17;
-    enemy_npc->next = NULL;
-    enemy_npc->direction = 0;
+    enemyNpc->pos.X = x;
+    enemyNpc->pos.Y = gBoardOy + 17;
+    enemyNpc->next = NULL;
+    enemyNpc->direction = 0;
 
     if (enemyList->enemyHeader == NULL) {
-        enemyList->enemyHeader = enemy_npc;
-        enemy_npc = 0;
+        enemyList->enemyHeader = enemyNpc;
+        enemyNpc = 0;
         return;
     }
 
     int count = 0;
-    enemyNPC* last_enemy = enemyList->enemyHeader;
-    while (last_enemy->next != NULL) {
-        last_enemy = last_enemy->next;
+    enemyNPC* lastEnemy = enemyList->enemyHeader;
+    while (lastEnemy->next != NULL) {
+        lastEnemy = lastEnemy->next;
         count++;
     }
-    last_enemy->next = enemy_npc;
-    enemy_npc->id = count;
+    lastEnemy->next = enemyNpc;
+    enemyNpc->id = count;
 }
 
 void makeEnemyList(int enemyCount) {
@@ -178,3 +178,11 @@ void makeEnemyList(int enemyCount) {
     free(enemyPosArray);
 }
 
+void makeAnimal() {
+    int animalPos = 20;
+    for (int i = 0; i < 3; i++) {
+        setAnimalCurrentPos(&animalArray,animalPos , 1);
+        drawAnimal();
+        animalPos += 15;
+    }
+}
