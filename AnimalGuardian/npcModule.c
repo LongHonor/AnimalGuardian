@@ -1,6 +1,5 @@
 #include "globalVariable.h"
 #include "npcModule.h"
-#include "gameModel.h"
 #include "gameBoardHandler.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,81 +7,176 @@
 #include <conio.h>
 #include <time.h>
 
-EnemyNPC_Info* enemy_list_head = NULL;
 
-int curPosX = gBoardOx, curPosY = gBoardOy;
+normal_enemy_start = 0;
+normal_enemy_end = 0;
+//start이상 end이하중 랜덤 변수 반환
+int randInt(start, end) {
+    srand((unsigned int)time(NULL));
+    int length = end - start + 1;
+    return (int)(rand() % length) + start;
+}
+
+int isInArray(const int arr[], int val, int len) {
+    for (int i = 0; i < len; i++) {
+        if (arr[i] == val) return 1;
+    }
+    return 0;
+}
+
+//start 부터 end 사이에서 count 개수만큼의 좌표를 가진 배열을 return 합니다. 동적할당 되어있으므로
+//다 쓰고 free 해주어야 함
+void setRandomArray(int* arr, const int start, const int end, const int count) {
+    for (int i = 0; i < count; i++) {
+        int pos = randInt(start, end);
+        while (isInArray(arr, pos, i)) {
+            pos = randInt(start, end);
+        }
+
+        arr[i] = pos;
+    }
+}
+
+//적의 이동방향을 재설정합니다. 위 좌 우 다막혔을 경우 0을 return 합니다.
+int setDirection(enemyNPC* enemy) {
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)) {
+        enemy->firstTrunDirection = 0;
+        return 1;
+    }
+
+    int randomDirection;
+    if (randInt(1, 2) == 1) randomDirection = -1;
+    else randomDirection = 1;
+
+    if (enemyNPCDetectCollision(enemy->pos.X + 2 * randomDirection, enemy->pos.Y)) {
+        enemy->firstTrunDirection = randomDirection;
+        return 1;
+    }
+
+    if(enemyNPCDetectCollision(enemy->pos.X - 2 * randomDirection, enemy->pos.Y)) {
+        enemy->firstTrunDirection = -randomDirection;
+        return 1;
+    }
+
+    return 0;
+}
+
+//지정된 방향으로 움직입니다 성공여부를 반환합니다.
+int tryMove(enemyNPC* enemy) {
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) && 
+        enemy->firstTrunDirection == 0) {
+
+        deleteEnemy(enemy);
+        enemy->pos.Y -= 1;
+        showOneEnemy(enemy);
+
+        return 1;
+    }
+
+    if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->firstTrunDirection)), enemy->pos.Y) &&
+        enemy->firstTrunDirection != 0) {
+        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)) {
+
+            deleteEnemy(enemy);
+            enemy->pos.Y -= 1;
+            showOneEnemy(enemy);
+
+            return 1;
+        }
+        deleteOneEnemy(enemy);
+        enemy->pos.X += 2 * (enemy->firstTrunDirection);
+        showOneEnemy(enemy);
+
+        return 1;
+    }
+    return 0;
+}
+
+void moveOneEnemy(enemyNPC* enemy) {
+    if (!tryMove(enemy)) {
+        if (!setDirection(enemy)) //방향 지정 실패시 갇힌 몬스터임
+            return;
+
+        else tryMove(enemy);
+    }
+}
 
 void moveEnemy() {
-    EnemyNPC_Info* enemyNpc = enemy_list_head;
-    while (enemyNpc != NULL) {
-        if (!enemyNPCDetectCollision(enemyNpc->pos.X, enemyNpc->pos.Y - 1)) {
-            deleteOneEnemy(enemyNpc);
-            enemyNpc->pos.Y -= 1;
-            showOneEnemy(enemyNpc);
+    enemyNPC* enemy = enemyList->enemyHeader;
 
-        }
-        enemyNpc = enemyNpc->next;
+    while (enemy != NULL) {
+        moveOneEnemy(enemy);
+        enemy = enemy->next;
     }
 }
 
 void showNormalEnemy() {
-    EnemyNPC_Info* enemy_npc = enemy_list_head;
+    enemyNPC* enemy_npc = enemyList->enemyHeader;
     while (enemy_npc != NULL) {
         setCurrentCursorPos(enemy_npc->pos.X, enemy_npc->pos.Y);
         drawEnemy(enemy_npc->pos.X, enemy_npc->pos.Y);
         enemy_npc = enemy_npc->next;
     }
 }
-void showOneEnemy(EnemyNPC_Info* enemyNpc) {
+
+void showOneEnemy(enemyNPC* enemyNpc) {
     setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
     drawEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
 }
-void deleteOneEnemy(EnemyNPC_Info* enemyNpc) {
+
+void deleteOneEnemy(enemyNPC* enemyNpc) {
     setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
     deleteEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
 }
 
 void deleteNormalEnemy() {
-    EnemyNPC_Info* enemy_npc = enemy_list_head;
+    enemyNPC* enemy_npc = enemyList->enemyHeader;
     while (enemy_npc != NULL) {
         setCurrentCursorPos(enemy_npc->pos.X, enemy_npc->pos.Y);
         drawEnemy(enemy_npc->pos.X, enemy_npc->pos.Y);
         enemy_npc = enemy_npc->next;
     }
 }
-int k = 4;
 
-void makeNormalEnemy() {
+void makeNormalEnemy(int x) {
 
-    int randXpos = k;
-    k += 2;
-    EnemyNPC_Info* enemy_npc = (EnemyNPC_Info*)malloc(sizeof(EnemyNPC_Info));
-    enemy_npc->pos.X = randXpos;
-    enemy_npc->pos.Y = gBoardOy + 16;
+    enemyNPC* enemy_npc = (enemyNPC*)malloc(sizeof(enemyNPC));
+    
+    
+    enemy_npc->pos.X = x;
+    enemy_npc->pos.Y = gBoardOy + 17;
     enemy_npc->next = NULL;
-    if (enemy_list_head == NULL) {
-        enemy_list_head = enemy_npc;
+    enemy_npc->firstTrunDirection = 0;
+
+    if (enemyList->enemyHeader == NULL) {
+        enemyList->enemyHeader = enemy_npc;
+        enemy_npc = 0;
         return;
     }
-    EnemyNPC_Info* last_enemy = enemy_list_head;
+
+    int count = 0;
+    enemyNPC* last_enemy = enemyList->enemyHeader;
     while (last_enemy->next != NULL) {
         last_enemy = last_enemy->next;
+        count++;
     }
     last_enemy->next = enemy_npc;
-
-
+    enemy_npc->id = count;
 }
 
-int enemyNPCDetectCollision(int posX, int posY) {
-    int x, y;
-    int arrX = (posX - gBoardOx) / 2;
-    int arrY = posY - gBoardOy;
-    for (x = 0; x < 1; x++) {
-        for (y = 0; y < 2; y++) {
-            if (enemyModel[y][x] != 0 && gameBoardInfo[arrY + y][arrX + x] != 0) {
-                return 1;
-            }
-        }
+void makeEnemyList(int enemyCount) {
+    enemyList = (enemyNPCList*)malloc(sizeof(enemyNPCList));
+
+    enemyList->enemyCurrentNumber = enemyCount;
+    enemyList->enemyHeader = NULL;
+
+    int* enemyPosArray = (int*)malloc(sizeof(int) * enemyCount);
+    setRandomArray(enemyPosArray, 1, gBoardWidth , enemyCount);
+    for (int i = 0; i < enemyCount; i++) {
+        int x = enemyPosArray[i];
+        makeNormalEnemy(x * 2);
     }
-    return 0;
+
+    free(enemyPosArray);
 }
+
