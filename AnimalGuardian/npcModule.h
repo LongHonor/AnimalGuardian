@@ -15,3 +15,7 @@ void deleteNormalEnemy();
 void makeNormalEnemy(int x);
 void makeEnemyList(int enemyCount);
 void makeAnimal();
+int animalNPCdetectCollision(int posX, int posY);
+void moveAnimal();
+void DrawAnimal();
+void DeleteAnimal();

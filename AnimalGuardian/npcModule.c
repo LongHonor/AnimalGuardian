@@ -11,7 +11,6 @@ normal_enemy_start = 0;
 normal_enemy_end = 0;
 //start이상 end이하중 랜덤 변수 반환
 int randInt(start, end) {
-    srand((unsigned int)time(NULL));
     int length = end - start + 1;
     return (int)(rand() % length) + start;
 }
@@ -177,12 +176,80 @@ void makeEnemyList(int enemyCount) {
 
     free(enemyPosArray);
 }
-
+int animalNPCdetectCollision(int posX, int posY) {
+    int x, y;
+    int arrX = (posX - gBoardOx) / 2;
+    int arrY = posY - gBoardOy;
+    for (x = 0; x < 2; x++)
+    {
+        for (y = 0; y < 1; y++)
+        {
+            if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 1)) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
 void makeAnimal() {
     int animalPos = 20;
     for (int i = 0; i < 3; i++) {
-        setAnimalCurrentPos(&animalArray,animalPos , 1);
+        animalArray[i].id = i;
+        animalArray[i].speed = 1;
+        setAnimalCurrentPos(animalArray + i,animalPos , 1);
         drawAnimal();
         animalPos += 15;
+    }
+}
+void moveOneAnimal(int index) {
+    //랜덤하게 방향 지정
+    int direction = randInt(-1, 1);
+
+    //direction 이 0 이면 그냥 return
+    if (direction == 0) return;
+
+    if (animalNPCdetectCollision(animalArray[index].pos.X+(direction*2), animalArray[index].pos.Y)==0) {
+        direction *= -1;
+    }
+    else {
+        animalArray[index].pos.X += direction*2;
+        return;
+    }
+
+    if (animalNPCdetectCollision(animalArray[index].pos.X + (direction * 2), animalArray[index].pos.Y) == 1) {
+        animalArray[index].pos.X += direction*2;
+    }
+}
+
+void moveAnimal() {
+    moveOneAnimal(0);
+    moveOneAnimal(1);
+    moveOneAnimal(2);
+}
+
+void DrawAnimal() {
+    int posX, posY;
+
+    for (int i = 0; i < 3; i++) {
+        posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+
+        for (posX = 0; posX < 2; posX++) {
+            setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
+            if (animalModel[0][posX] == 1) printf("♧");
+            else printf("■");
+        }
+        setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
+    }
+}
+void DeleteAnimal() {
+    int posX, posY;
+    for (int i = 0; i < 3; i++) {
+        posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+
+        for (posX = 0; posX < 2; posX++) {
+            setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
+            printf("  ");
+        }
+        setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
     }
 }
