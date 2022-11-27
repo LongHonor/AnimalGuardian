@@ -9,7 +9,8 @@
 #define attack 82
 #define item 113
 
-#define initialReloadSpeed 10
+#define maxBullet 10
+#define initialReloadSpeed 300
 #define doubleSpeed 115
 #define gBoardWidth 40
 #define gBoardHeight 20
