@@ -280,32 +280,3 @@ void animalMoveSetting() {
         DrawAnimal();
     }
 }
-
-//백업용 main함수입니다(어떻게 사용하는지 기억 안날시 참고하려고)
-/*
-#include <stdio.h>
-#include <windows.h>
-#include "globalVariable.h"
-#include "gameBoardHandler.h"
-#include "gameItem.h"
-#include "pcHandler.h"
-#include "npcModule.h"
-int main() {
-    srand((unsigned int)time(NULL));
-    removeCursor();
-    drawGameBoard();
-    makeAnimal();
-    showPC(player);
-    makeEnemyList(3);
-    resetEnemySpawnCount();
-    while (1) {
-        if ((double)(clock() - checkLoadStartTime) / CLOCKS_PER_SEC >= 2 && loadFlag == 0) {
-            loadFlag = 1;
-        }
-        enemyMoveSetting();
-        animalMoveSetting();
-        pcKeyInput();
-    }
-
-    return 0;
-}*/
