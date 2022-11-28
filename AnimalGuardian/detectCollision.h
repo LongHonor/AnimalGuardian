@@ -4,3 +4,4 @@ int detectCollisionPC(int posX, int posY);
 int detectCollisionBullet(int posX, int posY);
 
 int detectCollisionBarricade(int posX, int posY);
+int animalNPCdetectCollision(int posX, int posY);
