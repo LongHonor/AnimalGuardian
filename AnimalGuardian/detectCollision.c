@@ -9,7 +9,7 @@ int enemyNPCDetectCollision(int posX, int posY) {
 	int arrY = posY - gBoardOy;
 	for (x = 0; x < 1; x++)
 	{
-		for (y = 0; y < 2; y++)
+		for (y = 0; y < 1; y++)
 		{
 			//gameBoard line
 			if (enemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 1) {
@@ -23,7 +23,21 @@ int enemyNPCDetectCollision(int posX, int posY) {
 	}
 	return 1;
 }
-
+int animalNPCdetectCollision(int posX, int posY) {
+	int x, y;
+	int arrX = (posX - gBoardOx) / 2;
+	int arrY = posY - gBoardOy;
+	for (x = 0; x < 2; x++)
+	{
+		for (y = 0; y < 1; y++)
+		{
+			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 1)) {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
 
 int detectCollisionPC(int posX, int posY) {
 	int arrx = (posX - gBoardOx) / 2;
