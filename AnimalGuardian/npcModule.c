@@ -7,8 +7,6 @@
 #include <conio.h>
 #include <time.h>
 
-normal_enemy_start = 0;
-normal_enemy_end = 0;
 //start이상 end이하중 랜덤 변수 반환
 int randInt(start, end) {
     int length = end - start + 1;
@@ -61,7 +59,7 @@ int setDirection(enemyNPC* enemy) {
 
 //지정된 방향으로 움직입니다 성공여부를 반환합니다.
 int tryMove(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1 && 
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)==1 && 
         enemy->direction == 0) {
 
         deleteEnemy(enemy);
@@ -92,9 +90,8 @@ int tryMove(enemyNPC* enemy) {
 
 void moveOneEnemy(enemyNPC* enemy) {
     if (!tryMove(enemy)) {
-        if (!setDirection(enemy)) //방향 지정 실패시 갇힌 몬스터임
+        if (!setDirection(enemy)) //방향 지정 실패시 갇힌 몬스터이다.
             return;
-
         else tryMove(enemy);
     }
 }
@@ -136,6 +133,7 @@ void deleteNormalEnemy() {
     }
 }
 
+//x위치값을 가져와서 그 pos에 enemy를 만듭니다.
 void makeNormalEnemy(int x) {
     enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
 
@@ -160,22 +158,18 @@ void makeNormalEnemy(int x) {
     enemyNpc->id = count;
 }
 
+//enemyCount의 조절로 enemy의 수를 변경할 수 있습니다.
 void makeEnemyList(int enemyCount) {
     enemyList = (enemyNPCList*)malloc(sizeof(enemyNPCList));
 
     enemyList->enemyCurrentNumber = enemyCount;
     enemyList->enemyHeader = NULL;
 
-    int* enemyPosArray = (int*)malloc(sizeof(int) * enemyCount);
+    enemyPosArray = (int*)malloc(sizeof(int) * enemyCount);
     setRandomArray(enemyPosArray, 1, gBoardWidth , enemyCount);
-
-    for (int i = 0; i < enemyCount; i++) {
-        int x = enemyPosArray[i];
-        makeNormalEnemy(x * 2);
-    }
-
-    free(enemyPosArray);
 }
+
+//삭제예정(detectCollision.h파일 변경 후 적용)
 int animalNPCdetectCollision(int posX, int posY) {
     int x, y;
     int arrX = (posX - gBoardOx) / 2;
@@ -191,6 +185,8 @@ int animalNPCdetectCollision(int posX, int posY) {
     }
     return 1;
 }
+
+//추후 i값의 조절로 animal의 개수를 늘릴수 있고, pos값의 변경으로 animal의 위치를 변경할 수 있습니다.
 void makeAnimal() {
     int animalPos = 20;
     for (int i = 0; i < 3; i++) {
@@ -201,6 +197,7 @@ void makeAnimal() {
         animalPos += 15;
     }
 }
+
 void moveOneAnimal(int index) {
     //랜덤하게 방향 지정
     int direction = randInt(-1, 1);
@@ -221,12 +218,14 @@ void moveOneAnimal(int index) {
     }
 }
 
+//추후 i값의 조정으로 전부 움직일 수 있게 한다
 void moveAnimal() {
-    moveOneAnimal(0);
-    moveOneAnimal(1);
-    moveOneAnimal(2);
+    for (int i = 0; i < 3; i++) {
+        moveOneAnimal(i);
+    }
 }
 
+//삭제예정(detectCollision.h파일 변경 후 적용)
 void DrawAnimal() {
     int posX, posY;
 
@@ -238,9 +237,9 @@ void DrawAnimal() {
             if (animalModel[0][posX] == 1) printf("♧");
             else printf("■");
         }
-        setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
     }
 }
+//삭제예정(detectCollision.h파일 변경 후 적용)
 void DeleteAnimal() {
     int posX, posY;
     for (int i = 0; i < 3; i++) {
@@ -250,6 +249,63 @@ void DeleteAnimal() {
             setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
             printf("  ");
         }
-        setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
     }
 }
+
+//enemyPosArray의 index입니다. 초기값을 0으로 초기화해줍니다.
+void resetEnemySpawnCount() {
+    spawnedEnemyCount = 0;
+}
+
+//enemy의 움직임을 총괄해주는 함수입니다. 전역으로 설정된 enemyPosArray에 있는 enemySpawnCount 인덱스 방이 가리키는 값으로 스폰합니다.
+void enemyMoveSetting() {
+    if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 5) {//여기있는 5를 변경하여 스폰시간을 제어할 수 있습니다.
+        if (spawnedEnemyCount < 3) {//여기의 3은 총 enemy 개수값과 동일하게 들어갑니다.
+            makeNormalEnemy((*(enemyPosArray + spawnedEnemyCount)) * 2);
+            spawnedEnemyCount++;
+            checkEnemyNpcSpawnTime = clock();
+        }
+        checkEnemyNpcSpawnTime = clock();
+    }
+    deleteEnemy();
+    moveEnemy();
+    drawEnemy();
+}
+//animalMove를 총괄해주는 함수입니다.
+void animalMoveSetting() {
+    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
+        DeleteAnimal();
+        moveAnimal();
+        animalMoveTimePerSec = clock();
+        DrawAnimal();
+    }
+}
+
+//백업용 main함수입니다(어떻게 사용하는지 기억 안날시 참고하려고)
+/*
+#include <stdio.h>
+#include <windows.h>
+#include "globalVariable.h"
+#include "gameBoardHandler.h"
+#include "gameItem.h"
+#include "pcHandler.h"
+#include "npcModule.h"
+int main() {
+    srand((unsigned int)time(NULL));
+    removeCursor();
+    drawGameBoard();
+    makeAnimal();
+    showPC(player);
+    makeEnemyList(3);
+    resetEnemySpawnCount();
+    while (1) {
+        if ((double)(clock() - checkLoadStartTime) / CLOCKS_PER_SEC >= 2 && loadFlag == 0) {
+            loadFlag = 1;
+        }
+        enemyMoveSetting();
+        animalMoveSetting();
+        pcKeyInput();
+    }
+
+    return 0;
+}*/
