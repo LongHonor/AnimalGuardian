@@ -52,10 +52,10 @@ int detectCollisionPC(int posX, int posY) {
 int detectCollisionBullet(int posX, int posY) {
 	int arrx = (posX - gBoardOx) / 2;
 	int arry = (posY - gBoardOy);
-	if (currentGameBoard[arry][arrx] == 4) {
+	if (currentGameBoard[arry][arrx] == 4 || currentGameBoard[arry][arrx] == 5) {
 		return 0;
 	}
-	if (currentGameBoard[arry][arrx] == 5) {
+	if (currentGameBoard[arry][arrx] == 1) {
 		return 0;
 	}
 	return 1;

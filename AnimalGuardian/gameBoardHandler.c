@@ -112,7 +112,7 @@ void deleteAnimal() {
 	int posX, posY;
 	for (int i = 0; i < 3; i++) {
 		//animalNPC 위치 받아와서 setCurrentCursorPos()호출
-		posStruct animalCurPos = getAnimalCurrentPos(&animalArray);
+		posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
 
 		for (posX = 0; posX < 2; posX++) {
 			setCurrentCursorPos(animalCurPos.X + posX*2, animalCurPos.Y);
