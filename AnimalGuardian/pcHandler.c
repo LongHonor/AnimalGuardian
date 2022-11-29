@@ -5,16 +5,13 @@
 #include "detectCollision.h"
 #include <stdio.h>
 #include <conio.h>
-#include <time.h>
 //PC 초기화
 PC player = { {40,20},1,200,3 };
 
 //bullet 초기화
-int bulletCount = 10;
+int max_bullet = 10;
 Bullet* bullet_head = NULL;
 int bulletItem = 0;
-
-loadFlag = 0;
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
@@ -102,13 +99,13 @@ void shootBullet() {
 				shiftRightPc();
 				break;
 			case space:
-				if (bulletCount > 0) {
+				if (max_bullet > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
-					newbullet->speed = 15;
+					newbullet->speed = 40;
 					newbullet->link = NULL;
 					curr->link = newbullet;
-					bulletCount--;
+					max_bullet--;
 				}
 				break;
 			}
@@ -123,7 +120,7 @@ void shootBullet() {
 	}
 }
 void loadBullet() {
-	bulletCount = 10;
+	max_bullet = 10;
 }
 void pcKeyInput() {
 	int key;
@@ -139,20 +136,18 @@ void pcKeyInput() {
 				shiftRightPc();
 				break;
 			case space:
-				if (bulletCount > 0) {
+				if (max_bullet > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
-					newbullet->speed = 15;
+					newbullet->speed = 40;
 					newbullet->link = NULL;
 					bullet_head = newbullet;
-					bulletCount--;
+					max_bullet--;
 					shootBullet();
 				}
 				break;
 			case load:
 				loadBullet();
-				checkLoadStartTime = clock();
-				loadFlag = 1;
 				break;
 			case item:
 				placeBarricade();
