@@ -225,9 +225,12 @@ void enemyMoveSetting() {
         }
         checkEnemyNpcSpawnTime = clock();
     }
-    deleteEnemy();
-    moveEnemy();
-    drawEnemy();
+    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
+        deleteEnemy();
+        moveEnemy();
+        enemyMoveTimePerSec = clock();
+        drawEnemy();
+    }
 }
 //animalMove를 총괄해주는 함수입니다.
 void animalMoveSetting() {

@@ -8,9 +8,11 @@ int* enemyPosArray;
 clock_t checkEnemyNpcSpawnTime;
 //animalNpc의 움직임을 조절하여 시간당 움직이게 해줄 변수
 clock_t animalMoveTimePerSec;
+//enemyNpc의 움직임을 조절하여 시간당 움직이게 해줄 변수
+clock_t enemyMoveTimePerSec;
 //소환된 enemy의 수
 int spawnedEnemyCount;
-//
+
 
 
 int randInt(start, end);
