@@ -33,4 +33,3 @@ void eraseBullet(struct _Position pos);
 void shootBullet();
 void pcKeyInput();
 void loadBullet();
-void blockKeyInput();
