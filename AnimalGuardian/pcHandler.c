@@ -104,7 +104,7 @@ void shootBullet() {
 				if (bulletCount > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
-					newbullet->speed = 40;
+					newbullet->speed = 15;
 					newbullet->link = NULL;
 					curr->link = newbullet;
 					bulletCount--;
@@ -114,6 +114,7 @@ void shootBullet() {
 		}
 		if (curr->pos.Y < gBoardOy + 2) {
 			first_bullet = curr->link;
+			free(curr);
 		}
 		if (first_bullet == NULL) {
 			break;
@@ -141,7 +142,7 @@ void pcKeyInput() {
 				if (bulletCount > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
-					newbullet->speed = 40;
+					newbullet->speed = 15;
 					newbullet->link = NULL;
 					bullet_head = newbullet;
 					bulletCount--;
