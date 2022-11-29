@@ -138,7 +138,7 @@ void makeNormalEnemy(int x) {
     enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
 
     enemyNpc->pos.X = x;
-    enemyNpc->pos.Y = gBoardOy + 17;
+    enemyNpc->pos.Y = gBoardOy + 18;
     enemyNpc->next = NULL;
     enemyNpc->direction = 0;
 
@@ -232,9 +232,9 @@ void enemyMoveSetting() {
 //animalMove를 총괄해주는 함수입니다.
 void animalMoveSetting() {
     if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
-        DeleteAnimal();
+        deleteAnimal();
         moveAnimal();
         animalMoveTimePerSec = clock();
-        DrawAnimal();
+        drawAnimal();
     }
 }
