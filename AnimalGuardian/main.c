@@ -12,7 +12,10 @@ int main() {
 	//makeEnemyList();
 	//makeEnemy();
 	//setPCCurrentPos(10, 20);
-	setAnimalCurrentPos(&animalArray, 20, 1);
+	for (int i = 0; i < 3; i++) {
+		setAnimalCurrentPos(&animalArray[i], 20 + i * 4, 1);
+
+	}
 	drawAnimal();
 	/*while (1) {
 		drawPC(player);

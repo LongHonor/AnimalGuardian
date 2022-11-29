@@ -96,27 +96,30 @@ void deletePC() {
 void drawAnimal() {
 	int posX, posY;
 
-	posStruct animalCurPos = getAnimalCurrentPos(&animalArray);
-	//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+	for (int i = 0; i < 3; i++) {
+		//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+		posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
 
-	for (posX = 0; posX < 2; posX++) {
-		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
-		if (animalModel[0][posX] == 1) printf("♧");
-		else printf("■");
+		for (posX = 0; posX < 2; posX++) {
+			setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
+			if (animalModel[0][posX] == 1) printf("♧");
+			else printf("■");
+		}
+		setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 	}
-	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 }
 void deleteAnimal() {
 	int posX, posY;
-	
-	posStruct animalCurPos = getAnimalCurrentPos(&animalArray);
-	//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+	for (int i = 0; i < 3; i++) {
+		//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+		posStruct animalCurPos = getAnimalCurrentPos(&animalArray);
 
-	for (posX = 0; posX < 2; posX++) {
-		setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
-		printf("  ");
+		for (posX = 0; posX < 2; posX++) {
+			setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
+			printf("  ");
+		}
+		setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 	}
-	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 }
 
 
@@ -128,10 +131,9 @@ void drawEnemy() {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
 		//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
 
-		for (posY = 0; posY < 2; posY++) {
+		for (posY = 0; posY < 1; posY++) {
 			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
 			if (enemyModel[posY][0] == 1) printf("▲");
-			else printf("■");
 		}
 		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 		search = search->next;
@@ -145,7 +147,7 @@ void deleteEnemy() {
 		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
 		//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
 
-		for (posY = 0; posY < 2; posY++) {
+		for (posY = 0; posY < 1; posY++) {
 			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
 			printf("  ");
 		}
