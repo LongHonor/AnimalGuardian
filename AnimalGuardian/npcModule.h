@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <time.h>
 
-// globalVariable로 옮겨야할 내용들입니다
 //위치를 저장해주는 전역변수
 int* enemyPosArray;
 //enemyNpc의 spawnTime을 체크해주는 변수

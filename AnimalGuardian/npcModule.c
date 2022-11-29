@@ -177,7 +177,6 @@ void makeAnimal() {
         animalArray[i].id = i;
         animalArray[i].speed = 1;
         setAnimalCurrentPos(animalArray + i,animalPos , 1);
-        drawAnimal();
         animalPos += 15;
     }
 }
@@ -229,7 +228,9 @@ void enemyMoveSetting() {
         deleteEnemy();
         moveEnemy();
         enemyMoveTimePerSec = clock();
+        changeConsoleColor(red);
         drawEnemy();
+        restoreConsoleColor();
     }
 }
 //animalMove를 총괄해주는 함수입니다.
@@ -238,6 +239,8 @@ void animalMoveSetting() {
         deleteAnimal();
         moveAnimal();
         animalMoveTimePerSec = clock();
+        changeConsoleColor(purple);
         drawAnimal();
+        restoreConsoleColor();
     }
 }
