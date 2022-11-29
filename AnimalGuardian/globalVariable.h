@@ -27,10 +27,6 @@ char enemyModel[1][1];
 char animalModel[1][2];
 char pcModel[2][1];
 
-//색상
-typedef enum color{
-} enumColor;
-
 //UI
 int enemyNumber;
 int bulletNumber;
