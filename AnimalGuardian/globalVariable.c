@@ -48,9 +48,8 @@ char animalModel[1][2] = {
 	{1, 2}
 };
 
-char enemyModel[2][1] = {
-	{1},
-	{2}
+char enemyModel[1][1] = {
+	{1}
 };
 
 //UI
