@@ -112,7 +112,7 @@ void shootBullet() {
 				break;
 			}
 		}
-		if (curr->pos.Y - 3 < gBoardOy) {
+		if (curr->pos.Y < gBoardOy + 2) {
 			first_bullet = curr->link;
 		}
 		if (first_bullet == NULL) {
