@@ -101,7 +101,7 @@ void drawAnimal() {
 		posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
 
 		for (posX = 0; posX < 2; posX++) {
-			setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
+			setCurrentCursorPos(animalCurPos.X + posX*2, animalCurPos.Y);
 			if (animalModel[0][posX] == 1) printf("♧");
 			else printf("■");
 		}
@@ -115,7 +115,7 @@ void deleteAnimal() {
 		posStruct animalCurPos = getAnimalCurrentPos(&animalArray);
 
 		for (posX = 0; posX < 2; posX++) {
-			setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
+			setCurrentCursorPos(animalCurPos.X + posX*2, animalCurPos.Y);
 			printf("  ");
 		}
 		setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
