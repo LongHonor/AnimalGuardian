@@ -34,7 +34,7 @@ void drawGameBoard() {
 		else printf("│");
 
 		for (posX = 1; posX < gBoardWidth + 1; posX++) {
-			if (currentGameBoard[posY][posX] == 1) {
+			if (currentGameBoard[posY][posX] == 1|| currentGameBoard[posY][posX] == 2) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("─");
 			}
