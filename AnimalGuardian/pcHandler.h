@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <time.h>
 #include "globalVariable.h"
 #define load 114
 
@@ -21,8 +22,11 @@ PC player;
 
 //bullet 전역변수
 extern Bullet* bullet_head;
-extern int max_bullet;
+extern int bulletCount;
 extern int bulletItem;
+
+clock_t checkLoadStartTime;
+extern int loadFlag;
 
 void showPC(struct _Player player);
 void erasePC(struct _Player player);

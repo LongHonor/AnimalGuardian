@@ -9,9 +9,11 @@
 PC player = { {40,20},1,200,3 };
 
 //bullet 초기화
-int max_bullet = 10;
+int bulletCount = 10;
 Bullet* bullet_head = NULL;
 int bulletItem = 0;
+
+loadFlag = 0;
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
@@ -99,18 +101,18 @@ void shootBullet() {
 				shiftRightPc();
 				break;
 			case space:
-				if (max_bullet > 0) {
+				if (bulletCount > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
 					newbullet->speed = 40;
 					newbullet->link = NULL;
 					curr->link = newbullet;
-					max_bullet--;
+					bulletCount--;
 				}
 				break;
 			}
 		}
-		if (curr->pos.Y - 3 < gBoardOy) {
+		if (curr->pos.Y < gBoardOy + 2) {
 			first_bullet = curr->link;
 		}
 		if (first_bullet == NULL) {
@@ -120,7 +122,7 @@ void shootBullet() {
 	}
 }
 void loadBullet() {
-	max_bullet = 10;
+	bulletCount = 10;
 }
 void pcKeyInput() {
 	int key;
@@ -136,18 +138,20 @@ void pcKeyInput() {
 				shiftRightPc();
 				break;
 			case space:
-				if (max_bullet > 0) {
+				if (bulletCount > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
 					newbullet->speed = 40;
 					newbullet->link = NULL;
 					bullet_head = newbullet;
-					max_bullet--;
+					bulletCount--;
 					shootBullet();
 				}
 				break;
 			case load:
 				loadBullet();
+				checkLoadStartTime = clock();
+				loadFlag = 1;
 				break;
 			case item:
 				placeBarricade();
