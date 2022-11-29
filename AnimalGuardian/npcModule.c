@@ -169,22 +169,6 @@ void makeEnemyList(int enemyCount) {
     setRandomArray(enemyPosArray, 1, gBoardWidth , enemyCount);
 }
 
-//삭제예정(detectCollision.h파일 변경 후 적용)
-int animalNPCdetectCollision(int posX, int posY) {
-    int x, y;
-    int arrX = (posX - gBoardOx) / 2;
-    int arrY = posY - gBoardOy;
-    for (x = 0; x < 2; x++)
-    {
-        for (y = 0; y < 1; y++)
-        {
-            if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 1)) {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
 
 //추후 i값의 조절로 animal의 개수를 늘릴수 있고, pos값의 변경으로 animal의 위치를 변경할 수 있습니다.
 void makeAnimal() {
@@ -225,32 +209,6 @@ void moveAnimal() {
     }
 }
 
-//삭제예정(detectCollision.h파일 변경 후 적용)
-void DrawAnimal() {
-    int posX, posY;
-
-    for (int i = 0; i < 3; i++) {
-        posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
-
-        for (posX = 0; posX < 2; posX++) {
-            setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
-            if (animalModel[0][posX] == 1) printf("♧");
-            else printf("■");
-        }
-    }
-}
-//삭제예정(detectCollision.h파일 변경 후 적용)
-void DeleteAnimal() {
-    int posX, posY;
-    for (int i = 0; i < 3; i++) {
-        posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
-
-        for (posX = 0; posX < 2; posX++) {
-            setCurrentCursorPos(animalCurPos.X + posX, animalCurPos.Y);
-            printf("  ");
-        }
-    }
-}
 
 //enemyPosArray의 index입니다. 초기값을 0으로 초기화해줍니다.
 void resetEnemySpawnCount() {
