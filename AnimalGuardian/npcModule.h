@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 #include <time.h>
 
-// globalVariable·Î ¿Å°Ü¾ßÇÒ ³»¿ëµéÀÔ´Ï´Ù
-//À§Ä¡¸¦ ÀúÀåÇØÁÖ´Â Àü¿ªº¯¼ö
+// globalVariableë¡œ ì˜®ê²¨ì•¼í•  ë‚´ìš©ë“¤ì…ë‹ˆë‹¤
+//ìœ„ì¹˜ë¥¼ ì €ì¥í•´ì£¼ëŠ” ì „ì—­ë³€ìˆ˜
 int* enemyPosArray;
-//enemyNpcÀÇ spawnTimeÀ» Ã¼Å©ÇØÁÖ´Â º¯¼ö
+//enemyNpcì˜ spawnTimeì„ ì²´í¬í•´ì£¼ëŠ” ë³€ìˆ˜
 clock_t checkEnemyNpcSpawnTime;
-//animalNpcÀÇ ¿òÁ÷ÀÓÀ» Á¶ÀıÇÏ¿© ½Ã°£´ç ¿òÁ÷ÀÌ°Ô ÇØÁÙ º¯¼ö
+//animalNpcì˜ ì›€ì§ì„ì„ ì¡°ì ˆí•˜ì—¬ ì‹œê°„ë‹¹ ì›€ì§ì´ê²Œ í•´ì¤„ ë³€ìˆ˜
 clock_t animalMoveTimePerSec;
-//¼ÒÈ¯µÈ enemyÀÇ ¼ö
+//ì†Œí™˜ëœ enemyì˜ ìˆ˜
 int spawnedEnemyCount;
 //
 

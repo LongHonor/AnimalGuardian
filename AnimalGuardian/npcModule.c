@@ -1,4 +1,4 @@
-#include "globalVariable.h"
+ï»¿#include "globalVariable.h"
 #include "npcModule.h"
 #include "gameBoardHandler.h"
 #include <stdio.h>
@@ -7,7 +7,7 @@
 #include <conio.h>
 #include <time.h>
 
-//startÀÌ»ó endÀÌÇÏÁß ·£´ı º¯¼ö ¹İÈ¯
+//startì´ìƒ endì´í•˜ì¤‘ ëœë¤ ë³€ìˆ˜ ë°˜í™˜
 int randInt(start, end) {
     int length = end - start + 1;
     return (int)(rand() % length) + start;
@@ -20,8 +20,8 @@ int isInArray(const int arr[], int val, int len) {
     return 0;
 }
 
-//start ºÎÅÍ end »çÀÌ¿¡¼­ count °³¼ö¸¸Å­ÀÇ ÁÂÇ¥¸¦ °¡Áø ¹è¿­À» return ÇÕ´Ï´Ù. µ¿ÀûÇÒ´ç µÇ¾îÀÖÀ¸¹Ç·Î
-//´Ù ¾²°í free ÇØÁÖ¾î¾ß ÇÔ
+//start ë¶€í„° end ì‚¬ì´ì—ì„œ count ê°œìˆ˜ë§Œí¼ì˜ ì¢Œí‘œë¥¼ ê°€ì§„ ë°°ì—´ì„ return í•©ë‹ˆë‹¤. ë™ì í• ë‹¹ ë˜ì–´ìˆìœ¼ë¯€ë¡œ
+//ë‹¤ ì“°ê³  free í•´ì£¼ì–´ì•¼ í•¨
 void setRandomArray(int* arr, const int start, const int end, const int count) {
     for (int i = 0; i < count; i++) {
         int pos = randInt(start, end);
@@ -33,7 +33,7 @@ void setRandomArray(int* arr, const int start, const int end, const int count) {
     }
 }
 
-//ÀûÀÇ ÀÌµ¿¹æÇâÀ» Àç¼³Á¤ÇÕ´Ï´Ù. À§ ÁÂ ¿ì ´Ù¸·ÇûÀ» °æ¿ì 0À» return ÇÕ´Ï´Ù.
+//ì ì˜ ì´ë™ë°©í–¥ì„ ì¬ì„¤ì •í•©ë‹ˆë‹¤. ìœ„ ì¢Œ ìš° ë‹¤ë§‰í˜”ì„ ê²½ìš° 0ì„ return í•©ë‹ˆë‹¤.
 int setDirection(enemyNPC* enemy) {
     if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1) {
         enemy->direction = 0;
@@ -57,7 +57,7 @@ int setDirection(enemyNPC* enemy) {
     return 0;
 }
 
-//ÁöÁ¤µÈ ¹æÇâÀ¸·Î ¿òÁ÷ÀÔ´Ï´Ù ¼º°ø¿©ºÎ¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+//ì§€ì •ëœ ë°©í–¥ìœ¼ë¡œ ì›€ì§ì…ë‹ˆë‹¤ ì„±ê³µì—¬ë¶€ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
 int tryMove(enemyNPC* enemy) {
     if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)==1 && 
         enemy->direction == 0) {
@@ -90,7 +90,7 @@ int tryMove(enemyNPC* enemy) {
 
 void moveOneEnemy(enemyNPC* enemy) {
     if (!tryMove(enemy)) {
-        if (!setDirection(enemy)) //¹æÇâ ÁöÁ¤ ½ÇÆĞ½Ã °¤Èù ¸ó½ºÅÍÀÌ´Ù.
+        if (!setDirection(enemy)) //ë°©í–¥ ì§€ì • ì‹¤íŒ¨ì‹œ ê°‡íŒ ëª¬ìŠ¤í„°ì´ë‹¤.
             return;
         else tryMove(enemy);
     }
@@ -133,7 +133,7 @@ void deleteNormalEnemy() {
     }
 }
 
-//xÀ§Ä¡°ªÀ» °¡Á®¿Í¼­ ±× pos¿¡ enemy¸¦ ¸¸µì´Ï´Ù.
+//xìœ„ì¹˜ê°’ì„ ê°€ì ¸ì™€ì„œ ê·¸ posì— enemyë¥¼ ë§Œë“­ë‹ˆë‹¤.
 void makeNormalEnemy(int x) {
     enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
 
@@ -158,7 +158,7 @@ void makeNormalEnemy(int x) {
     enemyNpc->id = count;
 }
 
-//enemyCountÀÇ Á¶Àı·Î enemyÀÇ ¼ö¸¦ º¯°æÇÒ ¼ö ÀÖ½À´Ï´Ù.
+//enemyCountì˜ ì¡°ì ˆë¡œ enemyì˜ ìˆ˜ë¥¼ ë³€ê²½í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 void makeEnemyList(int enemyCount) {
     enemyList = (enemyNPCList*)malloc(sizeof(enemyNPCList));
 
@@ -170,7 +170,7 @@ void makeEnemyList(int enemyCount) {
 }
 
 
-//ÃßÈÄ i°ªÀÇ Á¶Àı·Î animalÀÇ °³¼ö¸¦ ´Ã¸±¼ö ÀÖ°í, pos°ªÀÇ º¯°æÀ¸·Î animalÀÇ À§Ä¡¸¦ º¯°æÇÒ ¼ö ÀÖ½À´Ï´Ù.
+//ì¶”í›„ iê°’ì˜ ì¡°ì ˆë¡œ animalì˜ ê°œìˆ˜ë¥¼ ëŠ˜ë¦´ìˆ˜ ìˆê³ , posê°’ì˜ ë³€ê²½ìœ¼ë¡œ animalì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 void makeAnimal() {
     int animalPos = 20;
     for (int i = 0; i < 3; i++) {
@@ -183,10 +183,10 @@ void makeAnimal() {
 }
 
 void moveOneAnimal(int index) {
-    //·£´ıÇÏ°Ô ¹æÇâ ÁöÁ¤
+    //ëœë¤í•˜ê²Œ ë°©í–¥ ì§€ì •
     int direction = randInt(-1, 1);
 
-    //direction ÀÌ 0 ÀÌ¸é ±×³É return
+    //direction ì´ 0 ì´ë©´ ê·¸ëƒ¥ return
     if (direction == 0) return;
 
     if (animalNPCdetectCollision(animalArray[index].pos.X+(direction*2), animalArray[index].pos.Y)==0) {
@@ -202,7 +202,7 @@ void moveOneAnimal(int index) {
     }
 }
 
-//ÃßÈÄ i°ªÀÇ Á¶Á¤À¸·Î ÀüºÎ ¿òÁ÷ÀÏ ¼ö ÀÖ°Ô ÇÑ´Ù
+//ì¶”í›„ iê°’ì˜ ì¡°ì •ìœ¼ë¡œ ì „ë¶€ ì›€ì§ì¼ ìˆ˜ ìˆê²Œ í•œë‹¤
 void moveAnimal() {
     for (int i = 0; i < 3; i++) {
         moveOneAnimal(i);
@@ -210,15 +210,15 @@ void moveAnimal() {
 }
 
 
-//enemyPosArrayÀÇ indexÀÔ´Ï´Ù. ÃÊ±â°ªÀ» 0À¸·Î ÃÊ±âÈ­ÇØÁİ´Ï´Ù.
+//enemyPosArrayì˜ indexì…ë‹ˆë‹¤. ì´ˆê¸°ê°’ì„ 0ìœ¼ë¡œ ì´ˆê¸°í™”í•´ì¤ë‹ˆë‹¤.
 void resetEnemySpawnCount() {
     spawnedEnemyCount = 0;
 }
 
-//enemyÀÇ ¿òÁ÷ÀÓÀ» ÃÑ°ıÇØÁÖ´Â ÇÔ¼öÀÔ´Ï´Ù. Àü¿ªÀ¸·Î ¼³Á¤µÈ enemyPosArray¿¡ ÀÖ´Â enemySpawnCount ÀÎµ¦½º ¹æÀÌ °¡¸®Å°´Â °ªÀ¸·Î ½ºÆùÇÕ´Ï´Ù.
+//enemyì˜ ì›€ì§ì„ì„ ì´ê´„í•´ì£¼ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤. ì „ì—­ìœ¼ë¡œ ì„¤ì •ëœ enemyPosArrayì— ìˆëŠ” enemySpawnCount ì¸ë±ìŠ¤ ë°©ì´ ê°€ë¦¬í‚¤ëŠ” ê°’ìœ¼ë¡œ ìŠ¤í°í•©ë‹ˆë‹¤.
 void enemyMoveSetting() {
-    if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 5) {//¿©±âÀÖ´Â 5¸¦ º¯°æÇÏ¿© ½ºÆù½Ã°£À» Á¦¾îÇÒ ¼ö ÀÖ½À´Ï´Ù.
-        if (spawnedEnemyCount < 3) {//¿©±âÀÇ 3Àº ÃÑ enemy °³¼ö°ª°ú µ¿ÀÏÇÏ°Ô µé¾î°©´Ï´Ù.
+    if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 5) {//ì—¬ê¸°ìˆëŠ” 5ë¥¼ ë³€ê²½í•˜ì—¬ ìŠ¤í°ì‹œê°„ì„ ì œì–´í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+        if (spawnedEnemyCount < 3) {//ì—¬ê¸°ì˜ 3ì€ ì´ enemy ê°œìˆ˜ê°’ê³¼ ë™ì¼í•˜ê²Œ ë“¤ì–´ê°‘ë‹ˆë‹¤.
             makeNormalEnemy((*(enemyPosArray + spawnedEnemyCount)) * 2);
             spawnedEnemyCount++;
             checkEnemyNpcSpawnTime = clock();
@@ -229,7 +229,7 @@ void enemyMoveSetting() {
     moveEnemy();
     drawEnemy();
 }
-//animalMove¸¦ ÃÑ°ıÇØÁÖ´Â ÇÔ¼öÀÔ´Ï´Ù.
+//animalMoveë¥¼ ì´ê´„í•´ì£¼ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤.
 void animalMoveSetting() {
     if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
         deleteAnimal();
