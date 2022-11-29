@@ -112,6 +112,6 @@ void setCurrentGameBoard(int stage);
 
 void removeCursor();
 void changeConsoleColor(int colorIndex);
-void restroreConsoleColor();
+void restoreConsoleColor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
