@@ -161,6 +161,7 @@ void pcKeyInput() {
 				break;
 			}
 		}
+		//장전2초
 		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / CLOCKS_PER_SEC >= 2.0f) {
 			loadFlag = 0;
 		}
