@@ -172,12 +172,12 @@ void makeEnemyList(int enemyCount) {
 
 //추후 i값의 조절로 animal의 개수를 늘릴수 있고, pos값의 변경으로 animal의 위치를 변경할 수 있습니다.
 void makeAnimal() {
-    int animalPos = 20;
-    for (int i = 0; i < 3; i++) {
+    int randPos = 20;
+    for (int i = 0; i < allAnimalCount; i++) {
         animalArray[i].id = i;
         animalArray[i].speed = 1;
-        setAnimalCurrentPos(animalArray + i,animalPos , 1);
-        animalPos += 15;
+        setAnimalCurrentPos(animalArray + i,randPos, 1);
+        randPos += 15;
     }
 }
 
@@ -200,31 +200,51 @@ void moveOneAnimal(int index) {
         animalArray[index].pos.X += direction*2;
     }
 }
+//enemy, Animal 총 마릿수를 지정해주는 함수
+void setAllEnemyCount(int count) {
+    allEnemyCount = count;
+}
+void setAllAnimalCount(int count) {
+    allAnimalCount = count;
+}
 
 //추후 i값의 조정으로 전부 움직일 수 있게 한다
 void moveAnimal() {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < allAnimalCount; i++) {
         moveOneAnimal(i);
     }
 }
 
 
-//enemyPosArray의 index입니다. 초기값을 0으로 초기화해줍니다.
+//enemyPosArray배열을 돌 index입니다. 초기값을 0으로 초기화해줍니다.
 void resetEnemySpawnCount() {
     spawnedEnemyCount = 0;
 }
 
 //enemy의 움직임을 총괄해주는 함수입니다. 전역으로 설정된 enemyPosArray에 있는 enemySpawnCount 인덱스 방이 가리키는 값으로 스폰합니다.
 void enemyMoveSetting() {
+    
     if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 5) {//여기있는 5를 변경하여 스폰시간을 제어할 수 있습니다.
-        if (spawnedEnemyCount < 3) {//여기의 3은 총 enemy 개수값과 동일하게 들어갑니다.
+        if (spawnedEnemyCount < allEnemyCount) {//여기의 3은 총 enemy 개수값과 동일하게 들어갑니다.
+            /*
+            setCurrentCursorPos(85,0);
+            printf("                         ");
+            setCurrentCursorPos(85, 0);
+            printf("enemy가 스폰되었습니다.");
+            */
             makeNormalEnemy((*(enemyPosArray + spawnedEnemyCount)) * 2);
             spawnedEnemyCount++;
             checkEnemyNpcSpawnTime = clock();
         }
         checkEnemyNpcSpawnTime = clock();
     }
-    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
+    /*
+    else {
+        setCurrentCursorPos(85, 0);
+        printf("                         ");
+    }
+    */
+    if ((double)(clock() - enemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.05) {
         deleteEnemy();
         moveEnemy();
         enemyMoveTimePerSec = clock();
@@ -235,7 +255,7 @@ void enemyMoveSetting() {
 }
 //animalMove를 총괄해주는 함수입니다.
 void animalMoveSetting() {
-    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
+    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
         deleteAnimal();
         moveAnimal();
         animalMoveTimePerSec = clock();

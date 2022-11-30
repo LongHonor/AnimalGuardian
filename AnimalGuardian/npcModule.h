@@ -1,7 +1,11 @@
 ﻿#pragma once
 #include <time.h>
+//스테이지별로 마릿수를 지정해줄 전역변수입니다
+int allAnimalCount;
+int allEnemyCount;
 
-//위치를 저장해주는 전역변수
+
+//enemy위치를 저장해주는 배열
 int* enemyPosArray;
 //enemyNpc의 spawnTime을 체크해주는 변수
 clock_t checkEnemyNpcSpawnTime;
@@ -9,9 +13,8 @@ clock_t checkEnemyNpcSpawnTime;
 clock_t animalMoveTimePerSec;
 //enemyNpc의 움직임을 조절하여 시간당 움직이게 해줄 변수
 clock_t enemyMoveTimePerSec;
-//소환된 enemy의 수
+//배열을 돌 index
 int spawnedEnemyCount;
-
 
 
 int randInt(start, end);
@@ -32,3 +35,5 @@ void moveAnimal();
 void animalMoveSetting();
 void resetEnemySpawnCount();
 void enemyMoveSetting();
+void setAllAnimalCount(int count);
+void setAllEnemyCount(int count);
