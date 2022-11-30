@@ -58,6 +58,9 @@ int detectCollisionBullet(int posX, int posY) {
 	if (currentGameBoard[arry][arrx] == 1) {
 		return 0;
 	}
+	if (currentGameBoard[arry][arrx] == 7) {
+		return 0;
+	}
 	return 1;
 }
 

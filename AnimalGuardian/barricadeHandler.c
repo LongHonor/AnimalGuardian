@@ -6,7 +6,7 @@
 
 char barcModel[1][3] = { {1,1,1} };
 int barcX = 4, barcY = 10;
-int barricadeColor = 7;
+int barricadeColor = white;
 
 void drawBarricade() {
 	int posX, posY;
@@ -35,11 +35,11 @@ void shiftLeftBarricade() {
 		return;
 	}
 	else if (detectCollisionBarricade(barcX - 2, barcY) == 9) {
-		barricadeColor = 4;
+		barricadeColor = red;
 
 	}
 	else {
-		barricadeColor = 7;
+		barricadeColor = green;
 	}
 	deleteBarricade();
 	barcX -= 2;
@@ -56,10 +56,10 @@ void shiftRightBarricade() {
 		return;
 	}
 	else if (detectCollisionBarricade(barcX + 2, barcY) == 9) {
-		barricadeColor = 4;
+		barricadeColor = red;
 	}
 	else {
-		barricadeColor = 7;
+		barricadeColor = green;
 	}
 	deleteBarricade();
 	barcX += 2;
@@ -76,10 +76,10 @@ void shiftUpBarricade() {
 		return;
 	}
 	else if (detectCollisionBarricade(barcX, barcY-1) == 9) {
-		barricadeColor = 4;
+		barricadeColor = red;
 	}
 	else {
-		barricadeColor = 7;
+		barricadeColor = green;
 	}
 	deleteBarricade();
 	barcY -= 1;
@@ -96,10 +96,10 @@ void shiftDownBarricade() {
 		return;
 	}
 	else if (detectCollisionBarricade(barcX, barcY+1) == 9) {
-		barricadeColor = 4;
+		barricadeColor = red;
 	}
 	else {
-		barricadeColor = 7;
+		barricadeColor = green;
 	}
 	deleteBarricade();
 	barcY += 1;

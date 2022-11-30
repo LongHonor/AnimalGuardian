@@ -6,7 +6,8 @@
 #include "pcHandler.h"
 
 int main() {
-	
+
+	setCurrentGameBoard(0);
 	removeCursor();
 	drawGameBoard();
 	//makeEnemyList();

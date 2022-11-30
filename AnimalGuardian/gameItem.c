@@ -2,6 +2,7 @@
 #include "globalVariable.h"
 #include "barricadeHandler.h"
 #include "gameBoardHandler.h"
+
 #include <conio.h>
 
 
@@ -48,7 +49,7 @@ boolean isBarricadePlaceable(int posX, int posY) {
 	//게임보드 전역변수 게터로 가져와서 설치 가능한지 확인
 	// 0 : false 1 : true
 
-	setCurrentGameBoard(0);
+	//setCurrentGameBoard(0);
 	int i;
 	int arrX = (posX - gBoardOx) / 2;
 	int arrY = posY - gBoardOy;
@@ -71,6 +72,9 @@ void placeBarricade() {
 	//이동키 누르면 바리케이드 위치 이동
 
 	int key;
+
+	changeConsoleColor(green);
+
 	drawBarricade();
 	while (1) {
 		for (int i = 0; i < 20; i++) {
@@ -94,6 +98,7 @@ void placeBarricade() {
 					
 					if (isBarricadePlaceable(barcX, barcY) == 1) {
 						posStruct barricadeCurPos = { barcX,barcY };
+						restoreConsoleColor(); drawBarricade();
 						AddBlockToBoard(barricadeCurPos);
 						return;
 					}
