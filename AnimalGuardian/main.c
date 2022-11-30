@@ -4,36 +4,27 @@
 #include "gameBoardHandler.h"
 #include "gameItem.h"
 #include "pcHandler.h"
+#include "npcModule.h"
 
 int main() {
+    srand((unsigned)time(NULL));
+    setCurrentGameBoard(1);
+    removeCursor();
+    drawGameBoard();
+    drawInitialUI();
+    showPC(player);
 
-	setCurrentGameBoard(0);
-	removeCursor();
-	drawGameBoard();
-	drawInitialUI();
-	//makeEnemyList();
-	//makeEnemy();
-	//setPCCurrentPos(10, 20);
-	for (int i = 0; i < 3; i++) {
-		setAnimalCurrentPos(&animalArray[i], 20 + i * 4, 1);
+    setAllAnimalCount(5);
+    makeAnimal();
 
-	}
-	drawAnimal();
-	/*while (1) {
-		drawPC(player);
-		drawAnimal();
-		drawEnemy();
-		Sleep(200);
-		deletePC(player);
-		deleteAnimal();
-		deleteEnemy();
-		Sleep(200);
-	}*/
+    resetEnemySpawnCount();
+    setAllEnemyCount(5);
+    makeEnemyList(allEnemyCount);
+    while (1) {
+        enemyMoveSetting();
+        animalMoveSetting();
+        pcKeyInput();
+    }
 
-	//키보드 입력 및 pc 구현
-	showPC(player);
-	while (1) {
-		pcKeyInput();
-	}
-	return 0;
+    return 0;
 }
