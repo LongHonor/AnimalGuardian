@@ -114,7 +114,6 @@ void shootBullet() {
 		}
 		if (curr->pos.Y < gBoardOy + 2) {
 			first_bullet = curr->link;
-			free(curr);
 		}
 		if (first_bullet == NULL) {
 			break;
@@ -139,7 +138,7 @@ void pcKeyInput() {
 				shiftRightPc();
 				break;
 			case space:
-				if (bulletCount > 0) {
+				if (loadFlag == 0 && bulletCount > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
 					newbullet->speed = 15;
@@ -161,6 +160,9 @@ void pcKeyInput() {
 				//번호에 해당하는 아이템 사용
 				break;
 			}
+		}
+		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / CLOCKS_PER_SEC >= 2.0f) {
+			loadFlag = 0;
 		}
 		Sleep(20);
 	}
