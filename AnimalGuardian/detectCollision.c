@@ -16,7 +16,7 @@ int enemyNPCDetectCollision(int posX, int posY) {
 				return 0;
 			}
 			//장애물 return값 9
-			if (enemyModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 4 || currentGameBoard[arrY + y][arrX + x] == 5)) {
+			if (enemyModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 4 || currentGameBoard[arrY + y][arrX + x] == 5|| currentGameBoard[arrY+y][arrX+x] == 7)) {
 				return 9;
 			}
 		}
@@ -40,25 +40,25 @@ int animalNPCdetectCollision(int posX, int posY) {
 }
 
 int detectCollisionPC(int posX, int posY) {
-	int arrx = (posX - gBoardOx) / 2;
-	int arry = (posY - gBoardOy);
+	int arrX = (posX - gBoardOx) / 2;
+	int arrY = (posY - gBoardOy);
 	//pc총돌 리턴 0
-	if (currentGameBoard[arry][arrx] == 1) {
+	if (currentGameBoard[arrY][arrX] == 1) {
 		return 0;
 	}
 	return 1;
 }
 
 int detectCollisionBullet(int posX, int posY) {
-	int arrx = (posX - gBoardOx) / 2;
-	int arry = (posY - gBoardOy);
-	if (currentGameBoard[arry][arrx] == 4 || currentGameBoard[arry][arrx] == 5) {
+	int arrX = (posX - gBoardOx) / 2;
+	int arrY = (posY - gBoardOy);
+	if (currentGameBoard[arrY][arrX] == 4 || currentGameBoard[arrY][arrX] == 5) {
 		return 0;
 	}
-	if (currentGameBoard[arry][arrx] == 1) {
+	if (currentGameBoard[arrY][arrX] == 1) {
 		return 0;
 	}
-	if (currentGameBoard[arry][arrx] == 7) {
+	if (currentGameBoard[arrY][arrX] == 7) {
 		return 0;
 	}
 	return 1;
