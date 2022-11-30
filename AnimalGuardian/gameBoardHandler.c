@@ -1,5 +1,7 @@
 ﻿#include "gameBoardHandler.h"
 #include "globalVariable.h"
+#include "pcHandler.h"
+#include "npcModule.h"
 #include <windows.h>
 #include <stdio.h>
 
@@ -176,4 +178,22 @@ void deleteEnemy() {
 	}
 }
 
-void drawUI();
+void drawInitialUI() {
+	printBulletCount();
+	printEnemyCount();
+}
+
+void printBulletCount() {
+	//pcHandler에서 불러오는 구조
+	int bulletCnt = bulletCount;
+
+	setCurrentCursorPos(44 * 2, 3);
+	printf("%d / %d", bulletCnt, maxBullet);
+}
+void printEnemyCount() {
+	int enemyCnt = allEnemyCount;
+
+	setCurrentCursorPos(44 * 2, 4);
+	//총 enemy 수와 현재 enemy수 
+	printf("%d / %d", enemyCnt, 10);
+}

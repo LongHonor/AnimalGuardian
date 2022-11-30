@@ -9,4 +9,7 @@ void drawAnimal();
 void deleteAnimal();
 void drawEnemy();
 void deleteEnemy();
-void drawUI();
+
+void drawInitialUI();
+void printBulletCount();
+void printEnemyCount();
