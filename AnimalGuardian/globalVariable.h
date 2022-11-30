@@ -101,6 +101,7 @@ enemyNPCList *enemyList;
 
 
 //함수 선언부
+pc getPCInfo();
 posStruct getPCCurrentPos();
 void setPCCurrentPos(int moveX, int moveY);
 posStruct getEnemyCurrentPos(int enemyId);

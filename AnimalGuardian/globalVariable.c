@@ -85,6 +85,9 @@ stage = 0;;
 //커서 전역변수
 int curPosX = gBoardOx, curPosY = gBoardOy;
 
+pc getPCInfo() {
+	return playableCharacter;
+}
 
 //PC 좌표 핸들러
 posStruct getPCCurrentPos() {
