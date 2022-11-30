@@ -10,6 +10,7 @@ int main() {
 	setCurrentGameBoard(0);
 	removeCursor();
 	drawGameBoard();
+	drawInitialUI();
 	//makeEnemyList();
 	//makeEnemy();
 	//setPCCurrentPos(10, 20);
