@@ -19,7 +19,7 @@ void drawGameBoard() {
 	int posX, posY;
 	int pcAreaLine = 19;
 
-	setCurrentGameBoard(0);
+	//setCurrentGameBoard(0);
 
 	for (posY = 0; posY < gBoardHeight + 3; posY++) {
 		setCurrentCursorPos(0, posY);
@@ -61,7 +61,7 @@ void AddBlockToBoard(posStruct barricadeCurPos) {
 	{
 		for (x = 0; x < 3; x++)
 		{
-			currentGameBoard[arrCurY + y][arrCurX + x] = 5;
+			currentGameBoard[arrCurY + y][arrCurX + x] = 7;
 		}
 	}
 }
