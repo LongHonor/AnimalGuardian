@@ -1,5 +1,6 @@
 ﻿#include "globalVariable.h"
 #include "npcModule.h"
+#include "detectCollision.h"
 #include "gameBoardHandler.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,7 +60,7 @@ int setDirection(enemyNPC* enemy) {
 
 //지정된 방향으로 움직입니다 성공여부를 반환합니다.
 int tryMove(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)==1 && 
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)==1 &&
         enemy->direction == 0) {
 
         deleteEnemy(enemy);
@@ -89,6 +90,9 @@ int tryMove(enemyNPC* enemy) {
 }
 
 void moveOneEnemy(enemyNPC* enemy) {
+    if (enemy->id == 0) {
+        return;
+    }
     if (!tryMove(enemy)) {
         if (!setDirection(enemy)) //방향 지정 실패시 갇힌 몬스터이다.
             return;
@@ -124,16 +128,19 @@ void deleteOneEnemy(enemyNPC* enemyNpc) {
     deleteEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
 }
 
-void deleteNormalEnemy() {
+void deleteAndFreeAllEnemy() {
     enemyNPC* enemyNpc = enemyList->enemyHeader;
     while (enemyNpc != NULL) {
         setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
-        drawEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
+        deleteOneEnemy(enemyNpc);
+        free(enemyNpc);
         enemyNpc = enemyNpc->next;
     }
 }
 
 //x위치값을 가져와서 그 pos에 enemy를 만듭니다.
+//enemyID는 생성된 순서대로 1,2..allEnemyCount까지입니다.
+//불필요한 enemy메모리로의 접근을 없애기 위하여, enemy각 객체의 ID를 검사하여 draw,delete, move함수를 실행할지 결정합니다.
 void makeNormalEnemy(int x) {
     enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
 
@@ -141,6 +148,7 @@ void makeNormalEnemy(int x) {
     enemyNpc->pos.Y = gBoardOy + 18;
     enemyNpc->next = NULL;
     enemyNpc->direction = 0;
+    enemyNpc->id = 1;
 
     if (enemyList->enemyHeader == NULL) {
         enemyList->enemyHeader = enemyNpc;
@@ -148,7 +156,7 @@ void makeNormalEnemy(int x) {
         return;
     }
 
-    int count = 0;
+    int count = 2;
     enemyNPC* lastEnemy = enemyList->enemyHeader;
     while (lastEnemy->next != NULL) {
         lastEnemy = lastEnemy->next;
@@ -185,6 +193,9 @@ void moveOneAnimal(int index) {
     //랜덤하게 방향 지정
     int direction = randInt(-1, 1);
 
+    if (animalArray[index].id == 0) {
+        return;
+    }
     //direction 이 0 이면 그냥 return
     if (direction == 0) return;
 
@@ -223,28 +234,26 @@ void resetEnemySpawnCount() {
 
 //enemy의 움직임을 총괄해주는 함수입니다. 전역으로 설정된 enemyPosArray에 있는 enemySpawnCount 인덱스 방이 가리키는 값으로 스폰합니다.
 void enemyMoveSetting() {
-    
-    if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 5) {//여기있는 5를 변경하여 스폰시간을 제어할 수 있습니다.
+    if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 3) {//여기있는 5를 변경하여 스폰시간을 제어할 수 있습니다.
         if (spawnedEnemyCount < allEnemyCount) {//여기의 3은 총 enemy 개수값과 동일하게 들어갑니다.
-            /*
-            setCurrentCursorPos(85,0);
+            
+            setCurrentCursorPos(85, 1);
             printf("                         ");
-            setCurrentCursorPos(85, 0);
+            setCurrentCursorPos(85, 1);
             printf("enemy가 스폰되었습니다.");
-            */
+            
             makeNormalEnemy((*(enemyPosArray + spawnedEnemyCount)) * 2);
             spawnedEnemyCount++;
             checkEnemyNpcSpawnTime = clock();
         }
         checkEnemyNpcSpawnTime = clock();
     }
-    /*
     else {
-        setCurrentCursorPos(85, 0);
+        setCurrentCursorPos(85, 1);
         printf("                         ");
     }
-    */
-    if ((double)(clock() - enemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.05) {
+    
+    if ((double)(clock() - enemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
         deleteEnemy();
         moveEnemy();
         enemyMoveTimePerSec = clock();

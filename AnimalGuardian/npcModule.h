@@ -27,7 +27,7 @@ void moveEnemy();
 void showNormalEnemy();
 void showOneEnemy(enemyNPC* enemyNpc);
 void deleteOneEnemy(enemyNPC* enemyNpc);
-void deleteNormalEnemy();
+void deleteAndFreeAllEnemy();
 void makeNormalEnemy(int x);
 void makeEnemyList(int enemyCount);
 void makeAnimal();
