@@ -100,17 +100,19 @@ void drawAnimal() {
 	int arrX,arrY;
 	for (int i = 0; i < 3; i++) {
 		if (animalArray[i].id == 0) return;
-		//animalNPC 위치 받아와서 setCurrentCursorPos()호출
-		posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
-		arrX = (animalCurPos.X - gBoardOx) / 2;
-		arrY = (animalCurPos.Y - gBoardOy);
-		for (posX = 0; posX < 2; posX++) {
-			setCurrentCursorPos(animalCurPos.X + posX*2, animalCurPos.Y);
-			if (animalModel[0][posX] == 1) printf("♧");
-			else printf("■");
-			currentGameBoard[arrY][arrX+posX] = 1;
+		if (animalArray[i].activeStatus == TRUE) {
+			//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+			arrX = (animalCurPos.X - gBoardOx) / 2;
+			arrY = (animalCurPos.Y - gBoardOy);
+			for (posX = 0; posX < 2; posX++) {
+				setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
+				if (animalModel[0][posX] == 1) printf("♧");
+				else printf("■");
+				currentGameBoard[arrY][arrX + posX] = 3;
+			}
+			setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 		}
-		setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 	}
 }
 void deleteAnimal() {
@@ -118,16 +120,18 @@ void deleteAnimal() {
 	int arrX, arrY;
 	for (int i = 0; i < 3; i++) {
 		if (animalArray[i].id == 0) return;
-		//animalNPC 위치 받아와서 setCurrentCursorPos()호출
-		posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
-		arrX = (animalCurPos.X - gBoardOx) / 2;
-		arrY = (animalCurPos.Y - gBoardOy);
-		for (posX = 0; posX < 2; posX++) {
-			setCurrentCursorPos(animalCurPos.X + posX*2, animalCurPos.Y);
-			printf("  ");
-			currentGameBoard[arrY][arrX + posX] = 0;
+		if (animalArray[i].activeStatus == TRUE) {
+			//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+			arrX = (animalCurPos.X - gBoardOx) / 2;
+			arrY = (animalCurPos.Y - gBoardOy);
+			for (posX = 0; posX < 2; posX++) {
+				setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
+				printf("  ");
+				currentGameBoard[arrY][arrX + posX] = 0;
+			}
+			setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 		}
-		setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 	}
 }
 
@@ -148,7 +152,7 @@ void drawEnemy() {
 			for (posY = 0; posY < 1; posY++) {
 				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
 				if (enemyModel[posY][0] == 1) printf("▲");
-				currentGameBoard[arrY+posY][arrX] = 1;
+				currentGameBoard[arrY+posY][arrX] = 2;
 			}
 			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 		}
@@ -191,9 +195,9 @@ void printBulletCount() {
 	printf("%d / %d", bulletCnt, maxBullet);
 }
 void printEnemyCount() {
-	int enemyCnt = allEnemyCount;
+	int enemyTotalCnt = allEnemyCount;
 
 	setCurrentCursorPos(44 * 2, 4);
 	//총 enemy 수와 현재 enemy수 
-	printf("%2d / %d", enemyCnt, 10);
+	printf("%2d / %d", enemyTotalCnt, enemyTotalCnt);
 }

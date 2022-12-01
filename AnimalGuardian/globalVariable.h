@@ -89,6 +89,7 @@ typedef struct _AnimalNPC {
 	posStruct pos;
 	int speed;
 	int id;
+	boolean activeStatus;
 }animalNPC;
 
 
