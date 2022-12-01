@@ -27,6 +27,7 @@ extern int bulletItem;
 
 clock_t checkLoadStartTime;
 extern int loadFlag;
+int loadTime;
 
 void showPC(struct _Player player);
 void erasePC(struct _Player player);

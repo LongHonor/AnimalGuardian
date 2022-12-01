@@ -12,9 +12,10 @@ PC player = { {40,20},1,200,3 };
 //bullet 초기화
 int bulletCount = 10;
 Bullet* bullet_head = NULL;
-int bulletItem = 1;
+int bulletItem = 0;
 
 loadFlag = 0;
+loadTime = 2;
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
@@ -62,14 +63,28 @@ void shootBullet() {
 		//일반 모드
 		if (bulletItem == 0) {
 			//바로 위 충돌
-			if (!detectCollisionBullet(curr->pos.X, curr->pos.Y - 1)) {
+			if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 0) {
 				first_bullet = curr->link;
 				showBullet(curr->pos);
 				Sleep(curr->speed);
 				eraseBullet(curr->pos);
 			}
 			//위위 충돌
-			else if (!detectCollisionBullet(curr->pos.X, curr->pos.Y - 2)) {
+			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 0) {
+				first_bullet = curr->link;
+				curr->pos.Y -= 1;
+				showBullet(curr->pos);
+				Sleep(curr->speed);
+				eraseBullet(curr->pos);
+			}
+			//npc 충돌 검사
+			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 5) {
+				first_bullet = curr->link;
+				showBullet(curr->pos);
+				Sleep(curr->speed);
+				eraseBullet(curr->pos);
+			}
+			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 5) {
 				first_bullet = curr->link;
 				curr->pos.Y -= 1;
 				showBullet(curr->pos);
@@ -86,39 +101,38 @@ void shootBullet() {
 		}
 		//관통 모드
 		else if (bulletItem == 1) {
-			curr->pos.Y -= 2;
-			if (!detectCollisionBullet(curr->pos.X, curr->pos.Y)) {
-				Sleep(curr->speed);
-			}
-			else if (curr->pos.Y  - 2 == gBoardOy) {
+			//게임보드 상단 충돌
+			if (curr->pos.Y - 2 == gBoardOy) {
 				curr->pos.Y = gBoardOy + 1;
 				showBullet(curr->pos);
 				Sleep(curr->speed);
 				eraseBullet(curr->pos);
 				first_bullet = curr->link;
 			}
+			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 0 || detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 0) {
+				curr->pos.Y -= 2;
+				Sleep(curr->speed);
+			}
+			//npc충돌
+			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 5) {
+				showBullet(curr->pos);
+				Sleep(curr->speed);
+				eraseBullet(curr->pos);
+				first_bullet = curr->link;
+			}
+			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 5) {
+				curr->pos.Y -= 1;
+				showBullet(curr->pos);
+				Sleep(curr->speed);
+				eraseBullet(curr->pos);
+				first_bullet = curr->link;
+			}
 			else {
+				curr->pos.Y -= 2;
 				showBullet(curr->pos);
 				Sleep(curr->speed);
 				eraseBullet(curr->pos);
 			}
-			//바로 위 충돌
-			//if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1)) {
-			//	curr->pos.Y -= 2;
-			//	showBullet(curr->pos);
-			//	Sleep(curr->speed);
-			//	eraseBullet(curr->pos);
-			//}
-			////위위 충돌
-			//else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 2)) {
-			//	curr->pos.Y -= 2;
-			//	showBullet(curr->pos);
-			//	Sleep(curr->speed);
-			//	eraseBullet(curr->pos);
-			//}
-			//else {
-			//	Sleep(curr->speed);
-			//}
 		}
 		if (_kbhit() != 0) {
 			int key = _getch();
@@ -195,7 +209,7 @@ void pcKeyInput() {
 			}
 		}
 		//장전2초
-		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= 2) {
+		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= loadTime) {
 			loadBullet();
 			loadFlag = 0;
 		}
