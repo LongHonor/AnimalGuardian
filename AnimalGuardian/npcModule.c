@@ -60,7 +60,7 @@ int setDirection(enemyNPC* enemy) {
 
 //지정된 방향으로 움직입니다 성공여부를 반환합니다.
 int tryMove(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1)==1 &&
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1 &&
         enemy->direction == 0) {
 
         deleteEnemy(enemy);
@@ -90,9 +90,6 @@ int tryMove(enemyNPC* enemy) {
 }
 
 void moveOneEnemy(enemyNPC* enemy) {
-    if (enemy->id == 0) {
-        return;
-    }
     if (!tryMove(enemy)) {
         if (!setDirection(enemy)) //방향 지정 실패시 갇힌 몬스터이다.
             return;
@@ -102,7 +99,6 @@ void moveOneEnemy(enemyNPC* enemy) {
 
 void moveEnemy() {
     enemyNPC* enemyNpc = enemyList->enemyHeader;
-
     while (enemyNpc != NULL) {
         moveOneEnemy(enemyNpc);
         enemyNpc = enemyNpc->next;
@@ -182,7 +178,7 @@ void makeEnemyList(int enemyCount) {
 void makeAnimal() {
     int randPos = 20;
     for (int i = 0; i < allAnimalCount; i++) {
-        animalArray[i].id = i;
+        animalArray[i].id = i+1;
         animalArray[i].speed = 1;
         setAnimalCurrentPos(animalArray + i,randPos, 1);
         randPos += 15;
@@ -222,10 +218,22 @@ void setAllAnimalCount(int count) {
 //추후 i값의 조정으로 전부 움직일 수 있게 한다
 void moveAnimal() {
     for (int i = 0; i < allAnimalCount; i++) {
+        if (animalNPCdetectCollision(animalArray[i].pos.X, animalArray[i].pos.Y + 1) == 0||
+            animalNPCdetectCollision(animalArray[i].pos.X+1, animalArray[i].pos.Y + 1) == 0 ||
+            animalNPCdetectCollision(animalArray[i].pos.X-1, animalArray[i].pos.Y + 1) == 0 ||
+            animalNPCdetectCollision(animalArray[i].pos.X+2, animalArray[i].pos.Y) == 0||
+            animalNPCdetectCollision(animalArray[i].pos.X-2, animalArray[i].pos.Y) == 0) {
+            animalArray[i].id = 0;
+            deleteAnimal(animalArray[i].pos.X, animalArray[i].pos.Y);
+            allAnimalCount--;
+        }
+        if (allAnimalCount == 0) {
+            deleteAndFreeAllEnemy();
+            exit(-1);
+        }
         moveOneAnimal(i);
     }
 }
-
 
 //enemyPosArray배열을 돌 index입니다. 초기값을 0으로 초기화해줍니다.
 void resetEnemySpawnCount() {

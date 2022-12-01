@@ -10,6 +10,7 @@ int main() {
     srand((unsigned)time(NULL));
     setCurrentGameBoard(1);
     removeCursor();
+	setAllEnemyCount(5);
     drawGameBoard();
     showPC(player);
 
@@ -17,7 +18,7 @@ int main() {
     makeAnimal();
 
     resetEnemySpawnCount();
-    setAllEnemyCount(5);
+    
     makeEnemyList(allEnemyCount);
     while (1) {
         drawInitialUI();
