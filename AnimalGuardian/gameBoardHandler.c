@@ -99,7 +99,7 @@ void drawAnimal() {
 	int posX, posY;
 	int arrX,arrY;
 	for (int i = 0; i < 3; i++) {
-		
+		if (animalArray[i].id == 0) return;
 		if (animalArray[i].activeStatus == TRUE) {
 			//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
@@ -119,7 +119,7 @@ void deleteAnimal() {
 	int posX, posY;
 	int arrX, arrY;
 	for (int i = 0; i < 3; i++) {
-		
+		if (animalArray[i].id == 0) return;
 		if (animalArray[i].activeStatus == TRUE) {
 			//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
@@ -142,22 +142,21 @@ void drawEnemy() {
 	int arrX, arrY;
 
 
-	if (search->activeStatus == TRUE) {
-		while (search != NULL) {
-			posStruct enemyCurPos = getEnemyCurrentPos(search->id);
-			arrX = (enemyCurPos.X - gBoardOx) / 2;
-			arrY = (enemyCurPos.Y - gBoardOy);
-			//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
-			if (search->id != 0) {
-				for (posY = 0; posY < 1; posY++) {
-					setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-					if (enemyModel[posY][0] == 1) printf("▲");
-					currentGameBoard[arrY + posY][arrX] = 2;
-				}
-				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+
+	while (search != NULL) {
+		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
+		arrX = (enemyCurPos.X - gBoardOx) / 2;
+		arrY = (enemyCurPos.Y - gBoardOy);
+		//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
+		if (search->id != 0) {
+			for (posY = 0; posY < 1; posY++) {
+				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
+				if (enemyModel[posY][0] == 1) printf("▲");
+				currentGameBoard[arrY+posY][arrX] = 2;
 			}
-			search = search->next;
+			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 		}
+		search = search->next;
 	}
 }
 void deleteEnemy() {
@@ -165,23 +164,21 @@ void deleteEnemy() {
 	int arrX, arrY;
 
 	enemyNPC * search = enemyList->enemyHeader;
-	if (search->activeStatus == TRUE) {
-		while (search != NULL) {
-			posStruct enemyCurPos = getEnemyCurrentPos(search->id);
-			//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
-			arrX = (enemyCurPos.X - gBoardOx) / 2;
-			arrY = (enemyCurPos.Y - gBoardOy);
-			if (search->id != 0) {
-				for (posY = 0; posY < 1; posY++) {
-					setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-					printf("  ");
-					currentGameBoard[arrY + posY][arrX] = 0;
-				}
-
-				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+	while (search != NULL) {
+		posStruct enemyCurPos = getEnemyCurrentPos(search->id);
+		//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
+		arrX = (enemyCurPos.X - gBoardOx) / 2;
+		arrY = (enemyCurPos.Y - gBoardOy);
+		if (search->id != 0) {
+			for (posY = 0; posY < 1; posY++) {
+				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
+				printf("  ");
+				currentGameBoard[arrY + posY][arrX] = 0;
 			}
-			search = search->next;
+
+			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 		}
+		search = search->next;
 	}
 }
 
