@@ -29,7 +29,7 @@ void deleteBarricade() {
 
 
 void shiftLeftBarricade() {
-	//√—µπΩ√ ∏Æ≈œ 0
+
 	
 	if (!detectCollisionBarricade(barcX - 2, barcY)) {
 		return;
@@ -50,7 +50,7 @@ void shiftLeftBarricade() {
 	drawBarricade();
 }
 void shiftRightBarricade() {
-	//√—µπΩ√ ∏Æ≈œ 0
+
 
 	if (!detectCollisionBarricade(barcX + 2, barcY)) {
 		return;
@@ -70,7 +70,7 @@ void shiftRightBarricade() {
 	drawBarricade();
 }
 void shiftUpBarricade() {
-	//√—µπΩ√ ∏Æ≈œ 0
+
 
 	if (!detectCollisionBarricade(barcX, barcY-1)) {
 		return;
@@ -90,7 +90,7 @@ void shiftUpBarricade() {
 	drawBarricade();
 }
 void shiftDownBarricade() {
-	//√—µπΩ√ ∏Æ≈œ 0
+
 
 	if (!detectCollisionBarricade(barcX , barcY+1)) {
 		return;

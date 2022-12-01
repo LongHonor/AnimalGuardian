@@ -149,14 +149,14 @@ void drawEnemy() {
 			arrX = (enemyCurPos.X - gBoardOx) / 2;
 			arrY = (enemyCurPos.Y - gBoardOy);
 			//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
-			if (search->id != 0) {
-				for (posY = 0; posY < 1; posY++) {
-					setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-					if (enemyModel[posY][0] == 1) printf("▲");
-					currentGameBoard[arrY + posY][arrX] = 2;
-				}
-				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+
+			for (posY = 0; posY < 1; posY++) {
+				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
+				if (enemyModel[posY][0] == 1) printf("▲");
+				currentGameBoard[arrY + posY][arrX] = 6;
 			}
+			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+
 		//}
 		search = search->next;
 	}
@@ -174,19 +174,50 @@ void deleteEnemy() {
 			//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
 			arrX = (enemyCurPos.X - gBoardOx) / 2;
 			arrY = (enemyCurPos.Y - gBoardOy);
-			if (search->id != 0) {
-				for (posY = 0; posY < 1; posY++) {
-					setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-					printf("  ");
-					currentGameBoard[arrY + posY][arrX] = 0;
-				}
 
-				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+			for (posY = 0; posY < 1; posY++) {
+				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
+				printf("  ");
+				currentGameBoard[arrY + posY][arrX] = 0;
 			}
+
+			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+
 		//}
 		search = search->next;
 	}
 	
+}
+
+void dieEnemy(int enemyCurPosX,int enemyCurPosY) {
+	int posX, posY;
+	int arrX, arrY;
+
+	enemyNPC * search = enemyList->enemyHeader;
+	arrX = (enemyCurPosX - gBoardOx) / 2;
+	arrY = (enemyCurPosY - gBoardOy);
+
+	for (posY = 0; posY < 1; posY++) {
+		setCurrentCursorPos(enemyCurPosX, enemyCurPosY + posY);
+		printf("  ");
+		currentGameBoard[arrY + posY][arrX] = -1;
+	}
+	setCurrentCursorPos(enemyCurPosX - 2, enemyCurPosY - 1);
+	for (posY = 0; posY < 3; posY++) {
+		for (posX = 0; posX < 3; posX++) {
+			setCurrentCursorPos(enemyCurPosX - 2 + posX * 2, enemyCurPosY - 1 + posY);
+			if (currentGameBoard[posY][posX] != -1) printf("※");
+			else printf("  ");
+		}
+	}
+	for (posY = 0; posY < 3; posY++) {
+		for (posX = 0; posX < 3; posX++) {
+			setCurrentCursorPos(enemyCurPosX - 2 + posX * 2, enemyCurPosY - 1 + posY);
+			printf("  ");
+		}
+	}
+	setCurrentCursorPos(enemyCurPosX, enemyCurPosY);
+
 }
 
 void drawInitialUI() {

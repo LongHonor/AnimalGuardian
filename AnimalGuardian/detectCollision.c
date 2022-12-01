@@ -2,7 +2,10 @@
 #include "globalVariable.h"
 #include "barricadeHandler.h"
 
-//enemyNPC 충돌 관리
+//gameboard line or another enemy : 0
+//장애물 or barricade : 9
+//animal : 3
+//not 충돌 : 1
 int enemyNPCDetectCollision(int posX, int posY) {
 	int x, y;
 	int arrX = (posX - gBoardOx) / 2;
@@ -11,7 +14,7 @@ int enemyNPCDetectCollision(int posX, int posY) {
 	{
 		for (y = 0; y < 1; y++)
 		{
-			//gameBoard line or another animal
+			//gameBoard line or another enemy
 			if (enemyModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 1 || currentGameBoard[arrY + y][arrX + x] == 2)) {
 				return 0;
 			}
@@ -27,6 +30,10 @@ int enemyNPCDetectCollision(int posX, int posY) {
 	}
 	return 1;
 }
+
+//장애물 or gameboard line or barricade : 0
+//another animal : 0
+//not 충돌 : 1
 int animalNPCdetectCollision(int posX, int posY) {
 	int x, y;
 	int arrX = (posX - gBoardOx) / 2;
@@ -48,6 +55,9 @@ int animalNPCdetectCollision(int posX, int posY) {
 	return 1;
 }
 
+
+//충돌 : 0
+//not 충돌 : 1
 int detectCollisionPC(int posX, int posY) {
 	int arrX = (posX - gBoardOx) / 2;
 	int arrY = (posY - gBoardOy);
@@ -58,6 +68,10 @@ int detectCollisionPC(int posX, int posY) {
 	return 1;
 }
 
+
+//장애물 or gameboard line or barricade : 0
+//enemy or animal : 5
+//not 충돌 : 1
 int detectCollisionBullet(int posX, int posY) {
 	int arrX = (posX - gBoardOx) / 2;
 	int arrY = (posY - gBoardOy);
@@ -75,12 +89,15 @@ int detectCollisionBullet(int posX, int posY) {
 		return 0;
 	}
 	//enemy or animal
-	if (currentGameBoard[arrY][arrX] == 2 || currentGameBoard[arrY][arrX] == 3) {
+	if (currentGameBoard[arrY][arrX] == 6 || currentGameBoard[arrY][arrX] == 3) {
 		return 5;
 	}
 	return 1;
 }
 
+//gameboard line : 0
+//not empty : 9
+//empty : 1
 int detectCollisionBarricade(int posX, int posY) {
 	int x, y;
 	int arrX = (posX - gBoardOx) / 2;

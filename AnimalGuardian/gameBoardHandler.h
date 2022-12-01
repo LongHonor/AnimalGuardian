@@ -3,6 +3,8 @@
 void initGameBoard();
 void drawGameBoard();	
 void AddBlockToBoard(struct _Position barricadeCurPos);
+void dieEnemy(int enemyCurPosX, int enemyCurPosY);
+
 void drawPC();	
 void deletePC();
 void drawAnimal();
