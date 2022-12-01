@@ -11,13 +11,17 @@ int enemyNPCDetectCollision(int posX, int posY) {
 	{
 		for (y = 0; y < 1; y++)
 		{
-			//gameBoard line
-			if (enemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 1) {
+			//gameBoard line and another enemy
+			if (enemyModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 1 || currentGameBoard[arrY + y][arrX + x] == 2)) {
 				return 0;
 			}
 			//장애물 return값 9
 			if (enemyModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 4 || currentGameBoard[arrY + y][arrX + x] == 5|| currentGameBoard[arrY+y][arrX+x] == 7)) {
 				return 9;
+			}
+			//animal npc
+			if (enemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 3 ) {
+				return 0;
 			}
 		}
 	}
@@ -31,7 +35,7 @@ int animalNPCdetectCollision(int posX, int posY) {
 	{
 		for (y = 0; y < 1; y++)
 		{
-			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 1)) {
+			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 1|| currentGameBoard[arrY + y][arrX + x] == 3)) {
 				return 0;
 			}
 		}
@@ -60,6 +64,9 @@ int detectCollisionBullet(int posX, int posY) {
 	}
 	if (currentGameBoard[arrY][arrX] == 7) {
 		return 0;
+	}
+	if (currentGameBoard[arrY][arrX] == 2 || currentGameBoard[arrY][arrX] == 3) {
+		return 5;
 	}
 	return 1;
 }
