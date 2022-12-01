@@ -11,7 +11,6 @@ int main() {
     setCurrentGameBoard(1);
     removeCursor();
     drawGameBoard();
-    drawInitialUI();
     showPC(player);
 
     setAllAnimalCount(5);
@@ -21,6 +20,7 @@ int main() {
     setAllEnemyCount(5);
     makeEnemyList(allEnemyCount);
     while (1) {
+        drawInitialUI();
         enemyMoveSetting();
         animalMoveSetting();
         pcKeyInput();
