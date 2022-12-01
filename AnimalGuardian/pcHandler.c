@@ -58,20 +58,24 @@ void shootBullet() {
 	Bullet* curr = bullet_head;
 	Bullet* first_bullet = bullet_head;
 	while (1) {
-		if (curr == NULL) {
-			curr = first_bullet;
-		}
 		//일반 모드
 		if (bulletItem == 0) {
+			//바로 위 충돌
 			if (!detectCollisionBullet(curr->pos.X, curr->pos.Y - 1)) {
 				first_bullet = curr->link;
+				showBullet(curr->pos);
+				Sleep(curr->speed);
+				eraseBullet(curr->pos);
 			}
+			//위위 충돌
 			else if (!detectCollisionBullet(curr->pos.X, curr->pos.Y - 2)) {
+				first_bullet = curr->link;
 				curr->pos.Y -= 1;
 				showBullet(curr->pos);
 				Sleep(curr->speed);
 				eraseBullet(curr->pos);
 			}
+			//충돌 하지 않은 경우
 			else {
 				curr->pos.Y -= 2;
 				showBullet(curr->pos);
@@ -80,7 +84,7 @@ void shootBullet() {
 			}
 		}
 		//관통 모드
-		else if (bulletItem == 1) {
+		/*else if (bulletItem == 1) {
 			curr->pos.Y -= 2;
 			if (detectCollisionBullet(curr->pos.X, curr->pos.Y)) {
 				showBullet(curr->pos);
@@ -90,7 +94,7 @@ void shootBullet() {
 			else {
 				Sleep(curr->speed);
 			}
-		}
+		}*/
 		if (_kbhit() != 0) {
 			int key = _getch();
 			switch (key) {
@@ -112,13 +116,18 @@ void shootBullet() {
 				break;
 			}
 		}
-		if (curr->pos.Y < gBoardOy + 2) {
+		/*if (curr->pos.Y < gBoardOy + 2) {
 			first_bullet = curr->link;
-		}
+		}*/
 		if (first_bullet == NULL) {
 			break;
 		}
-		curr = curr->link;
+		if (curr->link == NULL) {
+			curr = first_bullet;
+		}
+		else {
+			curr = curr->link;
+		}
 	}
 }
 void loadBullet() {
