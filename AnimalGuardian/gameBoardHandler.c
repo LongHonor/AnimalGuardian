@@ -144,7 +144,7 @@ void drawEnemy() {
 
 
 	while (search != NULL) {
-		if (search->activeStatus == TRUE) {
+		//if (search->activeStatus == TRUE) {
 			posStruct enemyCurPos = getEnemyCurrentPos(search->id);
 			arrX = (enemyCurPos.X - gBoardOx) / 2;
 			arrY = (enemyCurPos.Y - gBoardOy);
@@ -157,7 +157,7 @@ void drawEnemy() {
 				}
 				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 			}
-		}
+		//}
 		search = search->next;
 	}
 	
@@ -169,7 +169,7 @@ void deleteEnemy() {
 	enemyNPC * search = enemyList->enemyHeader;
 	
 	while (search != NULL) {
-		if (search->activeStatus == TRUE) {
+		//if (search->activeStatus == TRUE) {
 			posStruct enemyCurPos = getEnemyCurrentPos(search->id);
 			//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
 			arrX = (enemyCurPos.X - gBoardOx) / 2;
@@ -183,7 +183,7 @@ void deleteEnemy() {
 
 				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 			}
-		}
+		//}
 		search = search->next;
 	}
 	
