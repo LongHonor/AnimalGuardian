@@ -180,6 +180,7 @@ void makeAnimal() {
     for (int i = 0; i < allAnimalCount; i++) {
         animalArray[i].id = i+1;
         animalArray[i].speed = 1;
+        animalArray[i].activeStatus = TRUE;
         setAnimalCurrentPos(animalArray + i,randPos, 1);
         randPos += 15;
     }
