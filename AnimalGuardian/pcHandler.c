@@ -147,6 +147,7 @@ void shootBullet() {
 				if (bulletCount > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
+					newbullet->pos.Y -= 2;
 					newbullet->speed = 15;
 					newbullet->link = NULL;
 					curr->link = newbullet;
@@ -189,6 +190,7 @@ void pcKeyInput() {
 				if (loadFlag == 0 && bulletCount > 0) {
 					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 					newbullet->pos = player.pos;
+					newbullet->pos.Y -= 2;
 					newbullet->speed = 15;
 					newbullet->link = NULL;
 					bullet_head = newbullet;
