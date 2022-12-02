@@ -38,7 +38,7 @@ void deleteKingAnimal(int x, int y) {
 }
 
 void shiftKingAnimal(int startX, int direction, int distance) {
-	int i, j;
+	int i;
 	int sth = 0;
 	int posX = startX;
 
@@ -434,7 +434,7 @@ void placeAnimationBarricade() {
 }
 
 void drawBarricadeEffect() {
-	int i, j;
+	int i;
 	int leftX = 16, rightX = 23, posY = 4;
 	for (i = 0; i < 15; i++) {
 		setCurrentCursorPos(leftX * 2, posY + i);
