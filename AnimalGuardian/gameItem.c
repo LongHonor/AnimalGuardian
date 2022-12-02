@@ -4,6 +4,7 @@
 #include "gameBoardHandler.h"
 
 #include <conio.h>
+#include <time.h>
 
 
 void reduceEnemySpeed() {
@@ -72,6 +73,9 @@ void placeBarricade() {
 	//이동키 누르면 바리케이드 위치 이동
 
 	int key;
+	int checkBarricadeStartTime = clock();
+	int barricadeFlag = 1;
+	int barricadeTime = 10;
 
 	changeConsoleColor(lightYellow);
 
@@ -105,6 +109,14 @@ void placeBarricade() {
 					break;
 				}
 			}
+			
+			//제한시간 10초
+			if (barricadeFlag == 1 && (double)(clock() - checkBarricadeStartTime) / 1000 >= barricadeTime) {
+				barricadeFlag = 0;
+				restoreConsoleColor(); deleteBarricade();
+				return;
+			}
+
 			Sleep(20);
 		}
 	}
