@@ -5,11 +5,14 @@
 #include "gameItem.h"
 #include "pcHandler.h"
 #include "npcModule.h"
+#include "stage3Animation.h"
 
 int main() {
-    srand((unsigned)time(NULL));
-    setCurrentGameBoard(1);
     removeCursor();
+    playAnimation();
+    /*srand((unsigned)time(NULL));
+    setCurrentGameBoard(1);
+    
 	setAllEnemyCount(5);
     drawGameBoard();
     showPC(player);
@@ -25,7 +28,7 @@ int main() {
         enemyMoveSetting();
         animalMoveSetting();
         pcKeyInput();
-    }
+    }*/
 
     return 0;
 }
