@@ -208,6 +208,7 @@ void moveOneAnimal(int index) {
 //enemy, Animal 총 마릿수를 지정해주는 함수
 void setAllEnemyCount(int count) {
     allEnemyCount = count;
+    currentEnemyCount = count;
 }
 void setAllAnimalCount(int count) {
     allAnimalCount = count;
