@@ -40,16 +40,27 @@ void drawGameBoard() {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("─");
 			}
-			else if (currentGameBoard[posY][posX] == 4) {
+		}
+	}
+	changeConsoleColor(green);
+	for (posY = 0; posY < gBoardHeight + 3; posY++) {
+		for (posX = 1; posX < gBoardWidth + 1; posX++) {
+			if (currentGameBoard[posY][posX] == 4) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("♣");
 			}
-			else if (currentGameBoard[posY][posX] == 5) {
+		}
+	}
+	changeConsoleColor(gray);
+	for (posY = 0; posY < gBoardHeight + 3; posY++) {
+		for (posX = 1; posX < gBoardWidth + 1; posX++) {
+			if (currentGameBoard[posY][posX] == 5) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("■");
 			}
 		}
 	}
+	restoreConsoleColor();
 	setCurrentCursorPos(10, 19);
 }
 
@@ -69,7 +80,7 @@ void AddBlockToBoard(posStruct barricadeCurPos) {
 }
 
 void drawPC() {
-	int posX, posY;
+	int posY;
 
 	posStruct pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
@@ -82,7 +93,7 @@ void drawPC() {
 	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
 }
 void deletePC() {
-	int posX, posY;
+	int posY;
 
 	posStruct pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
@@ -96,7 +107,7 @@ void deletePC() {
 
 
 void drawAnimal() {
-	int posX, posY;
+	int posX;
 	int arrX,arrY;
 	for (int i = 0; i < 3; i++) {
 
@@ -116,7 +127,7 @@ void drawAnimal() {
 	}
 }
 void deleteAnimal() {
-	int posX, posY;
+	int posX;
 	int arrX, arrY;
 	for (int i = 0; i < 3; i++) {
 
@@ -137,7 +148,7 @@ void deleteAnimal() {
 
 
 void drawEnemy() {
-	int posX, posY;
+	int posY;
 	enemyNPC * search = enemyList->enemyHeader;
 	int arrX, arrY;
 
@@ -163,7 +174,7 @@ void drawEnemy() {
 	
 }
 void deleteEnemy() {
-	int posX, posY;
+	int posY;
 	int arrX, arrY;
 
 	enemyNPC * search = enemyList->enemyHeader;
@@ -189,34 +200,35 @@ void deleteEnemy() {
 	
 }
 
-void dieEnemy(int enemyCurPosX,int enemyCurPosY) {
+void dieEnemy(posStruct enemyCurPos) {
 	int posX, posY;
 	int arrX, arrY;
 
 	enemyNPC * search = enemyList->enemyHeader;
-	arrX = (enemyCurPosX - gBoardOx) / 2;
-	arrY = (enemyCurPosY - gBoardOy);
+	arrX = (enemyCurPos.X - gBoardOx) / 2;
+	arrY = (enemyCurPos.Y - gBoardOy);
 
 	for (posY = 0; posY < 1; posY++) {
-		setCurrentCursorPos(enemyCurPosX, enemyCurPosY + posY);
+		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
 		printf("  ");
 		currentGameBoard[arrY + posY][arrX] = -1;
 	}
-	setCurrentCursorPos(enemyCurPosX - 2, enemyCurPosY - 1);
+	setCurrentCursorPos(enemyCurPos.X - 2, enemyCurPos.Y - 1);
 	for (posY = 0; posY < 3; posY++) {
 		for (posX = 0; posX < 3; posX++) {
-			setCurrentCursorPos(enemyCurPosX - 2 + posX * 2, enemyCurPosY - 1 + posY);
-			if (currentGameBoard[posY][posX] != -1) printf("※");
-			else printf("  ");
+			setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 1 + posY);
+			if (currentGameBoard[arrY-1+posY][arrX-1+posX] == 0) printf("※");
+			
 		}
 	}
-	for (posY = 0; posY < 3; posY++) {
+	currentGameBoard[arrY][arrX] = 0;
+	/*for (posY = 0; posY < 3; posY++) {
 		for (posX = 0; posX < 3; posX++) {
-			setCurrentCursorPos(enemyCurPosX - 2 + posX * 2, enemyCurPosY - 1 + posY);
-			printf("  ");
+			setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 1 + posY);
+			if (currentGameBoard[posY][posX] == 0) printf("  ");
 		}
-	}
-	setCurrentCursorPos(enemyCurPosX, enemyCurPosY);
+	}*/
+	setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 
 }
 
@@ -230,12 +242,12 @@ void printBulletCount() {
 	int bulletCnt = bulletCount;
 
 	setCurrentCursorPos(44 * 2, 3);
-	printf("%d / %d", bulletCnt, maxBullet);
+	printf("%2d / %2d", bulletCnt, maxBullet);
 }
 void printEnemyCount() {
 	int enemyTotalCnt = allEnemyCount;
 
 	setCurrentCursorPos(44 * 2, 4);
 	//총 enemy 수와 현재 enemy수 
-	printf("%2d / %d", enemyTotalCnt, enemyTotalCnt);
+	printf("%2d / %2d", enemyTotalCnt, enemyTotalCnt);
 }

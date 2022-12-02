@@ -39,7 +39,7 @@ void shiftLeftBarricade() {
 
 	}
 	else {
-		barricadeColor = green;
+		barricadeColor = lightYellow;
 	}
 	deleteBarricade();
 	barcX -= 2;
@@ -59,7 +59,7 @@ void shiftRightBarricade() {
 		barricadeColor = red;
 	}
 	else {
-		barricadeColor = green;
+		barricadeColor = lightYellow;
 	}
 	deleteBarricade();
 	barcX += 2;
@@ -79,7 +79,7 @@ void shiftUpBarricade() {
 		barricadeColor = red;
 	}
 	else {
-		barricadeColor = green;
+		barricadeColor = lightYellow;
 	}
 	deleteBarricade();
 	barcY -= 1;
@@ -99,7 +99,7 @@ void shiftDownBarricade() {
 		barricadeColor = red;
 	}
 	else {
-		barricadeColor = green;
+		barricadeColor = lightYellow;
 	}
 	deleteBarricade();
 	barcY += 1;
