@@ -24,7 +24,7 @@ int enemyNPCDetectCollision(int posX, int posY) {
 			}
 			//attack animal 
 			if (enemyModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 3)) {
-				return 3;
+				return 6;
 			}
 		}
 	}
