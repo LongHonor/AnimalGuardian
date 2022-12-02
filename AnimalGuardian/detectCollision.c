@@ -24,7 +24,7 @@ int enemyNPCDetectCollision(int posX, int posY) {
 			}
 			//attack animal 
 			if (enemyModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 3)) {
-				return 6;
+				return 3;
 			}
 		}
 	}
@@ -49,6 +49,10 @@ int animalNPCdetectCollision(int posX, int posY) {
 			//another animal
 			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 3)) {
 				return 0;
+			}
+			//enemy
+			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 3)) {
+				return 2;
 			}
 		}
 	}
