@@ -70,7 +70,7 @@ void shiftRightBarricade() {
 	drawBarricade();
 }
 void shiftUpBarricade() {
-
+	if (barcY == 2) return;
 
 	if (!detectCollisionBarricade(barcX, barcY-1)) {
 		return;
