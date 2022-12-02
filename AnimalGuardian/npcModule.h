@@ -3,6 +3,7 @@
 //스테이지별로 마릿수를 지정해줄 전역변수입니다
 int allAnimalCount;
 int allEnemyCount;
+int currentEnemyCount;
 
 
 //enemy위치를 저장해주는 배열
