@@ -1,4 +1,5 @@
 ﻿#pragma once
+int checkBarricadeStartTime;
 
 void reduceEnemySpeed();
 void restoreEnemySpeed();

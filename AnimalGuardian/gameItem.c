@@ -5,6 +5,8 @@
 
 #include <conio.h>
 #include <time.h>
+#include <stdio.h>
+#include <windows.h>
 
 
 void reduceEnemySpeed() {
@@ -72,15 +74,16 @@ void placeBarricade() {
 	//불가능하면 경고 메시지 출력
 	//이동키 누르면 바리케이드 위치 이동
 
-	int key;
-	int checkBarricadeStartTime = clock();
+	int key, i = 0;
 	int barricadeFlag = 1;
 	int barricadeTime = 10;
-
+	double timer = 0;
 	changeConsoleColor(lightYellow);
 
 	drawBarricade();
+	checkBarricadeStartTime = clock();
 	while (1) {
+		
 		for (int i = 0; i < 20; i++) {
 			//_kbhit 은 입력시 1 리턴
 			if (_kbhit() != 0) {
@@ -108,16 +111,31 @@ void placeBarricade() {
 					}
 					break;
 				}
-			}
-			
+			}	
 			//제한시간 10초
 			if (barricadeFlag == 1 && (double)(clock() - checkBarricadeStartTime) / 1000 >= barricadeTime) {
 				barricadeFlag = 0;
 				restoreConsoleColor(); deleteBarricade();
+				system("cls");
 				return;
 			}
-
 			Sleep(20);
 		}
+		clock_t end = clock();
+		timer = end- checkBarricadeStartTime;
+		/*if ((double)timer / CLOCKS_PER_SEC >= i) {
+			setCurrentCursorPos(44 * 2, 6);
+			printf("%2.f", (double)timer / CLOCKS_PER_SEC);
+			i += 1;
+		}*/
+		setCurrentCursorPos(44 * 2, 6);
+		printf("%2.f", 11-(double)timer / CLOCKS_PER_SEC);
 	}
 }
+//void printBarricadeTimeLimit() {
+//	//gameitem에서 불러오는 구조
+//	int bulletCnt = bulletCount;
+//
+//	setCurrentCursorPos(44 * 2, 6);
+//	printf("%2d / %2d", 10-(clock() - checkBarricadeStartTime) / 1000), 10);
+//}
