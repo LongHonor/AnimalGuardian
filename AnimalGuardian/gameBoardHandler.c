@@ -80,7 +80,7 @@ void AddBlockToBoard(posStruct barricadeCurPos) {
 }
 
 void drawPC() {
-	int posX, posY;
+	int posY;
 
 	posStruct pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
@@ -93,7 +93,7 @@ void drawPC() {
 	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
 }
 void deletePC() {
-	int posX, posY;
+	int posY;
 
 	posStruct pcCurPos = getPCCurrentPos();
 	//pc위치 받아와서 setCurrentCursorPos()호출
@@ -107,7 +107,7 @@ void deletePC() {
 
 
 void drawAnimal() {
-	int posX, posY;
+	int posX;
 	int arrX,arrY;
 	for (int i = 0; i < 3; i++) {
 
@@ -127,7 +127,7 @@ void drawAnimal() {
 	}
 }
 void deleteAnimal() {
-	int posX, posY;
+	int posX;
 	int arrX, arrY;
 	for (int i = 0; i < 3; i++) {
 
@@ -148,7 +148,7 @@ void deleteAnimal() {
 
 
 void drawEnemy() {
-	int posX, posY;
+	int posY;
 	enemyNPC * search = enemyList->enemyHeader;
 	int arrX, arrY;
 
@@ -174,7 +174,7 @@ void drawEnemy() {
 	
 }
 void deleteEnemy() {
-	int posX, posY;
+	int posY;
 	int arrX, arrY;
 
 	enemyNPC * search = enemyList->enemyHeader;
