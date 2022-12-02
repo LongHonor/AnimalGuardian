@@ -100,7 +100,9 @@ void moveOneEnemy(enemyNPC* enemy) {
 void moveEnemy() {
     enemyNPC* enemyNpc = enemyList->enemyHeader;
     while (enemyNpc != NULL) {
-        moveOneEnemy(enemyNpc);
+        if (enemyNpc->activeStatus == TRUE) {
+            moveOneEnemy(enemyNpc);
+        }
         enemyNpc = enemyNpc->next;
     }
 }
@@ -145,7 +147,7 @@ void makeNormalEnemy(int x) {
     enemyNpc->next = NULL;
     enemyNpc->direction = 0;
     enemyNpc->id = 1;
-
+    enemyNpc->activeStatus = TRUE;
     if (enemyList->enemyHeader == NULL) {
         enemyList->enemyHeader = enemyNpc;
         enemyNpc = 0;
@@ -178,21 +180,16 @@ void makeEnemyList(int enemyCount) {
 void makeAnimal() {
     int randPos = 20;
     for (int i = 0; i < allAnimalCount; i++) {
-        animalArray[i].id = i+1;
         animalArray[i].speed = 1;
         animalArray[i].activeStatus = TRUE;
         setAnimalCurrentPos(animalArray + i,randPos, 1);
-        randPos += 15;
+        randPos += 14;
     }
 }
 
 void moveOneAnimal(int index) {
     //랜덤하게 방향 지정
     int direction = randInt(-1, 1);
-
-    if (animalArray[index].id == 0) {
-        return;
-    }
     //direction 이 0 이면 그냥 return
     if (direction == 0) return;
 
@@ -219,18 +216,16 @@ void setAllAnimalCount(int count) {
 //추후 i값의 조정으로 전부 움직일 수 있게 한다
 void moveAnimal() {
     for (int i = 0; i < allAnimalCount; i++) {
-        if (animalNPCdetectCollision(animalArray[i].pos.X, animalArray[i].pos.Y + 1) == 0||
-            animalNPCdetectCollision(animalArray[i].pos.X+1, animalArray[i].pos.Y + 1) == 0 ||
-            animalNPCdetectCollision(animalArray[i].pos.X-1, animalArray[i].pos.Y + 1) == 0 ||
-            animalNPCdetectCollision(animalArray[i].pos.X+2, animalArray[i].pos.Y) == 0||
-            animalNPCdetectCollision(animalArray[i].pos.X-2, animalArray[i].pos.Y) == 0) {
-            animalArray[i].id = 0;
-            deleteAnimal(animalArray[i].pos.X, animalArray[i].pos.Y);
-            allAnimalCount--;
+        if (animalArray[i].activeStatus == FALSE) {
+            continue;
         }
-        if (allAnimalCount == 0) {
-            deleteAndFreeAllEnemy();
-            exit(-1);
+        if (animalNPCdetectCollision(animalArray[i].pos.X, animalArray[i].pos.Y + 1) == 2||
+            animalNPCdetectCollision(animalArray[i].pos.X+2, animalArray[i].pos.Y) == 2||
+            animalNPCdetectCollision(animalArray[i].pos.X-2, animalArray[i].pos.Y) == 2) {
+            deleteAnimal(animalArray[i].pos.X, animalArray[i].pos.Y);
+            animalArray[i].activeStatus = FALSE;
+            allAnimalCount--;
+            continue;
         }
         moveOneAnimal(i);
     }
