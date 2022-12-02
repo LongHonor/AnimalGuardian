@@ -51,7 +51,7 @@ int animalNPCdetectCollision(int posX, int posY) {
 				return 0;
 			}
 			//enemy
-			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 3)) {
+			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 2)) {
 				return 2;
 			}
 		}
