@@ -40,16 +40,27 @@ void drawGameBoard() {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("─");
 			}
-			else if (currentGameBoard[posY][posX] == 4) {
+		}
+	}
+	changeConsoleColor(green);
+	for (posY = 0; posY < gBoardHeight + 3; posY++) {
+		for (posX = 1; posX < gBoardWidth + 1; posX++) {
+			if (currentGameBoard[posY][posX] == 4) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("♣");
 			}
-			else if (currentGameBoard[posY][posX] == 5) {
+		}
+	}
+	changeConsoleColor(gray);
+	for (posY = 0; posY < gBoardHeight + 3; posY++) {
+		for (posX = 1; posX < gBoardWidth + 1; posX++) {
+			if (currentGameBoard[posY][posX] == 5) {
 				setCurrentCursorPos(posX * 2, posY);
 				printf("■");
 			}
 		}
 	}
+	restoreConsoleColor();
 	setCurrentCursorPos(10, 19);
 }
 
@@ -189,34 +200,35 @@ void deleteEnemy() {
 	
 }
 
-void dieEnemy(int enemyCurPosX,int enemyCurPosY) {
+void dieEnemy(posStruct enemyCurPos) {
 	int posX, posY;
 	int arrX, arrY;
 
 	enemyNPC * search = enemyList->enemyHeader;
-	arrX = (enemyCurPosX - gBoardOx) / 2;
-	arrY = (enemyCurPosY - gBoardOy);
+	arrX = (enemyCurPos.X - gBoardOx) / 2;
+	arrY = (enemyCurPos.Y - gBoardOy);
 
 	for (posY = 0; posY < 1; posY++) {
-		setCurrentCursorPos(enemyCurPosX, enemyCurPosY + posY);
+		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
 		printf("  ");
 		currentGameBoard[arrY + posY][arrX] = -1;
 	}
-	setCurrentCursorPos(enemyCurPosX - 2, enemyCurPosY - 1);
+	setCurrentCursorPos(enemyCurPos.X - 2, enemyCurPos.Y - 1);
 	for (posY = 0; posY < 3; posY++) {
 		for (posX = 0; posX < 3; posX++) {
-			setCurrentCursorPos(enemyCurPosX - 2 + posX * 2, enemyCurPosY - 1 + posY);
-			if (currentGameBoard[posY][posX] != -1) printf("※");
-			else printf("  ");
+			setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 1 + posY);
+			if (currentGameBoard[arrY-1+posY][arrX-1+posX] == 0) printf("※");
+			
 		}
 	}
-	for (posY = 0; posY < 3; posY++) {
+	currentGameBoard[arrY][arrX] = 0;
+	/*for (posY = 0; posY < 3; posY++) {
 		for (posX = 0; posX < 3; posX++) {
-			setCurrentCursorPos(enemyCurPosX - 2 + posX * 2, enemyCurPosY - 1 + posY);
-			printf("  ");
+			setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 1 + posY);
+			if (currentGameBoard[posY][posX] == 0) printf("  ");
 		}
-	}
-	setCurrentCursorPos(enemyCurPosX, enemyCurPosY);
+	}*/
+	setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 
 }
 
