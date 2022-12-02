@@ -24,8 +24,9 @@ char currentGameBoard[23][42];
 //모델
 char bulletModel[2][1];
 char bossEnemyModel[4][4];
+
 char enemyModel[1][1];
-char kingAnimalModel[2][4];
+char kingAnimalModel[][2][4];
 char animalModel[1][2];
 char pcModel[2][1];
 
