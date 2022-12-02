@@ -9,8 +9,7 @@
 
 int main() {
     removeCursor();
-    playAnimation();
-    /*srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL));
     setCurrentGameBoard(1);
     
 	setAllEnemyCount(5);
@@ -28,7 +27,7 @@ int main() {
         enemyMoveSetting();
         animalMoveSetting();
         pcKeyInput();
-    }*/
+    }
 
     return 0;
 }
