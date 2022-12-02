@@ -73,7 +73,7 @@ void placeBarricade() {
 
 	int key;
 
-	changeConsoleColor(green);
+	changeConsoleColor(lightYellow);
 
 	drawBarricade();
 	while (1) {
