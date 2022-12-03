@@ -76,7 +76,7 @@ typedef struct bossNPC {
 	int speed;
 	int hp;
 	boolean activeStatus;
-} boss;
+} bossStruct;
 
 //NPC - enemy
 typedef struct _EnemyNPC {
