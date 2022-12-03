@@ -11,6 +11,7 @@ int currentAnimalCount;
 //enemy가 스폰되는 간격 변수
 int enemySpawnTime;
 
+bossStruct boss;
 
 //enemy위치를 저장해주는 배열
 int* enemyPosArray;
