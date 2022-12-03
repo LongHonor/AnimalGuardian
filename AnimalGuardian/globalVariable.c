@@ -134,10 +134,10 @@ char animalModel[1][2] = {
 };
 
 char bossEnemyModel[4][4] = {
-	{2,1,1,2},
 	{1,1,1,1},
+	{1,2,3,1},
 	{1,1,1,1},
-	{2,1,1,2}
+	{1,1,1,1}
 };
 
 char enemyModel[1][1] = {
