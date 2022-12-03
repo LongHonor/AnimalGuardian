@@ -3,6 +3,7 @@
 #include "gameItem.h"
 #include "gameBoardHandler.h"
 #include "detectCollision.h"
+#include "npcModule.h"
 #include <stdio.h>
 #include <conio.h>
 #include <time.h>
@@ -12,10 +13,17 @@ PC player = { {40,20},1,200,3 };
 //bullet 초기화
 int bulletCount = 10;
 Bullet* bullet_head = NULL;
+posStruct *dieEnemyPos = NULL;
 int bulletItem = 0;
 
 loadFlag = 0;
 loadTime = 2;
+dieTime = 2;
+dieFlag = 0;
+
+void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime);
+
+
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
@@ -86,6 +94,9 @@ void shootBullet() {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
+				checkdieStartTime = clock(); dieFlag = 1;
+				findDieEnemy(newbullet->pos, checkdieStartTime);
+				drawDieEnemyEffect(newbullet->pos);
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
@@ -93,6 +104,9 @@ void shootBullet() {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
+				checkdieStartTime = clock(); dieFlag = 1;
+				findDieEnemy(newbullet->pos, checkdieStartTime);
+				drawDieEnemyEffect(newbullet->pos);
 				return;
 			}
 			//충돌 하지 않은 경우
@@ -138,6 +152,23 @@ void shootBullet() {
 				eraseBullet(newbullet->pos);
 			}
 		}
+
+	}
+}
+void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
+	enemyNPC * search = enemyList->enemyHeader;
+
+	while (search != NULL) {
+		if (search->activeStatus == TRUE) {
+			if (search->pos.X == enemyCurPos.X && search->pos.Y == enemyCurPos.Y - 1) {
+				search->activeStatus = FALSE;
+				search->deadPos.X = search->pos.X;
+				search->deadPos.Y = search->pos.Y;
+				search->deadTime = checkdieStartTime;
+				currentEnemyCount -= 1;
+			}
+		}
+		search = search->next;
 	}
 }
 void loadBullet() {
@@ -178,6 +209,11 @@ void pcKeyInput() {
 			loadBullet();
 			loadFlag = 0;
 		}
+		//effect 효과 2초
+
+
+		deleteDieEnemyEffect();
+
 		Sleep(20);
 	}
 }

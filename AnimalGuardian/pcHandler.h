@@ -13,6 +13,7 @@ typedef struct _Player {
 //Bullet
 typedef struct _Bullet {
 	int speed;
+	int id;
 	posStruct pos;
 	struct _Bullet* link;
 }Bullet;
@@ -26,8 +27,11 @@ extern int bulletCount;
 extern int bulletItem;
 
 clock_t checkLoadStartTime;
+clock_t checkdieStartTime;
 extern int loadFlag;
+extern int dieFlag;
 int loadTime;
+int dieTime;
 
 void showPC(struct _Player player);
 void erasePC(struct _Player player);

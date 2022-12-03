@@ -4,7 +4,7 @@
 #include "npcModule.h"
 #include <windows.h>
 #include <stdio.h>
-
+#include <time.h>
 
 //void initGameBoard() {
 //	int posX, posY;
@@ -200,7 +200,7 @@ void deleteEnemy() {
 	
 }
 
-void dieEnemy(posStruct enemyCurPos) {
+void drawDieEnemyEffect(posStruct enemyCurPos) {
 	int posX, posY;
 	int arrX, arrY;
 
@@ -209,29 +209,46 @@ void dieEnemy(posStruct enemyCurPos) {
 	arrY = (enemyCurPos.Y - gBoardOy);
 
 	for (posY = 0; posY < 1; posY++) {
-		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
+		setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY - 1);
 		printf("  ");
-		currentGameBoard[arrY + posY][arrX] = -1;
+		currentGameBoard[arrY + posY - 1][arrX] = -1;
 	}
-	setCurrentCursorPos(enemyCurPos.X - 2, enemyCurPos.Y - 1);
+	setCurrentCursorPos(enemyCurPos.X - 2, enemyCurPos.Y - 2);
 	for (posY = 0; posY < 3; posY++) {
 		for (posX = 0; posX < 3; posX++) {
-			setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 1 + posY);
-			if (currentGameBoard[arrY-1+posY][arrX-1+posX] == 0) printf("※");
-			
+			setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 2 + posY);
+			if (currentGameBoard[arrY-2+posY][arrX-1+posX] == 0) printf("※");	
 		}
 	}
-	currentGameBoard[arrY][arrX] = 0;
-	/*for (posY = 0; posY < 3; posY++) {
-		for (posX = 0; posX < 3; posX++) {
-			setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 1 + posY);
-			if (currentGameBoard[posY][posX] == 0) printf("  ");
-		}
-	}*/
-	setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
-
+	currentGameBoard[arrY - 1][arrX] = 0;
 }
+void deleteDieEnemyEffect() {
+	int posX, posY;
+	int arrX, arrY;
 
+	posStruct enemyCurPos;
+	enemyNPC * search = enemyList->enemyHeader;
+	
+	while (search != NULL) {
+		if (search->activeStatus == FALSE) {
+			if ((double)(clock() - search->deadTime) / CLOCKS_PER_SEC >= dieTime) {
+				enemyCurPos.X = search->deadPos.X;
+				enemyCurPos.Y = search->deadPos.Y;
+				arrX = (enemyCurPos.X - gBoardOx) / 2;
+				arrY = (enemyCurPos.Y - gBoardOy);
+				setCurrentCursorPos(enemyCurPos.X - 2, enemyCurPos.Y - 1);
+				for (posY = 0; posY < 3; posY++) {
+					for (posX = 0; posX < 3; posX++) {
+						setCurrentCursorPos(enemyCurPos.X - 2 + posX * 2, enemyCurPos.Y - 1 + posY);
+						if (currentGameBoard[arrY - 1 + posY][arrX - 1 + posX] == 0) printf("  ");
+					}
+				}
+				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
+			}
+		}
+		search = search->next;
+	}
+}
 void drawInitialUI() {
 	printBulletCount();
 	printEnemyCount();
