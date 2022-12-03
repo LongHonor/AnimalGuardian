@@ -232,22 +232,12 @@ void resetEnemySpawnCount() {
 //enemy의 움직임을 총괄해주는 함수입니다. 전역으로 설정된 enemyPosArray에 있는 enemySpawnCount 인덱스 방이 가리키는 값으로 스폰합니다.
 void enemyMoveSetting() {
     if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 3) {//여기있는 5를 변경하여 스폰시간을 제어할 수 있습니다.
-        if (spawnedEnemyCount < allEnemyCount) {//여기의 3은 총 enemy 개수값과 동일하게 들어갑니다.
-            
-            setCurrentCursorPos(85, 1);
-            printf("                         ");
-            setCurrentCursorPos(85, 1);
-            printf("enemy가 스폰되었습니다.");
-            
+        if (spawnedEnemyCount < allEnemyCount) {//여기의 3은 총 enemy 개수값과 동일하게 들어갑니다.   
             makeNormalEnemy((*(enemyPosArray + spawnedEnemyCount)) * 2);
             spawnedEnemyCount++;
             checkEnemyNpcSpawnTime = clock();
         }
         checkEnemyNpcSpawnTime = clock();
-    }
-    else {
-        setCurrentCursorPos(85, 1);
-        printf("                         ");
     }
     
     if ((double)(clock() - enemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.1) {
