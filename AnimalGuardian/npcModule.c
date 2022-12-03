@@ -64,9 +64,7 @@ int tryMove(enemyNPC* enemy) {
     if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1 &&
         enemy->direction == 0) {
 
-        deleteEnemy(enemy);
         enemy->pos.Y -= 1;
-        showOneEnemy(enemy);
 
         return 1;
     }
@@ -75,15 +73,11 @@ int tryMove(enemyNPC* enemy) {
         enemy->direction != 0) {
         if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1) {
 
-            deleteEnemy(enemy);
             enemy->pos.Y -= 1;
-            showOneEnemy(enemy);
 
             return 1;
         }
-        deleteOneEnemy(enemy);
         enemy->pos.X += 2 * (enemy->direction);
-        showOneEnemy(enemy);
 
         return 1;
     }
