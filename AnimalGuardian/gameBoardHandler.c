@@ -194,15 +194,14 @@ void drawDieAnimalEffect(posStruct animalCurPos) {
 	int posX;
 	int arrX, arrY;
 
-	arrX = (animalCurPos.X - gBoardOx) / 2;
+	arrX = (animalCurPos.X - gBoardOx);
 	arrY = (animalCurPos.Y - gBoardOy);
 
 	for (posX = 0; posX < 2; posX++) {
-		setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
+		setCurrentCursorPos(animalCurPos.X*2 + posX * 2, animalCurPos.Y);
 		printf("※");
 		currentGameBoard[arrY][arrX + posX] = 0;
 	}
-	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 }
 void deleteDieAnimalEffect() {
 	int posX;
@@ -212,15 +211,14 @@ void deleteDieAnimalEffect() {
 
 		if (animalArray[i].activeStatus == FALSE) {
 			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
-			arrX = (animalCurPos.X - gBoardOx) / 2;
+			arrX = (animalCurPos.X - gBoardOx);
 			arrY = (animalCurPos.Y - gBoardOy);
 
 			for (posX = 0; posX < 2; posX++) {
-				setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
+				setCurrentCursorPos(animalCurPos.X*2 + posX * 2, animalCurPos.Y);
 				printf("  ");
 				
 			}
-			setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 		}
 	}
 }

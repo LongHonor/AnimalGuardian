@@ -69,7 +69,7 @@ posStruct findDieAnimal(int bullet_x) {
 		if (animalArray[i].activeStatus == TRUE) {
 			//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
-			int arrX = (animalCurPos.X - gBoardOx) / 2;
+			int arrX = (animalCurPos.X - gBoardOx);						//animal의 좌표는 배열좌표 /2 삭제
 			int arrY = (animalCurPos.Y - gBoardOy);
 			if (arrX == bullet_x / 2 || arrX + 1 == bullet_x / 2) {
 				animalArray[i].activeStatus = FALSE;
