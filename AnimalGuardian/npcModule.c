@@ -227,6 +227,7 @@ void moveAnimal() {
 //enemyPosArray배열을 돌 index입니다. 초기값을 0으로 초기화해줍니다.
 void resetEnemySpawnCount() {
     spawnedEnemyCount = 0;
+    enemyMoveSpeed = 0.5;
 }
 
 //enemy의 움직임을 총괄해주는 함수입니다. 전역으로 설정된 enemyPosArray에 있는 enemySpawnCount 인덱스 방이 가리키는 값으로 스폰합니다.
@@ -240,7 +241,7 @@ void enemyMoveSetting() {
         checkEnemyNpcSpawnTime = clock();
     }
     
-    if ((double)(clock() - enemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.1) {
+    if ((double)(clock() - enemyMoveTimePerSec) / CLOCKS_PER_SEC >= enemyMoveSpeed) {
         deleteEnemy();
         moveEnemy();
         enemyMoveTimePerSec = clock();
@@ -278,7 +279,7 @@ void animalMoveSetting() {
             currentAnimalCount--;
         }
     }
-    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
+    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
         deleteAnimal();
         animalMoveTimePerSec = clock();
         moveAnimal();
@@ -290,7 +291,7 @@ void animalMoveSetting() {
 bossStruct boss = { {38,15},1,50,TRUE };
 
 void moveBoss() {
-    if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
+    if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 2) {
         if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 1) {
             deleteBoss();
             boss.pos.Y -= 1;
@@ -304,20 +305,4 @@ void moveBoss() {
             drawBoss();
         }
     }
-}
-int bossEnemyDetectCollision(int posX,int posY) {
-    int x, y=0;
-    int arrX = (posX - gBoardOx) / 2;
-    int arrY = posY - gBoardOy;
-    for (x = 0; x < 4; x++) {
-        if (bossEnemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 7)
-        {
-            return 0;
-        }
-        if (bossEnemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 3)
-        {
-            return 2;
-        }
-    }
-    return 1;
 }
