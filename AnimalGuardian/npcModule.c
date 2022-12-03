@@ -190,7 +190,7 @@ void makeAnimal() {
 
 void moveOneAnimal(int index) {
     //랜덤하게 방향 지정
-    int direction = animalRandInt;
+    int direction = animalRandInt();
     //direction 이 0 이면 그냥 return
     if (direction != 0) {
         if (animalNPCdetectCollision(animalArray[index].pos.X + (direction * 2), animalArray[index].pos.Y) == 0) {
