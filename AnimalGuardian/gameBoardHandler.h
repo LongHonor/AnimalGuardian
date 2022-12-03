@@ -16,3 +16,4 @@ void deleteEnemy();
 void drawInitialUI();
 void printBulletCount();
 void printEnemyCount();
+void printCurrentItem();
