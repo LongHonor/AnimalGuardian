@@ -147,6 +147,42 @@ void deleteAnimal() {
 }
 
 
+void drawDieAnimalEffect(posStruct animalCurPos) {
+	int posX;
+	int arrX, arrY;
+
+	arrX = (animalCurPos.X - gBoardOx) / 2;
+	arrY = (animalCurPos.Y - gBoardOy);
+
+	for (posX = 0; posX < 2; posX++) {
+		setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
+		printf("※");
+		currentGameBoard[arrY][arrX + posX] = 0;
+	}
+	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+}
+void deleteDieAnimalEffect() {
+	int posX;
+	int arrX, arrY;
+
+	for (int i = 0; i < 3; i++) {
+
+		if (animalArray[i].activeStatus == FALSE) {
+			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+			arrX = (animalCurPos.X - gBoardOx) / 2;
+			arrY = (animalCurPos.Y - gBoardOy);
+
+			for (posX = 0; posX < 2; posX++) {
+				setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
+				printf("  ");
+				
+			}
+			setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+		}
+	}
+}
+
+
 void drawEnemy() {
 	int posY;
 	enemyNPC * search = enemyList->enemyHeader;
@@ -200,6 +236,26 @@ void deleteEnemy() {
 	
 }
 
+
+//void drawBossEnemy() {
+//	int posX, posY;
+//	int arrX, arrY;
+//	posStruct bossEnemyCurPos = getAnimalCurrentPos();
+//	arrX = (animalCurPos.X - gBoardOx) / 2;
+//	arrY = (animalCurPos.Y - gBoardOy);
+//	for (posX = 0; posX < 4; posX++) {
+//		for (posY = 0; posY < 4; posY++) {
+//			setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
+//			if (animalModel[0][posX] == 1) printf("♧");
+//			else printf("■");
+//			currentGameBoard[arrY][arrX + posX] = 3;
+//		}
+//	}
+//	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+//
+//}
+
+
 void drawDieEnemyEffect(posStruct enemyCurPos) {
 	int posX, posY;
 	int arrX, arrY;
@@ -249,6 +305,7 @@ void deleteDieEnemyEffect() {
 		search = search->next;
 	}
 }
+
 void drawInitialUI() {
 	printBulletCount();
 	printEnemyCount();
