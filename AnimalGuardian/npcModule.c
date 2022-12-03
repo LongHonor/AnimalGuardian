@@ -293,3 +293,41 @@ void animalMoveSetting() {
         restoreConsoleColor();
     }
 }
+struct bossEnemy {
+    posStruct pos;
+    int hpCount;
+};
+struct bossEnemy boss;
+
+void moveBoss() {
+    if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
+        if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 1) {
+            //deleteBossEnemy();
+            boss.pos.Y -= 1;
+            bossEnemyMoveTimePerSec = clock();
+            //drawBossEnemy();
+        }
+        else if(bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 0) {
+            //deleteBossEnemy();
+            boss.pos.Y += 2;
+            bossEnemyMoveTimePerSec = clock();
+            //drawBossEnemy();
+        }
+    }
+}
+int bossEnemyDetectCollision(int posX,int posY) {
+    int x, y=0;
+    int arrX = (posX - gBoardOx) / 2;
+    int arrY = posY - gBoardOy;
+    for (x = 0; x < 4; x++) {
+        if (bossEnemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 7)
+        {
+            return 0;
+        }
+        if (bossEnemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 3)
+        {
+            return 2;
+        }
+    }
+    return 1;
+}
