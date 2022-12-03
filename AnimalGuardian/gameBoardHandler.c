@@ -237,23 +237,39 @@ void deleteEnemy() {
 }
 
 
-//void drawBossEnemy() {
-//	int posX, posY;
-//	int arrX, arrY;
-//	posStruct bossEnemyCurPos = getAnimalCurrentPos();
-//	arrX = (animalCurPos.X - gBoardOx) / 2;
-//	arrY = (animalCurPos.Y - gBoardOy);
-//	for (posX = 0; posX < 4; posX++) {
-//		for (posY = 0; posY < 4; posY++) {
-//			setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
-//			if (animalModel[0][posX] == 1) printf("♧");
-//			else printf("■");
-//			currentGameBoard[arrY][arrX + posX] = 3;
-//		}
-//	}
-//	setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
-//
-//}
+void drawBossEnemy() {
+	int posX, posY;
+	int arrX, arrY;
+	
+	arrX = (boss.pos.X - gBoardOx) / 2;
+	arrY = (boss.pos.Y - gBoardOy);
+	for (posX = 0; posX < 4; posX++) {
+		for (posY = 0; posY < 4; posY++) {
+			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y);
+			if (bossEnemyModel[posX][posX] == 2) printf("※");
+			else printf("■");
+			
+		}
+	}
+	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+
+}
+void deleteBossEnemy() {
+	int posX, posY;
+	int arrX, arrY;
+
+	arrX = (boss.pos.X - gBoardOx) / 2;
+	arrY = (boss.pos.Y - gBoardOy);
+	for (posX = 0; posX < 4; posX++) {
+		for (posY = 0; posY < 4; posY++) {
+			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y);
+			printf("  ");
+
+		}
+	}
+	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+
+}
 
 
 void drawDieEnemyEffect(posStruct enemyCurPos) {
