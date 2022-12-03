@@ -60,6 +60,14 @@ void drawGameBoard() {
 			}
 		}
 	}
+	for (posY = 0; posY < gBoardHeight + 3; posY++) {
+		for (posX = 1; posX < gBoardWidth + 1; posX++) {
+			if (currentGameBoard[posY][posX] == 7) {
+				setCurrentCursorPos(posX * 2, posY);
+				printf("□");
+			}
+		}
+	}
 	restoreConsoleColor();
 	setCurrentCursorPos(10, 19);
 }
