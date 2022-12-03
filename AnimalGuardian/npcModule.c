@@ -212,6 +212,7 @@ void setAllEnemyCount(int count) {
 }
 void setAllAnimalCount(int count) {
     allAnimalCount = count;
+    currentAnimalCount = count;
 }
 
 //추후 i값의 조정으로 전부 움직일 수 있게 한다
@@ -268,7 +269,7 @@ void animalMoveSetting() {
             animalNPCdetectCollision(animalArray[0].pos.X - 1, animalArray[0].pos.Y) == 2 ) {
             deleteAnimal(animalArray[0]);
             animalArray[0].activeStatus = FALSE;
-            allAnimalCount--;
+            currentAnimalCount--;
         }
     }
     if (animalArray[1].activeStatus == TRUE) {
@@ -279,7 +280,7 @@ void animalMoveSetting() {
             animalNPCdetectCollision(animalArray[1].pos.X - 1, animalArray[1].pos.Y) == 2 ) {
             deleteAnimal(animalArray[1]);
             animalArray[1].activeStatus = FALSE;
-            allAnimalCount--;
+            currentAnimalCount--;
         }
     }
     if (animalArray[2].activeStatus == TRUE) {
@@ -290,7 +291,7 @@ void animalMoveSetting() {
             animalNPCdetectCollision(animalArray[2].pos.X - 1, animalArray[2].pos.Y) == 2) {
             deleteAnimal(animalArray[2]);
             animalArray[2].activeStatus = FALSE;
-            allAnimalCount--;
+            currentAnimalCount--;
         }
     }
     if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {

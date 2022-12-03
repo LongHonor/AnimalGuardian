@@ -3,7 +3,12 @@
 //스테이지별로 마릿수를 지정해줄 전역변수입니다
 int allAnimalCount;
 int allEnemyCount;
+
+//게임 오버/클리어 조건 변수들
 int currentEnemyCount;
+int currentAnimalCount;
+
+//enemy가 스폰되는 간격 변수
 int enemySpawnTime;
 
 
