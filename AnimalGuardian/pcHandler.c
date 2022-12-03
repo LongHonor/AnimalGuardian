@@ -8,7 +8,7 @@
 #include <conio.h>
 #include <time.h>
 //PC 초기화
-PC player = { {40,20},1,200,3 };
+PC player = { {40,20},1,2,3 };
 
 //bullet 초기화
 int bulletCount = 10;
@@ -17,7 +17,6 @@ posStruct *dieEnemyPos = NULL;
 int bulletItem = 0;
 
 loadFlag = 0;
-loadTime = 2;
 dieTime = 2;
 dieFlag = 0;
 
@@ -215,7 +214,7 @@ void pcKeyInput() {
 			}
 		}
 		//장전2초
-		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= loadTime) {
+		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= player.reloadSpeed) {
 			loadBullet();
 			loadFlag = 0;
 		}
