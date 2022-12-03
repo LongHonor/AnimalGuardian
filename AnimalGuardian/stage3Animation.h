@@ -175,7 +175,7 @@ void deleteAnimationEnemy(int posX, int posY) {
 	printf("  ");
 }
 
-void drawBossEnemy(int posX, int posY) {
+void drawAnimationBossEnemy(int posX, int posY) {
 	int cursorX = posX * 2;
 	int i, j;
 	int width = 6, height = 6;
@@ -224,7 +224,7 @@ void drawBossEnemy(int posX, int posY) {
 	}
 }
 
-void deleteBossEnemy(int posX, int posY) {
+void deleteAnimationBossEnemy(int posX, int posY) {
 	int cursorX = posX * 2;
 	int i, j;
 	int width = 6, height = 6;
@@ -269,13 +269,13 @@ void scene3() {
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j <= i; j++) {
 			drawEnemyLine(i);
-			drawBossEnemy(17,13 - i);
+			drawAnimationBossEnemy(17,13 - i);
 		}
 		Sleep(500);
 		if (i == 3) break;
 		for (j = 0; j <= i; j++) {
 			deleteEnemyLine(i);
-			deleteBossEnemy(17, 13 - i);
+			deleteAnimationBossEnemy(17, 13 - i);
 		}
 		Sleep(500);
 	}
