@@ -13,7 +13,7 @@ PC player = { {40,20},1,2,3,0};
 //bullet 초기화
 int bulletCount = 10;
 posStruct *dieEnemyPos = NULL;
-int bulletItem = 0;
+int bulletItem = 1;
 int enemySpeedItemFlag = 0;
 loadFlag = 0;
 dieTime = 2;
@@ -99,15 +99,27 @@ void shootBullet() {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
-				
-				return;
-			}
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 6) {
-				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
-				
+				if (currentGameBoard[newbullet->pos.Y - 1 - gBoardOy][(newbullet->pos.X - gBoardOx)/2] == 3) {
+					if (currentGameBoard[newbullet->pos.Y - 1 - gBoardOy][(newbullet->pos.X - gBoardOx) / 2] == 3) {
+						int posX;
+						int arrX, arrY;
+						for (int i = 0; i < 3; i++) {
+							if (animalArray[i].activeStatus == TRUE) {
+								//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+								posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+								arrX = (animalCurPos.X - gBoardOx) / 2;
+								arrY = (animalCurPos.Y - gBoardOy);
+								if (arrX == newbullet->pos.X / 2 || arrX + 1 == newbullet->pos.X / 2) {
+									currentGameBoard[arrY][arrX] = 0;
+									currentGameBoard[arrY][arrX + 1] = 0;
+									setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+									printf("    ");
+									animalArray[i].activeStatus = FALSE;
+								}
+							}
+						}
+					}
+				}
 				return;
 			}
 			//바로 위 충돌
@@ -164,7 +176,25 @@ void shootBullet() {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
-				
+				if (currentGameBoard[newbullet->pos.Y - 1 - gBoardOy][(newbullet->pos.X - gBoardOx)/2] == 3) {
+					int posX;
+					int arrX, arrY;
+					for (int i = 0; i < 3; i++) {
+						if (animalArray[i].activeStatus == TRUE) {
+							//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+							posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+							arrX = (animalCurPos.X - gBoardOx) / 2;
+							arrY = (animalCurPos.Y - gBoardOy);
+							if (arrX == newbullet->pos.X / 2 || arrX + 1 == newbullet->pos.X / 2) {
+								currentGameBoard[arrY][arrX] = 0;
+								currentGameBoard[arrY][arrX + 1] = 0;
+								setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+								printf("    ");
+								animalArray[i].activeStatus = FALSE;
+							}
+						}
+					}
+				}
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 6) {
@@ -172,7 +202,25 @@ void shootBullet() {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
-				
+				if (currentGameBoard[newbullet->pos.Y - 2 - gBoardOy][(newbullet->pos.X - gBoardOx) / 2] == 3) {
+					int posX;
+					int arrX, arrY;
+					for (int i = 0; i < 3; i++) {
+						if (animalArray[i].activeStatus == TRUE) {
+							//animalNPC 위치 받아와서 setCurrentCursorPos()호출
+							posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
+							arrX = (animalCurPos.X - gBoardOx) / 2;
+							arrY = (animalCurPos.Y - gBoardOy);
+							if (arrX == newbullet->pos.X / 2 || arrX + 1 == newbullet->pos.X / 2) {
+								currentGameBoard[arrY][arrX] = 0;
+								currentGameBoard[arrY][arrX + 1] = 0;
+								setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
+								printf("    ");
+								animalArray[i].activeStatus = FALSE;
+							}
+						}
+					}
+				}
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
