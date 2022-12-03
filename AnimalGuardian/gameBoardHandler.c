@@ -144,12 +144,13 @@ void deleteAnimal() {
 			arrX = (animalCurPos.X - gBoardOx);
 			arrY = (animalCurPos.Y - gBoardOy);
 			for (posX = 0; posX < 2; posX++) {
-				setCurrentCursorPos(arrX*2 + posX * 2, animalCurPos.Y);
+				setCurrentCursorPos(arrX * 2 + posX * 2, animalCurPos.Y);
 				printf("  ");
 				currentGameBoard[arrY][arrX + posX] = 0;
 			}
 			setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 		}
+		else continue;
 	}
 }
 
