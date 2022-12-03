@@ -196,12 +196,12 @@ void moveOneAnimal(int index) {
             direction *= -1;
         }
         else {
-            animalArray[index].pos.X += direction * 2;
+            animalArray[index].pos.X += direction;
             return;
         }
 
         if (animalNPCdetectCollision(animalArray[index].pos.X + (direction * 2), animalArray[index].pos.Y) == 1) {
-            animalArray[index].pos.X += direction * 2;
+            animalArray[index].pos.X += direction;
         }
     }
 }
@@ -253,10 +253,8 @@ void enemyMoveSetting() {
 void animalMoveSetting() {
     if (animalArray[0].activeStatus == TRUE) {
         if (animalNPCdetectCollision(animalArray[0].pos.X, animalArray[0].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[0].pos.X + 2, animalArray[0].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[0].pos.X - 2, animalArray[0].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[0].pos.X + 1, animalArray[0].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[0].pos.X - 1, animalArray[0].pos.Y) == 2 ) {
+            animalNPCdetectCollision(animalArray[0].pos.X + 3, animalArray[0].pos.Y) == 2 ||
+            animalNPCdetectCollision(animalArray[0].pos.X - 2, animalArray[0].pos.Y) == 2 ) {
             deleteAnimal(animalArray[0]);
             animalArray[0].activeStatus = FALSE;
             currentAnimalCount--;
@@ -264,10 +262,8 @@ void animalMoveSetting() {
     }
     if (animalArray[1].activeStatus == TRUE) {
         if (animalNPCdetectCollision(animalArray[1].pos.X, animalArray[1].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[1].pos.X + 2, animalArray[1].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[1].pos.X - 2, animalArray[1].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[1].pos.X + 1, animalArray[1].pos.Y) == 2 || 
-            animalNPCdetectCollision(animalArray[1].pos.X - 1, animalArray[1].pos.Y) == 2 ) {
+            animalNPCdetectCollision(animalArray[1].pos.X + 3, animalArray[1].pos.Y) == 2 ||
+            animalNPCdetectCollision(animalArray[1].pos.X - 2, animalArray[1].pos.Y) == 2  ) {
             deleteAnimal(animalArray[1]);
             animalArray[1].activeStatus = FALSE;
             currentAnimalCount--;
@@ -275,10 +271,8 @@ void animalMoveSetting() {
     }
     if (animalArray[2].activeStatus == TRUE) {
         if (animalNPCdetectCollision(animalArray[2].pos.X, animalArray[2].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[2].pos.X + 2, animalArray[2].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[2].pos.X - 2, animalArray[2].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[2].pos.X + 1, animalArray[2].pos.Y) == 2 || 
-            animalNPCdetectCollision(animalArray[2].pos.X - 1, animalArray[2].pos.Y) == 2) {
+            animalNPCdetectCollision(animalArray[2].pos.X + 3, animalArray[2].pos.Y) == 2 ||
+            animalNPCdetectCollision(animalArray[2].pos.X - 2, animalArray[2].pos.Y) == 2) {
             deleteAnimal(animalArray[2]);
             animalArray[2].activeStatus = FALSE;
             currentAnimalCount--;
