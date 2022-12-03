@@ -12,6 +12,11 @@ int currentAnimalCount;
 //enemy가 스폰되는 간격 변수
 int enemySpawnTime;
 
+typedef struct _kingAnimal {
+    posStruct pos;
+}kingStruct;
+
+kingStruct king;
 bossStruct boss;
 
 //enemy위치를 저장해주는 배열

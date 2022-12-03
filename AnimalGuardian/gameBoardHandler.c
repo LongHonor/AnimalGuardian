@@ -159,34 +159,34 @@ void drawKing() {
 	int posX, posY;
 	int arrX, arrY;
 
-	arrX = (boss.pos.X - gBoardOx) / 2;
-	arrY = (boss.pos.Y - gBoardOy);
+	arrX = (king.pos.X - gBoardOx) / 2;
+	arrY = (king.pos.Y - gBoardOy);
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 2; posY++) {
-			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y + posY);
+			setCurrentCursorPos(king.pos.X + posX * 2, king.pos.Y + posY);
 			if (kingAnimalModel[0][posY][posX] == 1) printf("■");
 			else if (kingAnimalModel[0][posY][posX] == 2) printf("▲");
 			else printf("  ");
 
 		}
 	}
-	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+	setCurrentCursorPos(king.pos.X, king.pos.Y);
 
 }
 void deleteKing() {
 	int posX, posY;
 	int arrX, arrY;
 
-	arrX = (boss.pos.X - gBoardOx) / 2;
-	arrY = (boss.pos.Y - gBoardOy);
+	arrX = (king.pos.X - gBoardOx) / 2;
+	arrY = (king.pos.Y - gBoardOy);
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 2; posY++) {
-			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y + posY);
+			setCurrentCursorPos(king.pos.X + posX * 2, king.pos.Y + posY);
 			printf("  ");
 
 		}
 	}
-	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+	setCurrentCursorPos(king.pos.X, king.pos.Y);
 
 }
 
