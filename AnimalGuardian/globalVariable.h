@@ -71,6 +71,13 @@ typedef struct _PC {
 	int lifePoint;
 } pc;
 
+typedef struct bossNPC {
+	posStruct pos;
+	int speed;
+	int hp;
+	boolean activeStatus;
+} boss;
+
 //NPC - enemy
 typedef struct _EnemyNPC {
 	posStruct pos;
