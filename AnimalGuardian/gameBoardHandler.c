@@ -316,12 +316,12 @@ void printBulletCount() {
 	int bulletCnt = bulletCount;
 
 	setCurrentCursorPos(44 * 2, 3);
-	printf("%2d / %2d", bulletCnt, maxBullet);
+	printf("Bullet : %2d / %2d", bulletCnt, maxBullet);
 }
 void printEnemyCount() {
 	int enemyTotalCnt = allEnemyCount;
 
 	setCurrentCursorPos(44 * 2, 4);
 	//총 enemy 수와 현재 enemy수 
-	printf("%2d / %2d", enemyTotalCnt, enemyTotalCnt);
+	printf("Enemy  : % 2d / % 2d", enemyTotalCnt, enemyTotalCnt);
 }
