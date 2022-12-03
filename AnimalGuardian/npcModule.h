@@ -4,7 +4,7 @@
 int allAnimalCount;
 int allEnemyCount;
 
-int enemyMoveSpeed;
+double enemyMoveSpeed;
 //게임 오버/클리어 조건 변수들
 int currentEnemyCount;
 int currentAnimalCount;
