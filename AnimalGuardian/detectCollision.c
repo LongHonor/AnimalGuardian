@@ -131,3 +131,21 @@ int detectCollisionBarricade(int posX, int posY) {
 	//empty
 	return 1;
 }
+
+int bossEnemyDetectCollision(int posX, int posY) {
+	int x, y = 0;
+	int arrX = (posX - gBoardOx) / 2;
+	int arrY = posY - gBoardOy;
+	for (x = 0; x < 4; x++) {
+		if (bossEnemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 7)
+		{
+			return 0;
+		}
+		if (bossEnemyModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 3)
+		{
+			return 2;
+		}
+	}
+	return 1;
+}
+
