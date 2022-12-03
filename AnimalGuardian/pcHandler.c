@@ -214,6 +214,7 @@ void pcKeyInput() {
 		//장전2초
 		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= player.reloadSpeed) {
 			loadBullet();
+			printBulletCount();
 			loadFlag = 0;
 		}
 		//effect 효과 2초
