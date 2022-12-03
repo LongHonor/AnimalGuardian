@@ -233,6 +233,7 @@ void removeCursor()
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
 }
 
+//콘솔출력색상 변경
 void changeConsoleColor(enumColor consoleColor) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), consoleColor);
 }
