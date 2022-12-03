@@ -323,5 +323,5 @@ void printEnemyCount() {
 
 	setCurrentCursorPos(44 * 2, 4);
 	//총 enemy 수와 현재 enemy수 
-	printf("Enemy  : % 2d / % 2d", enemyTotalCnt, enemyTotalCnt);
+	printf("Enemy  : % 2d / % 2d", currentEnemyCount, enemyTotalCnt);
 }
