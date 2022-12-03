@@ -2,6 +2,7 @@
 #include "npcModule.h"
 #include "detectCollision.h"
 #include "gameBoardHandler.h"
+#include "barricadeHandler.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
@@ -289,16 +290,18 @@ void animalMoveSetting() {
     }
 }
 bossStruct boss = { {38,15},1,50,TRUE };
-
+posStruct barricadePos = { 38,6 };
 void moveBoss() {
-    if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 2) {
+    int posX, PosY;
+    if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
         if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 1) {
             deleteBoss();
             boss.pos.Y -= 1;
             bossEnemyMoveTimePerSec = clock();
             drawBoss();
         }
-        else if(bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 0) {
+        else if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 0) {
+            drawDamagedBarricade(barricadePos);
             deleteBoss();
             boss.pos.Y += 2;
             bossEnemyMoveTimePerSec = clock();
