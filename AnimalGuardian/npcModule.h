@@ -32,6 +32,7 @@ clock_t bossEnemyMoveTimePerSec;
 //배열을 돌 index
 int spawnedEnemyCount;
 
+int animalRandInt();
 
 int randInt(start, end);
 //랜덤함수, start-end사이의 임의의 값을 반환해주는 함수입니다

@@ -15,6 +15,12 @@ int randInt(start, end) {
     return (int)(rand() % length) + start;
 }
 
+int animalRandInt() {
+    int arr[3] = { -1,0,1 };
+    int index = randInt(0, 2);
+    return arr[index];
+}
+
 int isInArray(const int arr[], int val, int len) {
     for (int i = 0; i < len; i++) {
         if (arr[i] == val) return 1;
@@ -184,7 +190,7 @@ void makeAnimal() {
 
 void moveOneAnimal(int index) {
     //랜덤하게 방향 지정
-    int direction = randInt(-1, 1);
+    int direction = animalRandInt;
     //direction 이 0 이면 그냥 return
     if (direction != 0) {
         if (animalNPCdetectCollision(animalArray[index].pos.X + (direction * 2), animalArray[index].pos.Y) == 0) {
