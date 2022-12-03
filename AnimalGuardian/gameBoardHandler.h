@@ -12,6 +12,8 @@ void drawAnimal();
 void deleteAnimal();
 void drawEnemy();
 void deleteEnemy();
+void drawBoss();
+void deleteBoss();
 
 void drawInitialUI();
 void printBulletCount();

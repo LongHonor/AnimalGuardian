@@ -237,7 +237,7 @@ void deleteEnemy() {
 }
 
 
-void drawBossEnemy() {
+void drawBoss() {
 	int posX, posY;
 	int arrX, arrY;
 	
@@ -245,8 +245,8 @@ void drawBossEnemy() {
 	arrY = (boss.pos.Y - gBoardOy);
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 4; posY++) {
-			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y);
-			if (bossEnemyModel[posX][posX] == 2) printf("※");
+			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y+ posY);
+			if (bossEnemyModel[posY][posX] == 2) printf("※");
 			else printf("■");
 			
 		}
@@ -254,7 +254,7 @@ void drawBossEnemy() {
 	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
 
 }
-void deleteBossEnemy() {
+void deleteBoss() {
 	int posX, posY;
 	int arrX, arrY;
 
@@ -262,7 +262,7 @@ void deleteBossEnemy() {
 	arrY = (boss.pos.Y - gBoardOy);
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 4; posY++) {
-			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y);
+			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y+posY);
 			printf("  ");
 
 		}

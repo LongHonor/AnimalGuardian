@@ -287,21 +287,21 @@ void animalMoveSetting() {
         restoreConsoleColor();
     }
 }
-bossStruct boss = { {40,18},1,50,TRUE };
+bossStruct boss = { {38,15},1,50,TRUE };
 
 void moveBoss() {
     if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
         if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 1) {
-            //deleteBossEnemy();
+            deleteBoss();
             boss.pos.Y -= 1;
             bossEnemyMoveTimePerSec = clock();
-            //drawBossEnemy();
+            drawBoss();
         }
         else if(bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 0) {
-            //deleteBossEnemy();
+            deleteBoss();
             boss.pos.Y += 2;
             bossEnemyMoveTimePerSec = clock();
-            //drawBossEnemy();
+            drawBoss();
         }
     }
 }
