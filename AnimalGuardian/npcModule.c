@@ -293,12 +293,7 @@ void animalMoveSetting() {
         restoreConsoleColor();
     }
 }
-struct bossEnemy {
-    posStruct pos;
-    int hpCount;
-};
-struct bossEnemy boss;
-
+/*
 void moveBoss() {
     if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
         if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 1) {
@@ -331,3 +326,4 @@ int bossEnemyDetectCollision(int posX,int posY) {
     }
     return 1;
 }
+*/
