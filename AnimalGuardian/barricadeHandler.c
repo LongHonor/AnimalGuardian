@@ -31,7 +31,7 @@ void drawDamagedBarricade(posStruct barricadePos) {
 	
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 3; posY++) {
-			setCurrentCursorPos(barricadePos.X + posX * 2, barricadePos.Y + posY);
+			setCurrentCursorPos(barricadePos.X/2 + posX * 2, barricadePos.Y + posY);
 			printf("¢Æ");
 		}
 	}
@@ -43,8 +43,9 @@ void deleteDamagedBarricade(posStruct barricadePos) {
 
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 3; posY++) {
-			setCurrentCursorPos(barricadePos.X + posX * 2, barricadePos.Y + posY);
+			setCurrentCursorPos(barricadePos.X/2 + posX * 2, barricadePos.Y + posY);
 			printf("  ");
+			currentGameBoard[barricadePos.Y][barricadePos.X/2 + posX] = 0;
 		}
 	}
 	setCurrentCursorPos(barricadePos.X, barricadePos.Y);
