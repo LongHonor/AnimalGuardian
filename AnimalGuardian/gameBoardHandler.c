@@ -117,7 +117,7 @@ void drawAnimal() {
 			arrX = (animalCurPos.X - gBoardOx) / 2;
 			arrY = (animalCurPos.Y - gBoardOy);
 			for (posX = 0; posX < 2; posX++) {
-				setCurrentCursorPos(animalCurPos.X*2 + posX * 2, animalCurPos.Y);
+				setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
 				if (animalModel[0][posX] == 1) printf("♧");
 				else printf("■");
 				currentGameBoard[arrY][arrX + posX] = 3;
@@ -137,7 +137,7 @@ void deleteAnimal() {
 			arrX = (animalCurPos.X - gBoardOx) / 2;
 			arrY = (animalCurPos.Y - gBoardOy);
 			for (posX = 0; posX < 2; posX++) {
-				setCurrentCursorPos(animalCurPos.X*2 + posX * 2, animalCurPos.Y);
+				setCurrentCursorPos(animalCurPos.X + posX * 2, animalCurPos.Y);
 				printf("  ");
 				currentGameBoard[arrY][arrX + posX] = 0;
 			}
