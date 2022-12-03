@@ -36,7 +36,7 @@ int enemyNPCDetectCollision(int posX, int posY) {
 //not 충돌 : 1
 int animalNPCdetectCollision(int posX, int posY) {
 	int x, y;
-	int arrX = (posX - gBoardOx) / 2;
+	int arrX = (posX - gBoardOx);
 	int arrY = posY - gBoardOy;
 	for (x = 0; x < 2; x++)
 	{
@@ -53,6 +53,10 @@ int animalNPCdetectCollision(int posX, int posY) {
 			//enemy
 			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 6)) {
 				return 2;
+			}
+			//bullet
+			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 8)) {
+				return 3;
 			}
 		}
 	}
@@ -93,7 +97,7 @@ int detectCollisionBullet(int posX, int posY) {
 		return 0;
 	}
 	//enemy or animal
-	if (currentGameBoard[arrY][arrX] == 6 || currentGameBoard[arrY][arrX] == 3) {
+	if (currentGameBoard[arrY][arrX] == 6) {
 		return 5;
 	}
 	return 1;
