@@ -193,15 +193,15 @@ void moveOneAnimal(int index) {
     int direction = animalRandInt();
     //direction 이 0 이면 그냥 return
     if (direction != 0) {
-        if (animalNPCdetectCollision(animalArray[index].pos.X + (direction * 2), animalArray[index].pos.Y) == 0) {
+        if (animalNPCdetectCollision(animalArray[index].pos.X + direction, animalArray[index].pos.Y) == 0) {
             direction *= -1;
         }
         else {
             animalArray[index].pos.X += direction;
-            return;
+            //return;
         }
 
-        if (animalNPCdetectCollision(animalArray[index].pos.X + (direction * 2), animalArray[index].pos.Y) == 1) {
+        if (animalNPCdetectCollision(animalArray[index].pos.X + direction, animalArray[index].pos.Y) == 1) {
             animalArray[index].pos.X += direction;
         }
     }
@@ -222,6 +222,7 @@ void moveAnimal() {
         if (animalArray[i].activeStatus == TRUE) {
             moveOneAnimal(i);
         }
+        else continue;
     }
 }
 
@@ -282,8 +283,8 @@ void animalMoveSetting() {
     }
     if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
         deleteAnimal();
-        animalMoveTimePerSec = clock();
         moveAnimal();
+        animalMoveTimePerSec = clock();
         changeConsoleColor(purple);
         drawAnimal();
         restoreConsoleColor();
