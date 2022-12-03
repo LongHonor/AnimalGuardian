@@ -15,14 +15,12 @@ typedef struct _Bullet {
 	int speed;
 	int id;
 	posStruct pos;
-	struct _Bullet* link;
 }Bullet;
 
 //pc 전역변수
 PC player;
 
 //bullet 전역변수
-extern Bullet* bullet_head;
 extern int bulletCount;
 extern int bulletItem;
 
@@ -30,7 +28,6 @@ clock_t checkLoadStartTime;
 clock_t checkdieStartTime;
 extern int loadFlag;
 extern int dieFlag;
-int loadTime;
 int dieTime;
 
 //PC 그리기

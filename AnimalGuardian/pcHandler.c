@@ -12,7 +12,6 @@ PC player = { {40,20},1,2,3 };
 
 //bullet 초기화
 int bulletCount = 10;
-Bullet* bullet_head = NULL;
 posStruct *dieEnemyPos = NULL;
 int bulletItem = 0;
 
@@ -68,7 +67,6 @@ void shootBullet() {
 	newbullet->pos = player.pos;
 	newbullet->pos.Y -= 2;
 	newbullet->speed = 25;
-	newbullet->link = NULL;
 	bulletCount--;
 	printBulletCount();
 	while (1) {
