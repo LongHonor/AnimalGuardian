@@ -18,3 +18,4 @@ void deleteBoss();
 void drawInitialUI();
 void printBulletCount();
 void printEnemyCount();
+void printCurrentItem();

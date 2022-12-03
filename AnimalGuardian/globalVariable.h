@@ -68,7 +68,7 @@ typedef struct _PC {
 	posStruct pos;
 	int speed;
 	int reloadSpeed;
-	int lifePoint;
+	int itemCode;
 } pc;
 
 typedef struct bossNPC {

@@ -325,6 +325,7 @@ void deleteDieEnemyEffect() {
 void drawInitialUI() {
 	printBulletCount();
 	printEnemyCount();
+	printCurrentItem();
 }
 
 void printBulletCount() {
@@ -340,4 +341,46 @@ void printEnemyCount() {
 	setCurrentCursorPos(44 * 2, 4);
 	//총 enemy 수와 현재 enemy수 
 	printf("Enemy  : % 2d / % 2d", currentEnemyCount, enemyTotalCnt);
+}
+
+void printCurrentItem() {
+	int i, j;
+	int curX = 44 * 2, curY = 15;
+
+	playableCharacter.itemCode = 1;
+
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
+			setCurrentCursorPos(curX + j*2, curY + i);
+			if (i == 0) {
+				if (j == 0) printf("┌");
+				else if (j == 2) printf("┐");
+				else printf("─");
+			}
+			else if (i == 2) {
+				if (j == 0) printf("└");
+				else if (j == 2) printf("┘");
+				else printf("─");
+			}
+			else {
+				if (j == 1) {
+					switch (playableCharacter.itemCode) {
+					case 1:
+						printf(" S");
+						break;
+					case 2:
+						printf(" R");
+						break;
+					case 3:
+						printf(" B");
+						break;
+					default:
+						printf("  ");
+						break;
+					}
+				}
+				else printf("│");
+			}
+		}
+	}
 }
