@@ -8,6 +8,7 @@ typedef struct _Player {
 	int speed;
 	int reloadSpeed;
 	int lifePoint;
+	int itemNum;
 } PC;
 
 //Bullet
@@ -48,3 +49,7 @@ void shootBullet();
 void pcKeyInput();
 //총알수 리셋
 void loadBullet();
+//아이템 드롭
+void itemDrop();
+//아이템 표시
+void printCurrentItem();
