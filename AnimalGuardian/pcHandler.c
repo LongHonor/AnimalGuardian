@@ -57,116 +57,86 @@ void shiftRightPc() {
 	showPC(player);
 }
 void shootBullet() {
-	Bullet* curr = bullet_head;
-	Bullet* first_bullet = bullet_head;
+	Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
+	newbullet->pos = player.pos;
+	newbullet->pos.Y -= 2;
+	newbullet->speed = 25;
+	newbullet->link = NULL;
+	bulletCount--;
 	while (1) {
 		//일반 모드
 		if (bulletItem == 0) {
 			//바로 위 충돌
-			if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 0) {
-				first_bullet = curr->link;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
+			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0) {
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
 			}
 			//위위 충돌
-			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 0) {
-				first_bullet = curr->link;
-				curr->pos.Y -= 1;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
+				newbullet->pos.Y -= 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
 			}
 			//npc 충돌 검사
-			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 5) {
-				first_bullet = curr->link;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
 			}
-			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 5) {
-				first_bullet = curr->link;
-				curr->pos.Y -= 1;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
+				newbullet->pos.Y -= 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
 			}
 			//충돌 하지 않은 경우
 			else {
-				curr->pos.Y -= 2;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
+				newbullet->pos.Y -= 2;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
 			}
 		}
 		//관통 모드
 		else if (bulletItem == 1) {
 			//게임보드 상단 충돌
-			if (curr->pos.Y - 2 == gBoardOy) {
-				curr->pos.Y = gBoardOy + 1;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
-				first_bullet = curr->link;
+			if (newbullet->pos.Y - 2 == gBoardOy) {
+				newbullet->pos.Y = gBoardOy + 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
 			}
-			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 0 || detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 0) {
-				curr->pos.Y -= 2;
-				Sleep(curr->speed);
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
+				newbullet->pos.Y -= 2;
+				Sleep(newbullet->speed);
 			}
 			//npc충돌
-			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 1) == 5) {
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
-				first_bullet = curr->link;
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
 			}
-			else if (detectCollisionBullet(curr->pos.X, curr->pos.Y - 2) == 5) {
-				curr->pos.Y -= 1;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
-				first_bullet = curr->link;
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
+				newbullet->pos.Y -= 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
 			}
 			else {
-				curr->pos.Y -= 2;
-				showBullet(curr->pos);
-				Sleep(curr->speed);
-				eraseBullet(curr->pos);
+				newbullet->pos.Y -= 2;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
 			}
-		}
-		if (_kbhit() != 0) {
-			int key = _getch();
-			switch (key) {
-			case left:
-				shiftLeftPc();
-				break;
-			case right:
-				shiftRightPc();
-				break;
-			case space:
-				if (bulletCount > 0) {
-					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
-					newbullet->pos = player.pos;
-					newbullet->pos.Y -= 2;
-					newbullet->speed = 15;
-					newbullet->link = NULL;
-					curr->link = newbullet;
-					bulletCount--;
-				}
-				break;
-			}
-		}
-		/*if (curr->pos.Y < gBoardOy + 2) {
-			first_bullet = curr->link;
-		}*/
-		if (first_bullet == NULL) {
-			break;
-		}
-		if (curr->link == NULL) {
-			curr = first_bullet;
-		}
-		else {
-			curr = curr->link;
 		}
 	}
 }
@@ -188,13 +158,6 @@ void pcKeyInput() {
 				break;
 			case space:
 				if (loadFlag == 0 && bulletCount > 0) {
-					Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
-					newbullet->pos = player.pos;
-					newbullet->pos.Y -= 2;
-					newbullet->speed = 15;
-					newbullet->link = NULL;
-					bullet_head = newbullet;
-					bulletCount--;
 					shootBullet();
 				}
 				break;
