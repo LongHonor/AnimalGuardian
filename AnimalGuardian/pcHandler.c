@@ -14,7 +14,7 @@ PC player = { {40,20},1,2,3,0};
 int bulletCount = 10;
 posStruct *dieEnemyPos = NULL;
 int bulletItem = 0;
-
+int enemySpeedItemFlag = 0;
 loadFlag = 0;
 dieTime = 2;
 dieFlag = 0;
@@ -242,11 +242,14 @@ void pcKeyInput() {
 			case item:
 				if (player.itemNum == 1) {
 					//에네미 속도 감소
-					player.itemNum = 0;
-					printCurrentItem();
+					enemySpeedItemFlag = 1;
+					enemyMoveSpeed = 1;
+					checkSlowEnemySpeedTime = clock();
 				}
 				if (player.itemNum == 2) {
 					player.reloadSpeed = 1;
+					checkLoadStartTime = clock();
+					loadFlag = 1;
 				}
 				if (player.itemNum == 3) {
 					placeBarricade();
@@ -261,7 +264,7 @@ void pcKeyInput() {
 		}
 		//장전2초
 		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= player.reloadSpeed) {
-			if (player.reloadSpeed == 2) {
+			if (player.reloadSpeed == 1) {
 				player.reloadSpeed = 2;
 				player.itemNum = 0;
 				printCurrentItem();
@@ -269,6 +272,13 @@ void pcKeyInput() {
 			loadBullet();
 			printBulletCount();
 			loadFlag = 0;
+		}
+		//enemy 속도 감소 아이템 적용 체크
+		if (enemySpeedItemFlag == 1 && (double)(clock() - checkSlowEnemySpeedTime) / 1000 >= 5) {
+			player.itemNum = 0;
+			enemySpeedItemFlag = 0;
+			enemyMoveSpeed = 0.5;
+			printCurrentItem();
 		}
 		//effect 효과 2초
 
