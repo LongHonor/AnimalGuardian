@@ -42,7 +42,7 @@ void deleteDamagedBarricade(posStruct barricadePos) {
 	for (posX = 0; posX < 4; posX++) {
 		setCurrentCursorPos(barricadePos.X + posX * 2, barricadePos.Y);
 		printf("  ");
-		currentGameBoard[barricadePos.Y][barricadePos.X/2 + posX*2] = 0;
+		currentGameBoard[barricadePos.Y][barricadePos.X/2 + posX] = 0;
 	}
 	setCurrentCursorPos(barricadePos.X, barricadePos.Y);
 }
