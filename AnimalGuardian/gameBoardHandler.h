@@ -1,9 +1,8 @@
 ﻿#pragma once
 
-void initGameBoard();
 void drawGameBoard();	
-void AddBlockToBoard(struct _Position barricadeCurPos);
-void drawDieEnemyEffect(struct _Position enemyCurPos);
+void AddBlockToBoard(posStruct barricadeCurPos);
+void drawDieEnemyEffect(posStruct enemyCurPos);
 void deleteDieEnemyEffect();
 
 void drawPC();	
