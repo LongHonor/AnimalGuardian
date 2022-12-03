@@ -96,10 +96,15 @@ int detectCollisionBullet(int posX, int posY) {
 	if (currentGameBoard[arrY][arrX] == 7) {
 		return 0;
 	}
-	//enemy or animal
+	//enemy
 	if (currentGameBoard[arrY][arrX] == 6) {
 		return 5;
 	}
+	//animal
+	if (currentGameBoard[arrY][arrX] == 3) {
+		return 6;
+	}
+
 	return 1;
 }
 
