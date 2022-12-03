@@ -55,18 +55,6 @@ void moveOneEnemy(enemyNPC* enemy);
 void moveEnemy();
 // moveOneEnemy를 스폰된 enemy개수만큼 움직여주는 함수입니다.
 
-void showNormalEnemy();
-// 일반 enemy를 전부 보여주는 함수입니다.
-
-void showOneEnemy(enemyNPC* enemyNpc);
-//enemy 객체 하나만 보여주는 함수입니다
-
-void deleteOneEnemy(enemyNPC* enemyNpc);
-//enemy 객체 하나만 지우는 함수입니다
-
-void deleteAndFreeAllEnemy();
-//생성된 enemy전체를 free해주고 지우는 함수입니다. gameOver시 사용됩니다.
-
 void makeNormalEnemy(int x);
 //enemy객체 하나를 만들어주는 함수입니다.
 

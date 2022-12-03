@@ -108,34 +108,7 @@ void moveEnemy() {
     }
 }
 
-void showNormalEnemy() {
-    enemyNPC* enemyNpc = enemyList->enemyHeader;
-    while (enemyNpc != NULL) {
-        setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
-        drawEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
-        enemyNpc = enemyNpc->next;
-    }
-}
-
-void showOneEnemy(enemyNPC* enemyNpc) {
-    setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
-    drawEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
-}
-
-void deleteOneEnemy(enemyNPC* enemyNpc) {
-    setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
-    deleteEnemy(enemyNpc->pos.X, enemyNpc->pos.Y);
-}
-
-void deleteAndFreeAllEnemy() {
-    enemyNPC* enemyNpc = enemyList->enemyHeader;
-    while (enemyNpc != NULL) {
-        setCurrentCursorPos(enemyNpc->pos.X, enemyNpc->pos.Y);
-        deleteOneEnemy(enemyNpc);
-        free(enemyNpc);
-        enemyNpc = enemyNpc->next;
-    }
-}
+//메모리 해제 함수 만들것
 
 //x위치값을 가져와서 그 pos에 enemy를 만듭니다.
 //enemyID는 생성된 순서대로 1,2..allEnemyCount까지입니다.
@@ -190,7 +163,7 @@ void makeAnimal() {
 
 void moveOneAnimal(int index) {
     //랜덤하게 방향 지정
-    int direction = animalRandInt;
+    int direction = animalRandInt();
     //direction 이 0 이면 그냥 return
     if (direction != 0) {
         if (animalNPCdetectCollision(animalArray[index].pos.X + (direction * 2), animalArray[index].pos.Y) == 0) {
