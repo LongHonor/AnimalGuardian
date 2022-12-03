@@ -119,7 +119,7 @@ void setPcReloadSpeed(int reloadSpeed);
 void setCurrentGameBoard(int stage);
 
 void removeCursor();
-void changeConsoleColor(int colorIndex);
+void changeConsoleColor(enumColor consoleColor);
 void restoreConsoleColor();
 void setCurrentCursorPos(int posX, int posY);
 COORD getCurrentCursorPos(void);
