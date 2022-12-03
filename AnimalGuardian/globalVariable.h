@@ -51,7 +51,6 @@ typedef enum color{
 int enemyNumber;
 int bulletNumber;
 int itemNumber;
-int stage;
 
 //커서
 int curPosX, curPosY;

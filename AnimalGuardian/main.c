@@ -8,9 +8,10 @@
 #include "stage3Animation.h"
 
 int main() {
+	int stage = 0;
     removeCursor();
     srand((unsigned)time(NULL));
-    setCurrentGameBoard(1);
+    setCurrentGameBoard(stage);
     
 	setAllEnemyCount(5);
     drawGameBoard();
@@ -27,7 +28,21 @@ int main() {
         enemyMoveSetting();
         animalMoveSetting();
         pcKeyInput();
-    }
+		if (currentEnemyCount == 0) {
+			if (stage == 2) return;
+			system("cls");
+			Sleep(3); stage += 1;
+			setCurrentGameBoard(stage);
+			drawGameBoard();
+			setAllEnemyCount(5);
+			setAllAnimalCount(5);
 
+			showPC(player);
+
+			makeAnimal();
+			resetEnemySpawnCount();
+			makeEnemyList(allEnemyCount);
+		}
+    }
     return 0;
 }
