@@ -8,16 +8,14 @@
 #include <conio.h>
 #include <time.h>
 //PC 초기화
-PC player = { {40,20},1,200,3 };
+PC player = { {40,20},1,2,3 };
 
 //bullet 초기화
 int bulletCount = 10;
-Bullet* bullet_head = NULL;
 posStruct *dieEnemyPos = NULL;
 int bulletItem = 0;
 
 loadFlag = 0;
-loadTime = 2;
 dieTime = 2;
 dieFlag = 0;
 
@@ -69,13 +67,33 @@ void shootBullet() {
 	newbullet->pos = player.pos;
 	newbullet->pos.Y -= 2;
 	newbullet->speed = 25;
-	newbullet->link = NULL;
 	bulletCount--;
+	printBulletCount();
 	while (1) {
 		//일반 모드
 		if (bulletItem == 0) {
+			//npc 충돌 검사
+			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				checkdieStartTime = clock(); dieFlag = 1;
+				findDieEnemy(newbullet->pos, checkdieStartTime);
+				drawDieEnemyEffect(newbullet->pos);
+				return;
+			}
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
+				newbullet->pos.Y -= 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				checkdieStartTime = clock(); dieFlag = 1;
+				findDieEnemy(newbullet->pos, checkdieStartTime);
+				drawDieEnemyEffect(newbullet->pos);
+				return;
+			}
 			//바로 위 충돌
-			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0) {
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0) {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
@@ -89,26 +107,6 @@ void shootBullet() {
 				eraseBullet(newbullet->pos);
 				return;
 			}
-			//npc 충돌 검사
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
-				checkdieStartTime = clock(); dieFlag = 1;
-				findDieEnemy(newbullet->pos, checkdieStartTime);
-				drawDieEnemyEffect(newbullet->pos);
-				return;
-			}
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
-				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
-				checkdieStartTime = clock(); dieFlag = 1;
-				findDieEnemy(newbullet->pos, checkdieStartTime);
-				drawDieEnemyEffect(newbullet->pos);
-				return;
-			}
 			//충돌 하지 않은 경우
 			else {
 				newbullet->pos.Y -= 2;
@@ -120,19 +118,8 @@ void shootBullet() {
 		//관통 모드
 		else if (bulletItem == 1) {
 			//게임보드 상단 충돌
-			if (newbullet->pos.Y - 2 == gBoardOy) {
-				newbullet->pos.Y = gBoardOy + 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
-				return;
-			}
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
-				newbullet->pos.Y -= 2;
-				Sleep(newbullet->speed);
-			}
 			//npc충돌
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
@@ -144,6 +131,26 @@ void shootBullet() {
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
 				return;
+			}
+			/*else if (newbullet->pos.Y - 1 == gBoardOy) {
+				newbullet->pos.Y = gBoardOy + 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				return;
+			}*/
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
+				if (newbullet->pos.Y - 1 == gBoardOy || newbullet->pos.Y - 2 == gBoardOy) {
+					newbullet->pos.Y = gBoardOy + 1;
+					showBullet(newbullet->pos);
+					Sleep(newbullet->speed);
+					eraseBullet(newbullet->pos);
+					return;
+				}
+				else {
+					newbullet->pos.Y -= 2;
+					Sleep(newbullet->speed);
+				}
 			}
 			else {
 				newbullet->pos.Y -= 2;
@@ -205,7 +212,7 @@ void pcKeyInput() {
 			}
 		}
 		//장전2초
-		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= loadTime) {
+		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= player.reloadSpeed) {
 			loadBullet();
 			loadFlag = 0;
 		}

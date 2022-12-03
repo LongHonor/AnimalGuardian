@@ -77,7 +77,9 @@ void placeBarricade() {
 	int key, i = 0;
 	int barricadeFlag = 1;
 	int barricadeTime = 10;
+	int checkBarricadeStartTime;
 	double timer = 0;
+
 	changeConsoleColor(lightYellow);
 
 	drawBarricade();
