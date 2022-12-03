@@ -5,8 +5,8 @@ void drawGameBoard();
 void AddBlockToBoard(posStruct barricadeCurPos);
 void drawDieEnemyEffect(posStruct enemyCurPos);
 void deleteDieEnemyEffect();
-void drawDieAnimalEffect(posStruct animalCurPos)
-void deleteDieAnimalEffect()
+void drawDieAnimalEffect(posStruct animalCurPos);
+void deleteDieAnimalEffect();
 
 void drawPC();	
 void deletePC();
