@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "globalVariable.h"
 
 void drawGameBoard();	
 void AddBlockToBoard(posStruct barricadeCurPos);
