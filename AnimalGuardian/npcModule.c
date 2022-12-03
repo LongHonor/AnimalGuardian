@@ -290,11 +290,15 @@ void animalMoveSetting() {
     }
 }
 bossStruct boss = { {38,15},1,50,TRUE };
+
 posStruct barricadePos = { 38,6 };
 int barricadeDetectCount = 0;
 void moveBoss() {
     int posX, PosY;
 	
+    if (boss.pos.Y == 3) {
+        return;
+    }
     if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
         if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 1) {
             deleteBoss();
