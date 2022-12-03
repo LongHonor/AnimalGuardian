@@ -20,6 +20,8 @@ clock_t checkEnemyNpcSpawnTime;
 clock_t animalMoveTimePerSec;
 //enemyNpc의 움직임을 조절하여 시간당 움직이게 해줄 변수
 clock_t enemyMoveTimePerSec;
+//bossEnemy의 움직임 조절하여 시간당 움직이게 해줄 변수
+clock_t bossEnemyMoveTimePerSec;
 //배열을 돌 index
 int spawnedEnemyCount;
 
@@ -83,3 +85,9 @@ void setAllAnimalCount(int count);
 
 void setAllEnemyCount(int count);
 //전역변수 allEnemyCount 를 초기화해줍니다
+
+void moveBoss();
+//bossEnemy를 움직여주는 함수입니다
+
+int bossEnemyDetectCollision(int posX, int posY);
+//bossEnemy의 충돌을 검사하는 함수입니다.
