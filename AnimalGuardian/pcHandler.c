@@ -8,7 +8,7 @@
 #include <conio.h>
 #include <time.h>
 //PC 초기화
-PC player = { {40,20},1,2,3 };
+PC player = { {40,20},1,2,3,0};
 
 //bullet 초기화
 int bulletCount = 10;
@@ -72,8 +72,9 @@ void shootBullet() {
 	while (1) {
 		//일반 모드
 		if (bulletItem == 0) {
-			//npc 충돌 검사
+			//enemy 충돌 검사
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+				itemDrop();
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
@@ -83,6 +84,7 @@ void shootBullet() {
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
+				itemDrop();
 				newbullet->pos.Y -= 1;
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
@@ -90,6 +92,22 @@ void shootBullet() {
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
+				return;
+			}
+			//animal 충돌 검사
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				
+				return;
+			}
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 6) {
+				newbullet->pos.Y -= 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				
 				return;
 			}
 			//바로 위 충돌
@@ -120,25 +138,43 @@ void shootBullet() {
 			//게임보드 상단 충돌
 			//npc충돌
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+				itemDrop();
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
+				checkdieStartTime = clock(); dieFlag = 1;
+				findDieEnemy(newbullet->pos, checkdieStartTime);
+				drawDieEnemyEffect(newbullet->pos);
+				
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
+				itemDrop();
 				newbullet->pos.Y -= 1;
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
+				checkdieStartTime = clock(); dieFlag = 1;
+				findDieEnemy(newbullet->pos, checkdieStartTime);
+				drawDieEnemyEffect(newbullet->pos);
 				return;
 			}
-			/*else if (newbullet->pos.Y - 1 == gBoardOy) {
-				newbullet->pos.Y = gBoardOy + 1;
+			//animal 충돌 검사
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
 				showBullet(newbullet->pos);
 				Sleep(newbullet->speed);
 				eraseBullet(newbullet->pos);
+				
 				return;
-			}*/
+			}
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 6) {
+				newbullet->pos.Y -= 1;
+				showBullet(newbullet->pos);
+				Sleep(newbullet->speed);
+				eraseBullet(newbullet->pos);
+				
+				return;
+			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
 				if (newbullet->pos.Y - 1 == gBoardOy || newbullet->pos.Y - 2 == gBoardOy) {
 					newbullet->pos.Y = gBoardOy + 1;
@@ -204,8 +240,20 @@ void pcKeyInput() {
 				loadFlag = 1;
 				break;
 			case item:
-				placeBarricade();
-				drawGameBoard();
+				if (player.itemNum == 1) {
+					//에네미 속도 감소
+					player.itemNum = 0;
+					printCurrentItem();
+				}
+				if (player.itemNum == 2) {
+					player.reloadSpeed = 1;
+				}
+				if (player.itemNum == 3) {
+					placeBarricade();
+					drawGameBoard();
+					player.itemNum = 0;
+					printCurrentItem();
+				}
 				//아이템 종류당 번호 할당
 				//번호에 해당하는 아이템 사용
 				break;
@@ -213,6 +261,11 @@ void pcKeyInput() {
 		}
 		//장전2초
 		if (loadFlag == 1 && (double)(clock() - checkLoadStartTime) / 1000 >= player.reloadSpeed) {
+			if (player.reloadSpeed == 2) {
+				player.reloadSpeed = 2;
+				player.itemNum = 0;
+				printCurrentItem();
+			}
 			loadBullet();
 			printBulletCount();
 			loadFlag = 0;
@@ -223,5 +276,64 @@ void pcKeyInput() {
 		deleteDieEnemyEffect();
 
 		Sleep(20);
+	}
+}
+void itemDrop() {
+	int result = rand() % 10;
+	setCurrentCursorPos(44 * 2, 5);
+	switch (result) {
+	case 1:
+		player.itemNum = 1;	//에네미 속도 감소
+		printCurrentItem();
+		break;
+	case 2:
+		player.itemNum = 2;	//장전 속도 감소
+		printCurrentItem();
+		break;
+	case 3:
+		player.itemNum = 3;	//바리게이트 설치
+		printCurrentItem();
+		break;
+	default:
+		break;
+	}
+}
+void printCurrentItem() {
+	int i, j;
+	int curX = 44 * 2, curY = 15;
+
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
+			setCurrentCursorPos(curX + j * 2, curY + i);
+			if (i == 0) {
+				if (j == 0) printf("┌");
+				else if (j == 2) printf("┐");
+				else printf("─");
+			}
+			else if (i == 2) {
+				if (j == 0) printf("└");
+				else if (j == 2) printf("┘");
+				else printf("─");
+			}
+			else {
+				if (j == 1) {
+					switch (player.itemNum) {
+					case 1:
+						printf(" S");
+						break;
+					case 2:
+						printf(" R");
+						break;
+					case 3:
+						printf(" B");
+						break;
+					default:
+						printf("  ");
+						break;
+					}
+				}
+				else printf("│");
+			}
+		}
 	}
 }
