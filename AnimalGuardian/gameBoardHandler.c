@@ -155,6 +155,42 @@ void deleteAnimal() {
 }
 
 
+void drawKing() {
+	int posX, posY;
+	int arrX, arrY;
+
+	arrX = (boss.pos.X - gBoardOx) / 2;
+	arrY = (boss.pos.Y - gBoardOy);
+	for (posX = 0; posX < 4; posX++) {
+		for (posY = 0; posY < 2; posY++) {
+			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y + posY);
+			if (kingAnimalModel[0][posY][posX] == 1) printf("■");
+			else if (kingAnimalModel[0][posY][posX] == 2) printf("▲");
+			else printf("  ");
+
+		}
+	}
+	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+
+}
+void deleteKing() {
+	int posX, posY;
+	int arrX, arrY;
+
+	arrX = (boss.pos.X - gBoardOx) / 2;
+	arrY = (boss.pos.Y - gBoardOy);
+	for (posX = 0; posX < 4; posX++) {
+		for (posY = 0; posY < 2; posY++) {
+			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y + posY);
+			printf("  ");
+
+		}
+	}
+	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+
+}
+
+
 void drawDieAnimalEffect(posStruct animalCurPos) {
 	int posX;
 	int arrX, arrY;
@@ -351,44 +387,3 @@ void printEnemyCount() {
 	printf("Enemy  : % 2d / % 2d", currentEnemyCount, enemyTotalCnt);
 }
 
-void printCurrentItem() {
-	int i, j;
-	int curX = 44 * 2, curY = 15;
-
-	playableCharacter.itemCode = 1;
-
-	for (i = 0; i < 3; i++) {
-		for (j = 0; j < 3; j++) {
-			setCurrentCursorPos(curX + j*2, curY + i);
-			if (i == 0) {
-				if (j == 0) printf("┌");
-				else if (j == 2) printf("┐");
-				else printf("─");
-			}
-			else if (i == 2) {
-				if (j == 0) printf("└");
-				else if (j == 2) printf("┘");
-				else printf("─");
-			}
-			else {
-				if (j == 1) {
-					switch (playableCharacter.itemCode) {
-					case 1:
-						printf(" S");
-						break;
-					case 2:
-						printf(" R");
-						break;
-					case 3:
-						printf(" B");
-						break;
-					default:
-						printf("  ");
-						break;
-					}
-				}
-				else printf("│");
-			}
-		}
-	}
-}

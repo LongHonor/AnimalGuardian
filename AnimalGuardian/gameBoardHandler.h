@@ -5,6 +5,8 @@ void drawGameBoard();
 void AddBlockToBoard(posStruct barricadeCurPos);
 void drawDieEnemyEffect(posStruct enemyCurPos);
 void deleteDieEnemyEffect();
+void drawDieAnimalEffect(posStruct animalCurPos);
+void deleteDieAnimalEffect();
 
 void drawPC();	
 void deletePC();
@@ -14,6 +16,9 @@ void drawEnemy();
 void deleteEnemy();
 void drawBoss();
 void deleteBoss();
+void drawKing();
+void deleteKing();
+
 
 void drawInitialUI();
 void printBulletCount();
