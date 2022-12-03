@@ -173,12 +173,12 @@ void makeEnemyList(int enemyCount) {
 
 //추후 i값의 조절로 animal의 개수를 늘릴수 있고, pos값의 변경으로 animal의 위치를 변경할 수 있습니다.
 void makeAnimal() {
-    int randPos = 20;
+    int randPos = 10;
     for (int i = 0; i < allAnimalCount; i++) {
         animalArray[i].speed = 1;
         animalArray[i].activeStatus = TRUE;
         setAnimalCurrentPos(animalArray + i,randPos, 1);
-        randPos += 14;
+        randPos += 7;
     }
 }
 
