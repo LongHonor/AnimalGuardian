@@ -122,6 +122,9 @@ int detectCollisionBarricade(int posX, int posY) {
 			if (barcModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 1) {
 				return 0;
 			}
+			else if (barcModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] == 6) {
+				return 0;
+			}
 			//not empty
 			else if (barcModel[y][x] != 0 && currentGameBoard[arrY + y][arrX + x] != 0) {
 				return 9;

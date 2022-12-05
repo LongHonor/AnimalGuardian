@@ -109,6 +109,8 @@ void placeBarricade() {
 						posStruct barricadeCurPos = { barcX,barcY };
 						restoreConsoleColor(); drawBarricade();
 						AddBlockToBoard(barricadeCurPos);
+						setCurrentCursorPos(44 * 2, 6);
+						printf("   ");
 						return;
 					}
 					break;
@@ -118,7 +120,8 @@ void placeBarricade() {
 			if (barricadeFlag == 1 && (double)(clock() - checkBarricadeStartTime) / 1000 >= barricadeTime) {
 				barricadeFlag = 0;
 				restoreConsoleColor(); deleteBarricade();
-				system("cls");
+				setCurrentCursorPos(44 * 2, 6);
+				printf("   ");
 				return;
 			}
 			Sleep(20);
@@ -131,6 +134,7 @@ void placeBarricade() {
 			i += 1;
 		}*/
 		setCurrentCursorPos(44 * 2, 6);
+		restoreConsoleColor();
 		printf("%2.f", 11-(double)timer / CLOCKS_PER_SEC);
 	}
 }
