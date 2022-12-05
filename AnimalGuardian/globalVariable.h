@@ -88,6 +88,7 @@ typedef struct _EnemyNPC {
 	posStruct deadPos;
 	clock_t deadTime;
 	boolean activeStatus;
+	boolean dieFlag;
 	struct _EnemyNPC *next;
 } enemyNPC;
 
