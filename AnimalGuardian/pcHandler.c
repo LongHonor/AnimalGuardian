@@ -289,6 +289,7 @@ void pcKeyInput() {
 		//effect 효과 2초
 		if (animalEffectFlag == 1 && (double)(clock() - checkEffectAnimalDyingTime) / CLOCKS_PER_SEC >= 2) {
 			deleteDieAnimalEffect();
+			currentAnimalCount--;
 			animalEffectFlag = 0;
 		}
 

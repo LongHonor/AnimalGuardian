@@ -161,23 +161,22 @@ void makeAnimal() {
     }
 }
 
-void moveOneAnimal(int index) {
+int moveOneAnimal(int index) {
     //랜덤하게 방향 지정
     int direction = animalRandInt();
-    //direction 이 0 이면 그냥 return
-    if (direction != 0) {
-        if (animalNPCdetectCollision(animalArray[index].pos.X + direction, animalArray[index].pos.Y) == 0) {
-            direction *= -1;
-        }
-        else {
-            animalArray[index].pos.X += direction;
-            //return;
-        }
-
-        if (animalNPCdetectCollision(animalArray[index].pos.X + direction, animalArray[index].pos.Y) == 1) {
-            animalArray[index].pos.X += direction;
-        }
+    if (direction == 0) {
+        return;
     }
+    //direction 이 0 이면 그냥 return
+    if (animalNPCdetectCollision(animalArray[index].pos.X + 2, animalArray[index].pos.Y) == 0) {
+        direction = -1;
+        return direction;
+    }
+    if (animalNPCdetectCollision(animalArray[index].pos.X - 2, animalArray[index].pos.Y) == 0) {
+        direction = 1;
+        return direction;
+    }
+    return direction;
 }
 //enemy, Animal 총 마릿수를 지정해주는 함수
 void setAllEnemyCount(int count) {
@@ -188,14 +187,17 @@ void setAllAnimalCount(int count) {
     allAnimalCount = count;
     currentAnimalCount = count;
 }
-
+int direction1, direction2, direction3;
 //추후 i값의 조정으로 전부 움직일 수 있게 한다
 void moveAnimal() {
-    for (int i = 0; i < 3; i++) {
-        if (animalArray[i].activeStatus == TRUE) {
-            moveOneAnimal(i);
-        }
-        else continue;
+    if (animalArray[0].activeStatus == TRUE) {
+        animalArray[0].pos.X += direction1;
+    }
+    if (animalArray[1].activeStatus == TRUE) {
+        animalArray[1].pos.X += direction2;
+    }
+    if (animalArray[2].activeStatus == TRUE) {
+        animalArray[2].pos.X += direction3;
     }
 }
 
@@ -222,6 +224,7 @@ void enemyMoveSetting() {
         enemyMoveTimePerSec = clock();
         changeConsoleColor(red);
         drawEnemy();
+
         restoreConsoleColor();
     }
 }
@@ -229,7 +232,7 @@ void enemyMoveSetting() {
 void animalMoveSetting() {
     if (animalArray[0].activeStatus == TRUE) {
         if (animalNPCdetectCollision(animalArray[0].pos.X, animalArray[0].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[0].pos.X + 3, animalArray[0].pos.Y) == 2 ||
+            animalNPCdetectCollision(animalArray[0].pos.X + 2, animalArray[0].pos.Y) == 2 ||
             animalNPCdetectCollision(animalArray[0].pos.X - 2, animalArray[0].pos.Y) == 2 ) {
             deleteAnimal(animalArray[0]);
             animalArray[0].activeStatus = FALSE;
@@ -238,7 +241,7 @@ void animalMoveSetting() {
     }
     if (animalArray[1].activeStatus == TRUE) {
         if (animalNPCdetectCollision(animalArray[1].pos.X, animalArray[1].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[1].pos.X + 3, animalArray[1].pos.Y) == 2 ||
+            animalNPCdetectCollision(animalArray[1].pos.X + 2, animalArray[1].pos.Y) == 2 ||
             animalNPCdetectCollision(animalArray[1].pos.X - 2, animalArray[1].pos.Y) == 2  ) {
             deleteAnimal(animalArray[1]);
             animalArray[1].activeStatus = FALSE;
@@ -247,18 +250,21 @@ void animalMoveSetting() {
     }
     if (animalArray[2].activeStatus == TRUE) {
         if (animalNPCdetectCollision(animalArray[2].pos.X, animalArray[2].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[2].pos.X + 3, animalArray[2].pos.Y) == 2 ||
+            animalNPCdetectCollision(animalArray[2].pos.X + 2, animalArray[2].pos.Y) == 2 ||
             animalNPCdetectCollision(animalArray[2].pos.X - 2, animalArray[2].pos.Y) == 2) {
             deleteAnimal(animalArray[2]);
             animalArray[2].activeStatus = FALSE;
             currentAnimalCount--;
         }
     }
-    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
+    if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
+        direction1 = moveOneAnimal(0);
+        direction2 = moveOneAnimal(1);
+        direction3 = moveOneAnimal(2);
         deleteAnimal();
-        moveAnimal();
         animalMoveTimePerSec = clock();
         changeConsoleColor(purple);
+        moveAnimal();
         drawAnimal();
         restoreConsoleColor();
     }
