@@ -227,9 +227,9 @@ void deleteDieAnimalEffect() {
 
 void drawEnemy() {
 	int posY;
-	enemyNPC * search = enemyList->enemyHeader;
 	int arrX, arrY;
 
+	enemyNPC * search = enemyList->enemyHeader;
 
 
 	while (search != NULL) {
@@ -344,8 +344,9 @@ void deleteDieEnemyEffect() {
 	enemyNPC * search = enemyList->enemyHeader;
 	
 	while (search != NULL) {
-		if (search->activeStatus == FALSE) {
+		if (search->activeStatus == FALSE && search->dieFlag==FALSE) {
 			if ((double)(clock() - search->deadTime) / CLOCKS_PER_SEC >= dieTime) {
+				search->dieFlag = TRUE;
 				enemyCurPos.X = search->deadPos.X;
 				enemyCurPos.Y = search->deadPos.Y;
 				arrX = (enemyCurPos.X - gBoardOx) / 2;

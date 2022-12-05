@@ -122,6 +122,7 @@ void makeNormalEnemy(int x) {
     enemyNpc->direction = 0;
     enemyNpc->id = 1;
     enemyNpc->activeStatus = TRUE;
+	enemyNpc->dieFlag = FALSE;
     if (enemyList->enemyHeader == NULL) {
         enemyList->enemyHeader = enemyNpc;
         enemyNpc = 0;
