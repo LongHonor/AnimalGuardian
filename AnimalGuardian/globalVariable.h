@@ -102,7 +102,7 @@ typedef struct _EnemyNPCList {
 typedef struct _AnimalNPC {
 	posStruct pos;
 	int speed;
-	int id;
+	int direction;
 	boolean activeStatus;
 }animalNPC;
 
