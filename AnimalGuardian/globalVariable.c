@@ -113,11 +113,6 @@ char bulletModel[2][1] ={
 	{1} 
 };
 
-char pcModel[2][1] = {
-	{1},
-	{2}
-};
-
 char kingAnimalModel[][2][4] = {
 	{
 	{2,0,1,1},
