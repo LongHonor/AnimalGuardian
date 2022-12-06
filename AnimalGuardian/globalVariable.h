@@ -29,7 +29,6 @@ char bossEnemyModel[4][4];
 char enemyModel[1][1];
 char kingAnimalModel[][2][4];
 char animalModel[1][2];
-char pcModel[2][1];
 
 //enum color
 /*0.검정색 1.파란색 2.초록색
@@ -102,7 +101,7 @@ typedef struct _EnemyNPCList {
 typedef struct _AnimalNPC {
 	posStruct pos;
 	int speed;
-	int id;
+	int direction;
 	boolean activeStatus;
 }animalNPC;
 
