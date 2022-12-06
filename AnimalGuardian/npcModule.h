@@ -88,4 +88,9 @@ void moveBoss();
 int bossEnemyDetectCollision(int posX, int posY);
 //bossEnemy의 충돌을 검사하는 함수입니다.
 
-int moveOneAnimal();
+void makeNormalEnemyStage3(int x);
+void moveEnemyStage3();
+void moveEnemySettingstage3();
+void setRandomArrayStage3(int* arr,const int count);
+void makeNormalEnemyStage3(int x);
+void makeEnemyListStage3(int enemyCount);
