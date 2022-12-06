@@ -1,0 +1,20 @@
+﻿#pragma once
+int stageNum;
+
+void showFirstDirectionLoby();
+void deleteFirstDirectionLoby();
+void showSecondDirectionLoby();
+void deleteSecondDirectionLoby();
+void showFirstDirectionGameOver();
+void deleteFirstDirectionGameOver();
+void showSecondDirectionGameOver();
+void deleteSecondDirectionGameOver();
+int drawGameLoby();
+int drawInstruction();
+void drawGameOver();
+void deleteBoard();
+void drawStageLoby();
+void drawSide();
+void showTitle();
+void drawSquare();
+void drawRectangle();
