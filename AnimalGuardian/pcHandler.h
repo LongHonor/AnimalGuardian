@@ -29,6 +29,7 @@ clock_t checkLoadStartTime;
 clock_t checkdieStartTime;
 clock_t checkSlowEnemySpeedTime;
 clock_t checkEffectAnimalDyingTime;
+clock_t checkKeyInputTime;
 
 extern int loadFlag;
 extern int dieFlag;
