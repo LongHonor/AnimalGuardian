@@ -81,6 +81,11 @@ posStruct findDieAnimal(int bullet_x) {
 	}
 	return temp;
 }
+void moveBullet(Bullet* bullet) {
+	showBullet(bullet->pos);
+	Sleep(bullet->speed);
+	eraseBullet(bullet->pos);
+}
 void shootBullet() {
 	Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 	newbullet->pos = player.pos;
@@ -94,9 +99,7 @@ void shootBullet() {
 			//enemy 충돌 검사
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -106,9 +109,7 @@ void shootBullet() {
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
 				itemDrop();
 				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -117,44 +118,34 @@ void shootBullet() {
 			}
 			//animal 충돌 검사
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
 				return;
 			}
 			//바로 위 충돌
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0) {
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				return;
 			}
-			//위위 충돌
+			//장애물 충돌
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
 				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				return;
 			}
 			//충돌 하지 않은 경우
 			else {
 				newbullet->pos.Y -= 2;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 			}
 		}
 		//관통 모드
 		else if (bulletItem == 1) {
 			//게임보드 상단 충돌
-			//npc충돌
+			//enemy 충돌
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -164,9 +155,7 @@ void shootBullet() {
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
 				itemDrop();
 				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -175,18 +164,15 @@ void shootBullet() {
 			}
 			//animal 충돌 검사
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
 				return;
 			}
+			//장애물 충돌
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
 				if (newbullet->pos.Y - 1 == gBoardOy || newbullet->pos.Y - 2 == gBoardOy) {
 					newbullet->pos.Y = gBoardOy + 1;
-					showBullet(newbullet->pos);
-					Sleep(newbullet->speed);
-					eraseBullet(newbullet->pos);
+					moveBullet(newbullet);
 					return;
 				}
 				else {
@@ -196,9 +182,7 @@ void shootBullet() {
 			}
 			else {
 				newbullet->pos.Y -= 2;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 			}
 		}
 
