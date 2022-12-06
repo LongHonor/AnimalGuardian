@@ -1,16 +1,24 @@
 ﻿#include <stdio.h>
 #include <conio.h>
+#include <time.h>
 #include "gameLoby.h"
 #include "globalVariable.h"
-int stageNum = 1;
-char gameLobyBoardInfo[][23][42] = {
+
+int titleColor[7] = { 4,6,14,2,1,9,5 };
+char gameBoardTitle[][23][42] = {
+	//0:게임 로비
+	//1:게임 오버
+	//2:스테이지1
+	//3:스테이지2
+	//4:스테이지3
+	//5:클리어 스테이지
 	{//game loby title
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,1,0,1,0,0,1,1,0,1,0,1,0,1,1,0,1,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,1,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,1,1,1,1,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,0,0,1,1,1,0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0},
 	{0,0,1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,1,0,1,0,0},
@@ -28,9 +36,7 @@ char gameLobyBoardInfo[][23][42] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	}
-};
-char gameOverBoardInfo[][23][42] = {
+	},
 	{//game over title
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -55,9 +61,7 @@ char gameOverBoardInfo[][23][42] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	}
-};
-char stageBoardInfo[][23][42] = {
+	},
 	{//stage1 title
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -107,8 +111,7 @@ char stageBoardInfo[][23][42] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	},
-	{//stage3 title
+	},{//stage3 title
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -134,38 +137,54 @@ char stageBoardInfo[][23][42] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 	}
 };
-void showFirstDirectionLoby() {
-	setCurrentCursorPos(35, 14);
+//check game title character
+void initCheckGameTitle() {
+	for (int i = 0; i < 15; i++) {
+		checkGameTitle [i] = 0;
+	}
+}
+void showStartDirectionInLoby() {
+	setCurrentCursorPos(35, 13);
 	printf("▶");
 }
-void deleteFirstDirectionLoby() {
-	setCurrentCursorPos(35, 14);
+void deleteStartDirectionInLoby() {
+	setCurrentCursorPos(35, 13);
 	printf("  ");
 }
-void showSecondDirectionLoby() {
-	setCurrentCursorPos(35, 18);
+void showInsrtuctionDirectionInLoby() {
+	setCurrentCursorPos(35, 16);
 	printf("▶");
 }
-void deleteSecondDirectionLoby() {
-	setCurrentCursorPos(35, 18);
+void deleteInstructionDirectionInLoby() {
+	setCurrentCursorPos(35, 16);
 	printf("  ");
 }
-void showFirstDirectionGameOver() {
-	setCurrentCursorPos(35, 15);
-	printf("▶");
-}
-void deleteFirstDirectionGameOver() {
-	setCurrentCursorPos(35, 15);
-	printf("  ");
-}
-void showSecondDirectionGameOver() {
+void showExitDirectionInLoby() {
 	setCurrentCursorPos(35, 19);
 	printf("▶");
 }
-void deleteSecondDirectionGameOver() {
+void deleteExitDirectionInLoby() {
 	setCurrentCursorPos(35, 19);
 	printf("  ");
 }
+
+void showRestartDirectionGameOver() {
+	setCurrentCursorPos(35, 15);
+	printf("▶");
+}
+void deleteRestartDirectionGameOver() {
+	setCurrentCursorPos(35, 15);
+	printf("  ");
+}
+void showExitDirectionGameOver() {
+	setCurrentCursorPos(35, 19);
+	printf("▶");
+}
+void deleteExitDirectionGameOver() {
+	setCurrentCursorPos(35, 19);
+	printf("  ");
+}
+
 void deleteBoard() {	//보드 지우기
 	for (int y = 0; y < gBoardHeight + 2; y++) {
 		for (int x = 0; x < gBoardWidth + 1; x++) {
@@ -194,36 +213,135 @@ void drawSide() {
 		}
 	}
 }
-void showTitle() {
-	for (int y = 0; y < gBoardHeight; y++) {
-		for (int x = 0; x < gBoardWidth; x++) {
-			if (gameLobyBoardInfo[0][y][x] == 1) {
+void showTitleChracter(int startX,int startY,int sizeWidth,int sizeHeight) {
+	for (int y = 0; y < sizeHeight; y++) {
+		for (int x = 0; x < sizeWidth; x++) {
+			if (gameBoardTitle[0][startY + y][startX + x] == 1) {
+				setCurrentCursorPos((startX+x)*2, startY + y);
+				printf("■");
+			}
+		}
+	}
+}
+void showTitle(char g[23][42]) {
+	for (int x = 0; x < gBoardWidth; x++) {
+		for (int y = 0; y < gBoardHeight; y++) {
+			if (g[y][x] == 1) {
 				setCurrentCursorPos(2 * x, y);
 				printf("■");
 			}
 		}
 	}
 }
+int changeColorText(int i,int check[], int startX, int startY, int sizeWidth, int sizeHeight) {
+	clock_t startTime = clock();
+	double settime = 0.2;
+	returnkeyShowLobyTitle = 0;
+	while (check[i] == 0 && (double)(clock() - startTime) / CLOCKS_PER_SEC <= settime) {
+		changeConsoleColor(titleColor[(i - 1) % 7]);
+		showTitleChracter(startX, startY, sizeWidth, sizeHeight);
+		if (_kbhit() != 0) {
+			returnkeyShowLobyTitle = _getch();
+		}
+	}
+	check[i] = 1;
+	restoreConsoleColor();
+	return returnkeyShowLobyTitle;
+}
+int showLobyTitle() {
+	clock_t startTime = clock();
+	double settime = 0.5;
+	int key;
+	while (1) {
+		if (checkGameTitle[0] == 0) {	//reset title color 
+			showTitle(gameBoardTitle[0]);
+			checkGameTitle[0] = 1;
+		}
+		if (changeColorText(1, checkGameTitle, 7, 2, 5, 4)!=0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(2, checkGameTitle, 13, 2, 4, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(3, checkGameTitle, 18, 2, 1, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(4, checkGameTitle, 20, 2, 5, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(5, checkGameTitle, 26, 2, 5, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(6, checkGameTitle, 32, 2, 4, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(7, checkGameTitle, 2, 7, 4, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(8, checkGameTitle, 7, 7, 4, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(9, checkGameTitle, 12, 7, 5, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(10, checkGameTitle, 18, 7, 4, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(11, checkGameTitle, 23, 7, 4, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(12, checkGameTitle, 28, 7, 1, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		if (changeColorText(13, checkGameTitle, 30, 7, 5, 4) != 0) {
+			return returnkeyShowLobyTitle;
+		}
+		changeColorText(14, checkGameTitle, 36, 7, 4, 4);
+		initCheckGameTitle();
+		restoreConsoleColor();
+	}
+}
 int drawGameLoby() {
 	drawSide();
-	showTitle();
-	setCurrentCursorPos(38, 14);
+	initCheckGameTitle();
+	setCurrentCursorPos(38, 13);
 	printf("시작하기");
-	setCurrentCursorPos(38, 18);
+	setCurrentCursorPos(38, 16);
 	printf("게임 설명");
-	showFirstDirectionLoby();
-	int gameModeNum = 0;
-	while (_kbhit) {
-		int key = _getch();
+	setCurrentCursorPos(38, 19);
+	printf("게임 종료");
+	showStartDirectionInLoby();
+	int directionY = 13;
+	int gameModeNum = 0;	//0:게임 시작, 1:게임 설명, 2:게임 종료
+	while (1) {
+		int key = showLobyTitle();
 		if (key == down) {
-			deleteFirstDirectionLoby();
-			showSecondDirectionLoby();
-			gameModeNum = 1;
+			if (directionY == 13) {
+				deleteStartDirectionInLoby();
+				showInsrtuctionDirectionInLoby();
+				gameModeNum = 1;
+				directionY += 3;
+			}
+			else if (directionY == 16) {
+				deleteInstructionDirectionInLoby();
+				showExitDirectionInLoby();
+				gameModeNum = 2;
+				directionY += 3;
+			}
 		}
 		else if (key == up) {
-			deleteSecondDirectionLoby();
-			showFirstDirectionLoby();
-			gameModeNum = 0;
+			if (directionY == 19) {
+				deleteExitDirectionInLoby();
+				showInsrtuctionDirectionInLoby();
+				gameModeNum = 1;
+				directionY -= 3;
+			}
+			else if (directionY == 16) {
+				deleteInstructionDirectionInLoby();
+				showStartDirectionInLoby();
+				gameModeNum = 0;
+				directionY -= 3;
+			}
 		}
 		else if (key == space) {
 			if (gameModeNum == 1) {
@@ -325,12 +443,12 @@ int drawInstruction() {
 	setCurrentCursorPos(46, 11);
 	printf("□□□ : 바리게이트 설치");
 	setCurrentCursorPos(46, 13);
-	printf("ⓔ↓ : 괴물 속도 감소");
+	printf("E↓ : 괴물 속도 감소");
 	setCurrentCursorPos(46, 15);
-	printf("ⓛ↓ : 장전 속도 감소");
+	printf("R↓ : 장전 속도 감소");
 	setCurrentCursorPos(74, 21);
 	printf("▶ Back");
-	while (_kbhit) {
+	while (1) {
 		int key = _getch();
 		if (key == space) {
 			deleteBoard();
@@ -338,38 +456,37 @@ int drawInstruction() {
 		}
 	}
 }
+//게임 오버
 void drawGameOver() {
 	drawSide();
-	showTitle();
+	showTitle(gameBoardTitle[1]);
 	setCurrentCursorPos(38, 15);
 	printf("다시 시작");
 	setCurrentCursorPos(38, 19);
 	printf("게임 종료");
-	showFirstDirectionGameOver();
+	showRestartDirectionGameOver();
 	int gameModeNum = 0;
-	while (_kbhit) {
+	while (_kbhit() != 0) {
 		int key = _getch();
 		if (key == down) {
-			deleteFirstDirectionGameOver();
-			showSecondDirectionGameOver();
-			gameModeNum = 1;
+			deleteRestartDirectionGameOver();
+			showExitDirectionGameOver();
+			gameModeNum = 1;	
 		}
 		else if (key == up) {
-			deleteSecondDirectionGameOver();
-			showFirstDirectionGameOver();
+			deleteExitDirectionGameOver();
+			showRestartDirectionGameOver();
 			gameModeNum = 0;
 		}
 		else if (key == space) {
-			if (gameModeNum == 1) {
-				exit(0);
-			}
-			else {
-				return gameModeNum;
-			}
+			return gameModeNum;	//0:다시 시작 1: 종료
 		}
 	}
 }
-void drawStageLoby() {
+//stagenum = 1 -> stage1
+//stagenum = 2 -> stage2
+//stagenum = 3 -> stage3
+void drawStageLoby(int stagenum) {
 	drawSide();
-	showTitle();
+	showTitle(gameBoardTitle[stagenum + 1]);
 }
