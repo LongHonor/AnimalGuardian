@@ -191,14 +191,10 @@ void setAllAnimalCount(int count) {
 int direction1, direction2, direction3;
 //추후 i값의 조정으로 전부 움직일 수 있게 한다
 void moveAnimal() {
-    if (animalArray[0].activeStatus == TRUE) {
-        animalArray[0].pos.X += direction1;
-    }
-    if (animalArray[1].activeStatus == TRUE) {
-        animalArray[1].pos.X += direction2;
-    }
-    if (animalArray[2].activeStatus == TRUE) {
-        animalArray[2].pos.X += direction3;
+    for (int i = 0; i < 3; i++) {
+        if (animalArray[i].activeStatus == TRUE) {
+            animalArray[i].pos.X += animalArray[i].direction;
+        }
     }
 }
 
@@ -223,51 +219,31 @@ void enemyMoveSetting() {
         deleteEnemy();
         moveEnemy();
         enemyMoveTimePerSec = clock();
-        changeConsoleColor(red);
         drawEnemy();
-
-        restoreConsoleColor();
     }
 }
 //animalMove를 총괄해주는 함수입니다.
 void animalMoveSetting() {
-    if (animalArray[0].activeStatus == TRUE) {
-        if (animalNPCdetectCollision(animalArray[0].pos.X, animalArray[0].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[0].pos.X + 2, animalArray[0].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[0].pos.X - 2, animalArray[0].pos.Y) == 2 ) {
-            deleteAnimal(animalArray[0]);
-            animalArray[0].activeStatus = FALSE;
-            currentAnimalCount--;
-        }
-    }
-    if (animalArray[1].activeStatus == TRUE) {
-        if (animalNPCdetectCollision(animalArray[1].pos.X, animalArray[1].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[1].pos.X + 2, animalArray[1].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[1].pos.X - 2, animalArray[1].pos.Y) == 2  ) {
-            deleteAnimal(animalArray[1]);
-            animalArray[1].activeStatus = FALSE;
-            currentAnimalCount--;
-        }
-    }
-    if (animalArray[2].activeStatus == TRUE) {
-        if (animalNPCdetectCollision(animalArray[2].pos.X, animalArray[2].pos.Y + 1) == 2 ||
-            animalNPCdetectCollision(animalArray[2].pos.X + 2, animalArray[2].pos.Y) == 2 ||
-            animalNPCdetectCollision(animalArray[2].pos.X - 2, animalArray[2].pos.Y) == 2) {
-            deleteAnimal(animalArray[2]);
-            animalArray[2].activeStatus = FALSE;
-            currentAnimalCount--;
-        }
-    }
     if ((double)(clock() - animalMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
-        direction1 = moveOneAnimal(0);
-        direction2 = moveOneAnimal(1);
-        direction3 = moveOneAnimal(2);
+        for (int i = 0; i < 3; i++) {
+            animalArray[i].direction = moveOneAnimal(i);
+        }
         deleteAnimal();
         animalMoveTimePerSec = clock();
-        changeConsoleColor(purple);
         moveAnimal();
         drawAnimal();
-        restoreConsoleColor();
+    }
+    for (int i = 0; i < 3; i++) {
+        if (animalArray[i].activeStatus == TRUE) {
+            if (animalNPCdetectCollision(animalArray[i].pos.X, animalArray[i].pos.Y + 1) == 2 ||
+                animalNPCdetectCollision(animalArray[i].pos.X + 2, animalArray[i].pos.Y) == 2 ||
+                animalNPCdetectCollision(animalArray[i].pos.X - 2, animalArray[i].pos.Y) == 2) {
+                deleteAnimal();
+                animalArray[i].activeStatus = FALSE;
+                drawAnimal();
+                currentAnimalCount--;
+            }
+        }
     }
 }
 bossStruct boss = { {38,15},1,50,TRUE };
