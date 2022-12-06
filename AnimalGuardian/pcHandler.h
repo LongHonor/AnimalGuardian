@@ -56,3 +56,5 @@ void loadBullet();
 void itemDrop();
 //아이템 표시
 void printCurrentItem();
+//총알 이동
+void moveBullet(struct _Bullet* bullet);

@@ -26,7 +26,7 @@ void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime);
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
-	printf("●");
+	printf("@");
 	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursor위치 처음 위치로 다시 설정
 }
 
@@ -81,6 +81,11 @@ posStruct findDieAnimal(int bullet_x) {
 	}
 	return temp;
 }
+void moveBullet(Bullet* bullet) {
+	showBullet(bullet->pos);
+	Sleep(bullet->speed);
+	eraseBullet(bullet->pos);
+}
 void shootBullet() {
 	Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 	newbullet->pos = player.pos;
@@ -94,9 +99,7 @@ void shootBullet() {
 			//enemy 충돌 검사
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -106,9 +109,7 @@ void shootBullet() {
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
 				itemDrop();
 				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -117,44 +118,34 @@ void shootBullet() {
 			}
 			//animal 충돌 검사
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
 				return;
 			}
 			//바로 위 충돌
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0) {
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				return;
 			}
-			//위위 충돌
+			//장애물 충돌
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
 				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				return;
 			}
 			//충돌 하지 않은 경우
 			else {
 				newbullet->pos.Y -= 2;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 			}
 		}
 		//관통 모드
 		else if (bulletItem == 1) {
 			//게임보드 상단 충돌
-			//npc충돌
+			//enemy 충돌
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -164,9 +155,7 @@ void shootBullet() {
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
 				itemDrop();
 				newbullet->pos.Y -= 1;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
@@ -175,38 +164,36 @@ void shootBullet() {
 			}
 			//animal 충돌 검사
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 				drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
 				return;
 			}
+			//장애물 충돌
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
+				//상단 벽 충돌
 				if (newbullet->pos.Y - 1 == gBoardOy || newbullet->pos.Y - 2 == gBoardOy) {
 					newbullet->pos.Y = gBoardOy + 1;
-					showBullet(newbullet->pos);
-					Sleep(newbullet->speed);
-					eraseBullet(newbullet->pos);
+					moveBullet(newbullet);
 					return;
 				}
+				//장애물 충돌
 				else {
 					newbullet->pos.Y -= 2;
 					Sleep(newbullet->speed);
 				}
 			}
+			//충돌 없는 경우
 			else {
 				newbullet->pos.Y -= 2;
-				showBullet(newbullet->pos);
-				Sleep(newbullet->speed);
-				eraseBullet(newbullet->pos);
+				moveBullet(newbullet);
 			}
 		}
 
 	}
 }
+//bullet - enemy 충돌 검사
 void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
 	enemyNPC * search = enemyList->enemyHeader;
-
 	while (search != NULL) {
 		if (search->activeStatus == TRUE) {
 			if (search->pos.X == enemyCurPos.X && search->pos.Y == enemyCurPos.Y - 1) {
@@ -220,9 +207,11 @@ void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
 		search = search->next;
 	}
 }
+//장전
 void loadBullet() {
 	bulletCount = 10;
 }
+//pc 키 입력
 void pcKeyInput() {
 	int key;
 	for (int i = 0; i < 20; i++) {
@@ -246,18 +235,17 @@ void pcKeyInput() {
 				loadFlag = 1;
 				break;
 			case item:
-				if (player.itemNum == 1) {
-					//에네미 속도 감소
+				if (player.itemNum == 1) {	//에네미 속도 감소
 					enemySpeedItemFlag = 1;
 					enemyMoveSpeed = 1;
 					checkSlowEnemySpeedTime = clock();
 				}
-				if (player.itemNum == 2) {
+				if (player.itemNum == 2) {	//장전 속도 감소
 					player.reloadSpeed = 1;
 					checkLoadStartTime = clock();
 					loadFlag = 1;
 				}
-				if (player.itemNum == 3) {
+				if (player.itemNum == 3) {	//바리게이트 설치
 					placeBarricade();
 					drawGameBoard();
 					player.itemNum = 0;
@@ -280,14 +268,14 @@ void pcKeyInput() {
 			loadFlag = 0;
 		}
 		//enemy 속도 감소 아이템 적용 체크
-		if (enemySpeedItemFlag == 1 && (double)(clock() - checkSlowEnemySpeedTime) / 1000 >= 5) {
+		if (enemySpeedItemFlag == 1 && (double)(clock() - checkSlowEnemySpeedTime) / 1000 >= 3) {
 			player.itemNum = 0;
 			enemySpeedItemFlag = 0;
 			enemyMoveSpeed = 0.5;
 			printCurrentItem();
 		}
-		//effect 효과 2초
-		if (animalEffectFlag == 1 && (double)(clock() - checkEffectAnimalDyingTime) / CLOCKS_PER_SEC >= 2) {
+		//animal effect 효과 1초
+		if (animalEffectFlag == 1 && (double)(clock() - checkEffectAnimalDyingTime) / CLOCKS_PER_SEC >= 1) {
 			deleteDieAnimalEffect();
 			currentAnimalCount--;
 			animalEffectFlag = 0;
@@ -298,6 +286,7 @@ void pcKeyInput() {
 		Sleep(20);
 	}
 }
+//아이템 획득
 void itemDrop() {
 	int result = rand() % 10;
 	setCurrentCursorPos(44 * 2, 5);
@@ -318,6 +307,7 @@ void itemDrop() {
 		break;
 	}
 }
+//현재 아이템 출력
 void printCurrentItem() {
 	int i, j;
 	int curX = 44 * 2, curY = 15;

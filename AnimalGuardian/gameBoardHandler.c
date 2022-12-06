@@ -87,38 +87,12 @@ void AddBlockToBoard(posStruct barricadeCurPos) {
 	}
 }
 
-void drawPC() {
-	int posY;
-
-	posStruct pcCurPos = getPCCurrentPos();
-	//pc위치 받아와서 setCurrentCursorPos()호출
-
-	for (posY = 0; posY < 2; posY++) {
-		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
-		if (pcModel[posY][0] == 1) printf("＠");
-		else printf("■");
-	}
-	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
-}
-void deletePC() {
-	int posY;
-
-	posStruct pcCurPos = getPCCurrentPos();
-	//pc위치 받아와서 setCurrentCursorPos()호출
-
-	for (posY = 0; posY < 2; posY++) {
-		setCurrentCursorPos(pcCurPos.X, pcCurPos.Y + posY);
-		printf("  ");
-	}
-	setCurrentCursorPos(pcCurPos.X, pcCurPos.Y);
-}
-
 
 void drawAnimal() {
 	int posX;
 	int arrX,arrY;
+	changeConsoleColor(purple);
 	for (int i = 0; i < 3; i++) {
-
 		if (animalArray[i].activeStatus == TRUE) {
 			//animalNPC 위치 받아와서 setCurrentCursorPos()호출
 			posStruct animalCurPos = getAnimalCurrentPos(&animalArray[i]);
@@ -126,12 +100,14 @@ void drawAnimal() {
 			arrY = (animalCurPos.Y - gBoardOy);
 			for (posX = 0; posX < 2; posX++) {
 				setCurrentCursorPos(arrX*2 + posX * 2, animalCurPos.Y);
+				
 				if (animalModel[0][posX] == 1) printf("♧");
 				else printf("■");
 				currentGameBoard[arrY][arrX + posX] = 3;
 			}
 		}
 	}
+	restoreConsoleColor();
 }
 void deleteAnimal() {
 	int posX;
@@ -148,7 +124,6 @@ void deleteAnimal() {
 				printf("  ");
 				currentGameBoard[arrY][arrX + posX] = 0;
 			}
-			setCurrentCursorPos(animalCurPos.X, animalCurPos.Y);
 		}
 		else continue;
 	}
@@ -158,9 +133,9 @@ void deleteAnimal() {
 void drawKing() {
 	int posX, posY;
 	int arrX, arrY;
-
 	arrX = (king.pos.X - gBoardOx) / 2;
 	arrY = (king.pos.Y - gBoardOy);
+	changeConsoleColor(purple);
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 2; posY++) {
 			setCurrentCursorPos(king.pos.X + posX * 2, king.pos.Y + posY);
@@ -170,8 +145,7 @@ void drawKing() {
 
 		}
 	}
-	setCurrentCursorPos(king.pos.X, king.pos.Y);
-
+	restoreConsoleColor();
 }
 void deleteKing() {
 	int posX, posY;
@@ -186,7 +160,6 @@ void deleteKing() {
 
 		}
 	}
-	setCurrentCursorPos(king.pos.X, king.pos.Y);
 
 }
 
@@ -198,11 +171,13 @@ void drawDieAnimalEffect(posStruct animalCurPos) {
 	arrX = (animalCurPos.X - gBoardOx);
 	arrY = (animalCurPos.Y - gBoardOy);
 
+	changeConsoleColor(red);
 	for (posX = 0; posX < 2; posX++) {
 		setCurrentCursorPos(animalCurPos.X*2 + posX * 2, animalCurPos.Y);
 		printf("※");
 		currentGameBoard[arrY][arrX + posX] = 0;
 	}
+	restoreConsoleColor();
 }
 void deleteDieAnimalEffect() {
 	int posX;
@@ -231,7 +206,7 @@ void drawEnemy() {
 
 	enemyNPC * search = enemyList->enemyHeader;
 
-
+	changeConsoleColor(red);
 	while (search != NULL) {
 		if (search->activeStatus == TRUE) {
 			posStruct enemyCurPos = getEnemyCurrentPos(search->id);
@@ -244,11 +219,10 @@ void drawEnemy() {
 				if (enemyModel[posY][0] == 1) printf("▲");
 				currentGameBoard[arrY + posY][arrX] = 6;
 			}
-			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
-
 		}
 		search = search->next;
 	}
+	restoreConsoleColor();
 	
 }
 void deleteEnemy() {
@@ -270,7 +244,6 @@ void deleteEnemy() {
 				currentGameBoard[arrY + posY][arrX] = 0;
 			}
 
-			setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 
 		}
 		search = search->next;
@@ -293,7 +266,7 @@ void drawBoss() {
 			
 		}
 	}
-	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+
 
 }
 void deleteBoss() {
@@ -309,7 +282,7 @@ void deleteBoss() {
 
 		}
 	}
-	setCurrentCursorPos(boss.pos.X, boss.pos.Y);
+
 
 }
 
@@ -358,7 +331,6 @@ void deleteDieEnemyEffect() {
 						if (currentGameBoard[arrY - 1 + posY][arrX - 1 + posX] == 0) printf("  ");
 					}
 				}
-				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y);
 			}
 		}
 		search = search->next;
