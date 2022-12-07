@@ -96,8 +96,34 @@ void shootBullet() {
 	while (1) {
 		//일반 모드
 		if (bulletItem == 0) {
+			//boss 충돌 검사
+			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 3) {
+				itemDrop();
+				moveBullet(newbullet);
+				return;
+			}
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 3) {
+				itemDrop();
+				moveBullet(newbullet);
+				return;
+			}
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 3) {
+				itemDrop();
+				newbullet->pos.Y -= 1;
+				moveBullet(newbullet);
+				return;
+			}
 			//enemy 충돌 검사
-			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 5) {
+				itemDrop();
+				moveBullet(newbullet);
+				checkdieStartTime = clock(); dieFlag = 1;
+				findDieEnemy(newbullet->pos, checkdieStartTime);
+				drawDieEnemyEffect(newbullet->pos);
+				printEnemyCount();
+				return;
+			}
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
 				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
@@ -116,8 +142,8 @@ void shootBullet() {
 				printEnemyCount();
 				return;
 			}
-			//animal 충돌 검사
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
+			//animal 충돌 검사-> animal 위치 수정으로 인하여 수정
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 6) {
 				moveBullet(newbullet);
 				drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
 				return;
@@ -139,55 +165,55 @@ void shootBullet() {
 				moveBullet(newbullet);
 			}
 		}
-		//관통 모드
-		else if (bulletItem == 1) {
-			//게임보드 상단 충돌
-			//enemy 충돌
-			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
-				itemDrop();
-				moveBullet(newbullet);
-				checkdieStartTime = clock(); dieFlag = 1;
-				findDieEnemy(newbullet->pos, checkdieStartTime);
-				drawDieEnemyEffect(newbullet->pos);
-				printEnemyCount();
-				return;
-			}
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
-				itemDrop();
-				newbullet->pos.Y -= 1;
-				moveBullet(newbullet);
-				checkdieStartTime = clock(); dieFlag = 1;
-				findDieEnemy(newbullet->pos, checkdieStartTime);
-				drawDieEnemyEffect(newbullet->pos);
-				printEnemyCount();
-				return;
-			}
-			//animal 충돌 검사
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
-				moveBullet(newbullet);
-				drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
-				return;
-			}
-			//장애물 충돌
-			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
-				//상단 벽 충돌
-				if (newbullet->pos.Y - 1 == gBoardOy || newbullet->pos.Y - 2 == gBoardOy) {
-					newbullet->pos.Y = gBoardOy + 1;
-					moveBullet(newbullet);
-					return;
-				}
-				//장애물 충돌
-				else {
-					newbullet->pos.Y -= 2;
-					Sleep(newbullet->speed);
-				}
-			}
-			//충돌 없는 경우
-			else {
-				newbullet->pos.Y -= 2;
-				moveBullet(newbullet);
-			}
-		}
+		////관통 모드
+		//else if (bulletItem == 1) {
+		//	//게임보드 상단 충돌
+		//	//enemy 충돌
+		//	if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
+		//		itemDrop();
+		//		moveBullet(newbullet);
+		//		checkdieStartTime = clock(); dieFlag = 1;
+		//		findDieEnemy(newbullet->pos, checkdieStartTime);
+		//		drawDieEnemyEffect(newbullet->pos);
+		//		printEnemyCount();
+		//		return;
+		//	}
+		//	else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
+		//		itemDrop();
+		//		newbullet->pos.Y -= 1;
+		//		moveBullet(newbullet);
+		//		checkdieStartTime = clock(); dieFlag = 1;
+		//		findDieEnemy(newbullet->pos, checkdieStartTime);
+		//		drawDieEnemyEffect(newbullet->pos);
+		//		printEnemyCount();
+		//		return;
+		//	}
+		//	//animal 충돌 검사
+		//	else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 6) {
+		//		moveBullet(newbullet);
+		//		drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
+		//		return;
+		//	}
+		//	//장애물 충돌
+		//	else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 0 || detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 0) {
+		//		//상단 벽 충돌
+		//		if (newbullet->pos.Y - 1 == gBoardOy || newbullet->pos.Y - 2 == gBoardOy) {
+		//			newbullet->pos.Y = gBoardOy + 1;
+		//			moveBullet(newbullet);
+		//			return;
+		//		}
+		//		//장애물 충돌
+		//		else {
+		//			newbullet->pos.Y -= 2;
+		//			Sleep(newbullet->speed);
+		//		}
+		//	}
+		//	//충돌 없는 경우
+		//	else {
+		//		newbullet->pos.Y -= 2;
+		//		moveBullet(newbullet);
+		//	}
+		//}
 
 	}
 }
