@@ -216,7 +216,8 @@ void drawEnemy() {
 
 			for (posY = 0; posY < 1; posY++) {
 				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-				if (enemyModel[posY][0] == 1) printf("▲");
+				if (enemyModel[posY][0] == 1) printf("▼");
+				else printf("▲");
 				currentGameBoard[arrY + posY][arrX] = 6;
 			}
 		}
