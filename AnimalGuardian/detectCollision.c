@@ -54,10 +54,7 @@ int animalNPCdetectCollision(int posX, int posY) {
 			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 6)) {
 				return 2;
 			}
-			//bullet
-			if (animalModel[y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 8)) {
-				return 3;
-			}
+			
 		}
 	}
 	return 1;
@@ -103,6 +100,10 @@ int detectCollisionBullet(int posX, int posY) {
 	//animal
 	if (currentGameBoard[arrY][arrX] == 3) {
 		return 6;
+	}
+	//boss
+	if  (currentGameBoard[arrY][arrX] == 8) {
+		return 3;
 	}
 
 	return 1;

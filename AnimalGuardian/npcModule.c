@@ -43,7 +43,7 @@ void setRandomArray(int* arr, const int start, const int end, const int count) {
 
 //적의 이동방향을 재설정합니다. 위 좌 우 다막혔을 경우 0을 return 합니다.
 int setDirection(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1) {
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1) {
         enemy->direction = 0;
         return 1;
     }
@@ -67,19 +67,19 @@ int setDirection(enemyNPC* enemy) {
 
 //지정된 방향으로 움직입니다 성공여부를 반환합니다.
 int tryMove(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1 &&
+    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1 &&
         enemy->direction == 0) {
 
-        enemy->pos.Y -= 1;
+        enemy->pos.Y += 1;
 
         return 1;
     }
 
     if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->direction)), enemy->pos.Y) == 1 &&
         enemy->direction != 0) {
-        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y - 1) == 1) {
+        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1) {
 
-            enemy->pos.Y -= 1;
+            enemy->pos.Y += 1;
 
             return 1;
         }
@@ -117,7 +117,7 @@ void makeNormalEnemy(int x) {
     enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
 
     enemyNpc->pos.X = x;
-    enemyNpc->pos.Y = gBoardOy + 18;
+    enemyNpc->pos.Y = gBoardOy + 1;
     enemyNpc->next = NULL;
     enemyNpc->direction = 0;
     enemyNpc->id = 1;
@@ -157,7 +157,7 @@ void makeAnimal() {
     for (int i = 0; i < allAnimalCount; i++) {
         animalArray[i].speed = 1;
         animalArray[i].activeStatus = TRUE;
-        setAnimalCurrentPos(animalArray + i,randPos, 1);
+        setAnimalCurrentPos(animalArray + i,randPos, 18);
         randPos += 7;
     }
 }
@@ -235,7 +235,7 @@ void animalMoveSetting() {
     }
     for (int i = 0; i < 3; i++) {
         if (animalArray[i].activeStatus == TRUE) {
-            if (animalNPCdetectCollision(animalArray[i].pos.X, animalArray[i].pos.Y + 1) == 2 ||
+            if (animalNPCdetectCollision(animalArray[i].pos.X, animalArray[i].pos.Y - 1) == 2 ||
                 animalNPCdetectCollision(animalArray[i].pos.X + 2, animalArray[i].pos.Y) == 2 ||
                 animalNPCdetectCollision(animalArray[i].pos.X - 2, animalArray[i].pos.Y) == 2) {
                 deleteAnimal();
@@ -250,13 +250,91 @@ bossStruct boss = { {38,15},1,50,TRUE };
 kingStruct king = { {38,1} };
 posStruct barricadePos = { 38,6 };
 int barricadeDetectCount = 0;
+
+void makeEnemyListStage3(int enemyCount) {
+    enemyList = (enemyNPCList*)malloc(sizeof(enemyNPCList));
+
+    enemyList->enemyCurrentNumber = enemyCount;
+    enemyList->enemyHeader = NULL;
+
+    enemyPosArray = (int*)malloc(sizeof(int) * enemyCount);
+    setRandomArrayStage3(enemyPosArray, enemyCount);
+}
+void setRandomArrayStage3(int* arr, const int count) {
+    int posArray[20];
+    for (int i = 0; i < 20;i+=2) {
+        posArray[i] = randInt(1, 15);
+        posArray[i + 1] = randInt(27, 40);
+    }
+    for (int i = 0; i < count; i++) {
+        arr[i] = posArray[i];
+    }
+}
+void makeNormalEnemyStage3(int x) {
+    enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
+
+    enemyNpc->pos.X = x;
+    enemyNpc->pos.Y = gBoardOy + 18;
+    enemyNpc->next = NULL;
+    enemyNpc->direction = 0;
+    enemyNpc->id = 1;
+    enemyNpc->activeStatus = TRUE;
+    enemyNpc->dieFlag = FALSE;
+    if (enemyList->enemyHeader == NULL) {
+        enemyList->enemyHeader = enemyNpc;
+        enemyNpc = 0;
+        return;
+    }
+
+    int count = 2;
+    enemyNPC* lastEnemy = enemyList->enemyHeader;
+    while (lastEnemy->next != NULL) {
+        lastEnemy = lastEnemy->next;
+        count++;
+    }
+    lastEnemy->next = enemyNpc;
+    enemyNpc->id = count;
+}
+void moveEnemyStage3() {
+    enemyNPC* enemyNpc = enemyList->enemyHeader;
+    while (enemyNpc != NULL) {
+        if (enemyNpc->pos.Y == 2) {
+            currentAnimalCount--;
+        }
+        if (enemyNpc->activeStatus == TRUE&&enemyNpc->pos.Y>1) {
+            enemyNpc->pos.Y -= 1;
+        }
+        else {
+            enemyNpc->activeStatus = FALSE;
+            enemyNpc->dieFlag = TRUE;
+        }
+        enemyNpc = enemyNpc->next;
+    }
+}
+void moveEnemySettingstage3() {
+    if ((double)(clock() - checkEnemyNpcSpawnTime) / CLOCKS_PER_SEC >= 2) {
+        if (spawnedEnemyCount < allEnemyCount) {  
+            makeNormalEnemyStage3((*(enemyPosArray + spawnedEnemyCount))*2);
+            spawnedEnemyCount++;
+            checkEnemyNpcSpawnTime = clock();
+        }
+        checkEnemyNpcSpawnTime = clock();
+    }
+    if ((double)(clock() - enemyMoveTimePerSec) / CLOCKS_PER_SEC >= enemyMoveSpeed) {
+        
+        deleteEnemy();
+        moveEnemyStage3();
+        enemyMoveTimePerSec = clock();
+        drawEnemy();
+    }
+}
 void moveBoss() {
     int posX, PosY;
 	
     if (boss.pos.Y == 3) {
         return;
     }
-    if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 0.5) {
+    if ((double)(clock() - bossEnemyMoveTimePerSec) / CLOCKS_PER_SEC >= 2) {
         if (bossEnemyDetectCollision(boss.pos.X, boss.pos.Y - 1) == 1) {
             deleteBoss();
             boss.pos.Y -= 1;

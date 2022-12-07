@@ -216,7 +216,8 @@ void drawEnemy() {
 
 			for (posY = 0; posY < 1; posY++) {
 				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-				if (enemyModel[posY][0] == 1) printf("▲");
+				if (enemyModel[posY][0] == 1) printf("▼");
+				else printf("▲");
 				currentGameBoard[arrY + posY][arrX] = 6;
 			}
 		}
@@ -263,7 +264,7 @@ void drawBoss() {
 			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y+ posY);
 			if (bossEnemyModel[posY][posX] == 2) printf("※");
 			else printf("■");
-			
+			currentGameBoard[arrY + posY][arrX + posX] = 8;
 		}
 	}
 
@@ -279,7 +280,7 @@ void deleteBoss() {
 		for (posY = 0; posY < 4; posY++) {
 			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y+posY);
 			printf("  ");
-
+			currentGameBoard[arrY + posY][arrX + posX] = 0;
 		}
 	}
 
