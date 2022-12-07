@@ -306,6 +306,7 @@ void moveEnemyStage3() {
         }
         else {
             enemyNpc->activeStatus = FALSE;
+            enemyNpc->dieFlag = TRUE;
         }
         enemyNpc = enemyNpc->next;
     }
