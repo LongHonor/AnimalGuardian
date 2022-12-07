@@ -20,7 +20,7 @@ int drawGameLoby();
 //게임설명서 화면 생성
 int drawInstruction();
 //게임 오버 화면 생성
-void drawGameOver();
+int drawGameOver();
 //화면 지우기
 void deleteBoard();
 //스테이지 화면 생성
@@ -28,7 +28,7 @@ void drawStageLoby(int stagenum);
 //테두리 그리기
 void drawSide();
 //한 글자씩 그리기
-void showTitleChracter(int startX, int startY, int sizeWidth, int sizeHeight);
+void showTitleCharacter(int startX, int startY, int sizeWidth, int sizeHeight);
 //화면 전체 타이틀 그리기
 void showTitle(char g[23][42]);
 //글자 색상 바꾸기

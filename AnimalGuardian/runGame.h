@@ -28,9 +28,14 @@ boolean stage(int i) {
     makeAnimal();
 
     //enemyNPC 정보 갱신
-    setAllEnemyCount(15+5*i);
-    resetEnemySpawnCount();
-    makeEnemyList(allEnemyCount);
+    if (i == 3) {
+        enemyModel[0][0] = 2;
+    }
+    else {
+        setAllEnemyCount(15 + 5 * i);
+        resetEnemySpawnCount();
+        makeEnemyList(allEnemyCount);
+    }
 
     //게임보드 및 UI 출력
     drawGameBoard();
@@ -58,6 +63,7 @@ void runGame() {
     gInt = drawGameLoby();
 
     if(gInt != 2){
+        deleteBoard();
         while(1){
             gameStatus = stage(i);
             system("cls");

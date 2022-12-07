@@ -213,7 +213,7 @@ void drawSide() {
 		}
 	}
 }
-void showTitleChracter(int startX,int startY,int sizeWidth,int sizeHeight) {
+void showTitleCharacter(int startX,int startY,int sizeWidth,int sizeHeight) {
 	for (int y = 0; y < sizeHeight; y++) {
 		for (int x = 0; x < sizeWidth; x++) {
 			if (gameBoardTitle[0][startY + y][startX + x] == 1) {
@@ -239,7 +239,7 @@ int changeColorText(int i,int check[], int startX, int startY, int sizeWidth, in
 	returnkeyShowLobyTitle = 0;
 	while (check[i] == 0 && (double)(clock() - startTime) / CLOCKS_PER_SEC <= settime) {
 		changeConsoleColor(titleColor[(i - 1) % 7]);
-		showTitleChracter(startX, startY, sizeWidth, sizeHeight);
+		showTitleCharacter(startX, startY, sizeWidth, sizeHeight);
 		if (_kbhit() != 0) {
 			returnkeyShowLobyTitle = _getch();
 		}
@@ -251,7 +251,6 @@ int changeColorText(int i,int check[], int startX, int startY, int sizeWidth, in
 int showLobyTitle() {
 	clock_t startTime = clock();
 	double settime = 0.5;
-	int key;
 	while (1) {
 		if (checkGameTitle[0] == 0) {	//reset title color 
 			showTitle(gameBoardTitle[0]);
@@ -457,7 +456,7 @@ int drawInstruction() {
 	}
 }
 //게임 오버
-void drawGameOver() {
+int drawGameOver() {
 	drawSide();
 	showTitle(gameBoardTitle[1]);
 	setCurrentCursorPos(38, 15);
