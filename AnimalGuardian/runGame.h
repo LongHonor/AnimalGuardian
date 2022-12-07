@@ -58,6 +58,7 @@ void runGame() {
     gInt = drawGameLoby();
 
     if(gInt != 2){
+        deleteBoard();
         while(1){
             gameStatus = stage(i);
             system("cls");

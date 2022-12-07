@@ -237,58 +237,50 @@ void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
 void loadBullet() {
 	bulletCount = 10;
 }
-int keyFlag = 0;
 //pc 키 입력
 void pcKeyInput() {
 	int key;
 	for (int i = 0; i < 20; i++) {
 		//_kbhit 은 입력시 1 리턴	
-		if (keyFlag == 0) {
-			if (_kbhit() != 0) {
-				key = _getch();
-				checkKeyInputTime = clock();
-				switch (key) {
-				case left:
-					shiftLeftPc();
-					keyFlag = 1;
-					break;
-				case right:
-					shiftRightPc();
-					keyFlag = 1;
-					break;
-				case space:
-					keyFlag = 1;
-					if (loadFlag == 0 && bulletCount > 0) {
-						shootBullet();
-					}
-					break;
-				case load:
-					keyFlag = 1;
+		if (_kbhit() != 0) {
+			key = _getch();
+			checkKeyInputTime = clock();
+			switch (key) {
+			case left:
+				shiftLeftPc();
+				break;
+			case right:
+				shiftRightPc();
+				break;
+			case space:
+				if (loadFlag == 0 && bulletCount > 0) {
+					shootBullet();
+				}
+				break;
+			case load:
+				checkLoadStartTime = clock();
+				loadFlag = 1;
+				break;
+			case item:
+				if (player.itemNum == 1) {	//에네미 속도 감소
+					enemySpeedItemFlag = 1;
+					enemyMoveSpeed = 1;
+					checkSlowEnemySpeedTime = clock();
+				}
+				if (player.itemNum == 2) {	//장전 속도 감소
+					player.reloadSpeed = 1;
 					checkLoadStartTime = clock();
 					loadFlag = 1;
-					break;
-				case item:
-					keyFlag = 1;
-					if (player.itemNum == 1) {	//에네미 속도 감소
-						enemySpeedItemFlag = 1;
-						enemyMoveSpeed = 1;
-						checkSlowEnemySpeedTime = clock();
-					}
-					if (player.itemNum == 2) {	//장전 속도 감소
-						player.reloadSpeed = 1;
-						checkLoadStartTime = clock();
-						loadFlag = 1;
-					}
-					if (player.itemNum == 3) {	//바리게이트 설치
-						placeBarricade();
-						drawGameBoard();
-						player.itemNum = 0;
-						printCurrentItem();
-					}
-					//아이템 종류당 번호 할당
-					//번호에 해당하는 아이템 사용
-					break;
 				}
+				if (player.itemNum == 3) {	//바리게이트 설치
+					placeBarricade();
+					drawGameBoard();
+					player.itemNum = 0;
+					printCurrentItem();
+				}
+				//아이템 종류당 번호 할당
+				//번호에 해당하는 아이템 사용
+				break;
 			}
 		}
 		//장전2초
@@ -314,9 +306,6 @@ void pcKeyInput() {
 			deleteDieAnimalEffect();
 			currentAnimalCount--;
 			animalEffectFlag = 0;
-		}
-		if (keyFlag == 1 && (double)(clock() - checkKeyInputTime) / CLOCKS_PER_SEC >= 0.1) {
-			keyFlag = 0;
 		}
 		deleteDieEnemyEffect();
 
