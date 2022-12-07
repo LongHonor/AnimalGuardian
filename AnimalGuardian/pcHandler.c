@@ -26,7 +26,7 @@ void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime);
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
-	printf("@");
+	printf("＠");
 	setCurrentCursorPos(player.pos.X, player.pos.Y);    //cursor위치 처음 위치로 다시 설정
 }
 
