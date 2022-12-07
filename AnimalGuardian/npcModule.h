@@ -85,8 +85,7 @@ void setAllEnemyCount(int count);
 void moveBoss();
 //bossEnemy를 움직여주는 함수입니다
 
-int bossEnemyDetectCollision(int posX, int posY);
-//bossEnemy의 충돌을 검사하는 함수입니다.
+
 
 void makeNormalEnemyStage3(int x);
 void moveEnemyStage3();
