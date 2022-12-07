@@ -117,6 +117,7 @@ void shootBullet() {
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 5) {
 				itemDrop();
 				moveBullet(newbullet);
+				newbullet->pos.Y += 1;
 				checkdieStartTime = clock(); dieFlag = 1;
 				findDieEnemy(newbullet->pos, checkdieStartTime);
 				drawDieEnemyEffect(newbullet->pos);
