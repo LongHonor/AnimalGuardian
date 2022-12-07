@@ -114,7 +114,7 @@ void shootBullet() {
 				return;
 			}
 			//enemy 충돌 검사
-			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 5) {
+			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 5) {
 				itemDrop();
 				moveBullet(newbullet);
 				checkdieStartTime = clock(); dieFlag = 1;
