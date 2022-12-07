@@ -143,7 +143,6 @@ char enemyModel[1][1] = {
 enemyNumber = 0;
 bulletNumber = 0;
 itemNumber=0;
-stage = 0;;
 
 //커서 전역변수
 int curPosX = gBoardOx, curPosY = gBoardOy;
