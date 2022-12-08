@@ -100,17 +100,20 @@ void shootBullet() {
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 3) {
 				itemDrop();
 				moveBullet(newbullet);
+				boss.hp--;
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 3) {
 				itemDrop();
 				moveBullet(newbullet);
+				boss.hp--;
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 3) {
 				itemDrop();
 				newbullet->pos.Y -= 1;
 				moveBullet(newbullet);
+				boss.hp--;
 				return;
 			}
 			//enemy 충돌 검사
