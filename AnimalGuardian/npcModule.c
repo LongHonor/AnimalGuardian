@@ -298,11 +298,11 @@ void makeNormalEnemyStage3(int x) {
 void moveEnemyStage3() {
     enemyNPC* enemyNpc = enemyList->enemyHeader;
     while (enemyNpc != NULL) {
-        if (enemyNpc->pos.Y == 2) {
-            currentAnimalCount--;
-        }
         if (enemyNpc->activeStatus == TRUE&&enemyNpc->pos.Y>1) {
             enemyNpc->pos.Y -= 1;
+            if (enemyNpc->pos.Y == 1) {
+                currentAnimalCount--;
+            }
         }
         else if(enemyNpc->pos.Y==1) {
             enemyNpc->activeStatus = FALSE;
