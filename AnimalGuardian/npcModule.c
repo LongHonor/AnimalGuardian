@@ -246,7 +246,7 @@ void animalMoveSetting() {
         }
     }
 }
-bossStruct boss = { {38,15},1,50,TRUE };
+bossStruct boss = { {38,15},1,10,TRUE };
 kingStruct king = { {38,1} };
 posStruct barricadePos = { 38,6 };
 int barricadeDetectCount = 0;
@@ -298,13 +298,13 @@ void makeNormalEnemyStage3(int x) {
 void moveEnemyStage3() {
     enemyNPC* enemyNpc = enemyList->enemyHeader;
     while (enemyNpc != NULL) {
-        if (enemyNpc->pos.Y == 2) {
-            currentAnimalCount--;
-        }
         if (enemyNpc->activeStatus == TRUE&&enemyNpc->pos.Y>1) {
             enemyNpc->pos.Y -= 1;
+            if (enemyNpc->pos.Y == 1) {
+                currentAnimalCount--;
+            }
         }
-        else {
+        else if(enemyNpc->pos.Y==1) {
             enemyNpc->activeStatus = FALSE;
             enemyNpc->dieFlag = TRUE;
         }

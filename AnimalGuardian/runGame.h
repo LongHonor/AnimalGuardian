@@ -25,14 +25,25 @@ boolean stage(int i) {
 
     //animalNPC 정보 갱신
     setAllAnimalCount(3);
-    makeAnimal();
+    if (i < 2) {
+        makeAnimal();
+    }
+    else {
+        drawBoss();
+        drawKing();
+    }
 
     //enemyNPC 정보 갱신
     if (i == 3) {
         enemyModel[0][0] = 2;
     }
+    else if (i == 2) {
+        setAllEnemyCount(20);
+        resetEnemySpawnCount();
+        makeEnemyListStage3(allEnemyCount);
+    }
     else {
-        setAllEnemyCount(15 + 5 * i);
+        setAllEnemyCount(15+ 5 * i);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
@@ -42,16 +53,31 @@ boolean stage(int i) {
     drawInitialUI();
 
     //게임동작부
-    while (1) {
-        if (currentAnimalCount == 0) {
-            //gameover
-            return FALSE;
+    if (i < 2) {
+        while (1) {
+            if (currentAnimalCount == 0) {
+                //gameover
+                return FALSE;
+            }
+            if (currentEnemyCount == 0) return TRUE;
+            pcKeyInput();
+            animalMoveSetting();
+            enemyMoveSetting();
         }
-        if(currentEnemyCount == 0) return TRUE;
-        pcKeyInput();
-        animalMoveSetting();
-        enemyMoveSetting();
     }
+    else {
+        while (1) {
+            if (currentAnimalCount == 0) {
+                //gameover
+                return FALSE;
+            }
+            if (currentEnemyCount == 0) return TRUE;
+            pcKeyInput();
+            moveBoss();
+            moveEnemySettingstage3();
+        }
+    }
+
 }
 
 void runGame() {
@@ -66,6 +92,7 @@ void runGame() {
         deleteBoard();
         while(1){
             gameStatus = stage(i);
+            Sleep(1000);
             system("cls");
             if(gameStatus) i++;
             else{
