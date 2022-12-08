@@ -34,10 +34,9 @@ boolean stage(int i) {
     }
 
     //enemyNPC 정보 갱신
-    if (i == 3) {
+
+    if (i == 2) {
         enemyModel[0][0] = 2;
-    }
-    else if (i == 2) {
         setAllEnemyCount(20);
         resetEnemySpawnCount();
         makeEnemyListStage3(allEnemyCount);
