@@ -37,12 +37,12 @@ boolean stage(int i) {
 
     if (i == 2) {
         enemyModel[0][0] = 2;
-        setAllEnemyCount(20);
+        setAllEnemyCount(1);
         resetEnemySpawnCount();
         makeEnemyListStage3(allEnemyCount);
     }
     else {
-        setAllEnemyCount(15+ 5 * i);
+        setAllEnemyCount(1);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
@@ -70,7 +70,7 @@ boolean stage(int i) {
                 //gameover
                 return FALSE;
             }
-            if (currentEnemyCount == 0) return TRUE;
+            if (boss.hp==0) return TRUE;
             pcKeyInput();
             moveBoss();
             moveEnemySettingstage3();
@@ -90,9 +90,11 @@ void runGame() {
     if(gInt != 2){
         deleteBoard();
         while(1){
+			//playAnimation();
             gameStatus = stage(i);
             Sleep(1000);
             system("cls");
+
             if(gameStatus) i++;
             else{
                 //gameOver

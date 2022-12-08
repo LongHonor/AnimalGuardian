@@ -153,12 +153,12 @@ void deleteWallEffect(int x, int y) {
 
 void scene2() {
 	int i;
-	placeWall(24, 10);
-	drawWall(15, 1);
+	placeWall(25, 10);
+	drawWall(16, 1);
 	for (i = 0; i < 3; i++) {
-		drawWallEffect(14, 1);
+		drawWallEffect(15, 1);
 		Sleep(100);
-		deleteWallEffect(14, 1);
+		deleteWallEffect(15, 1);
 		Sleep(100);
 	}
 }
@@ -190,8 +190,8 @@ void drawAnimationBossEnemy(int posX, int posY) {
 				break;
 			case 1:
 				if (j == 0) printf("◀");
-				else if (j == 1) printf("┌");
-				else if (j == width - 2) printf("┐");
+				else if (j == 1) printf("■");
+				else if (j == width - 2) printf("■");
 				else if (j == width - 1)printf("▶");
 				else printf("─");
 				break;
@@ -204,14 +204,14 @@ void drawAnimationBossEnemy(int posX, int posY) {
 				break;
 			case 3:
 				if (j == 0) printf("◀");
-				else if (j == 2 || j == 3) printf("─");
+				else if (j == 2 || j == 3) printf("■");
 				else if (j == width - 1)printf("▶");
 				else printf("│");
 				break;
 			case 4:
 				if (j == 0) printf("◀");
-				else if (j == 1) printf("└");
-				else if (j == width - 2) printf("┘");
+				else if (j == 1) printf("■");
+				else if (j == width - 2) printf("■");
 				else if (j == width - 1)printf("▶");
 				else printf("─");
 				break;
@@ -359,22 +359,22 @@ void drawbombedBossEnemy(int posX, int posY) {
 			setCurrentCursorPos(cursorX + j * 2, posY + i);
 			switch (i) {
 			case 0:
-				if (j == 0) printf("┌");
-				else if (j == width - 1)printf("┐");
-				else printf("─");
+				if (j == 0) printf("■");
+				else if (j == width - 1)printf("■");
+				else printf("■");
 				break;
 			case 1:
-				if (j == 0 || j == width - 1) printf("│");
+				if (j == 0 || j == width - 1) printf("■");
 				else printf(" X");
 				break;
 			case 2:
-				if (j == 1 || j == 2) printf("─");
-				else printf("│");
+				if (j == 1 || j == 2) printf("■");
+				else printf("─");
 				break;
 			case 3:
-				if(j==0)printf("└");
-				else if (j == width - 1) printf("┘");
-				else printf("─");
+				if(j==0)printf("■");
+				else if (j == width - 1) printf("■");
+				else printf("■");
 				break;
 			}
 		}
@@ -409,12 +409,12 @@ void scene4() {
 	clearBoard();
 	drawGameBoard();
 	Sleep(500);
-	drawbombedBossEnemy(18,15);
+	drawbombedBossEnemy(19,15);
 }
 
 void placeAnimationBarricade() {
-	int leftX = 17;
-	int rightX = 22;
+	int leftX = 18;
+	int rightX = 23;
 	int posY = 4, posX;
 	int i, j;
 
@@ -424,7 +424,7 @@ void placeAnimationBarricade() {
 		setCurrentCursorPos(rightX*2, posY + i);
 		printf("■");
 	}
-	posX = 18*2; posY = 4;
+	posX = 19*2; posY = 4;
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 4; j++) {
 			setCurrentCursorPos(posX + j * 2, posY + i);
@@ -435,7 +435,7 @@ void placeAnimationBarricade() {
 
 void drawBarricadeEffect() {
 	int i;
-	int leftX = 16, rightX = 23, posY = 4;
+	int leftX = 17, rightX = 24, posY = 4;
 	for (i = 0; i < 15; i++) {
 		setCurrentCursorPos(leftX * 2, posY + i);
 		printf("※");
@@ -466,7 +466,7 @@ void drawBarricadeEffect() {
 	}
 }
 
-void scene5() {
+void scene5() { 
 	placeAnimationBarricade();
 	drawBarricadeEffect();
 }
@@ -483,5 +483,6 @@ void playAnimation() {
 	//scene5 바리케이드 설치
 	scene5();
 	//애니메이션 종료
-	while (1);
+	system("cls");
+	return;
 }
