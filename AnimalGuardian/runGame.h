@@ -43,7 +43,7 @@ boolean stage(int i) {
         makeEnemyListStage3(allEnemyCount);
     }
     else {
-        setAllEnemyCount(1);
+        setAllEnemyCount(10+5*i);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
@@ -91,12 +91,15 @@ void runGame() {
     if(gInt != 2){
         deleteBoard();
         while(1){
-			//playAnimation();
             gameStatus = stage(i);
             Sleep(1000);
             system("cls");
 
-            if(gameStatus) i++;
+            if (gameStatus) {
+                i++;
+                //스테이지 클리어 화면 출력
+                //if (i == 2) playAnimation();
+            }
             else{
                 //gameOver
                 //
