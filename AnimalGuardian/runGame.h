@@ -22,6 +22,7 @@ boolean stage(int i) {
 
     //PC출력
     showPC(player);
+    loadBullet();
 
     //animalNPC 정보 갱신
     setAllAnimalCount(3);
