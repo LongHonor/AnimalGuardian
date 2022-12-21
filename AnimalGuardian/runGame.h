@@ -61,8 +61,7 @@ boolean stage(int i) {
             }
             if (currentEnemyCount == 0) return TRUE;
             pcKeyInput();
-            animalMoveSetting();
-            enemyMoveSetting();
+            
         }
     }
     else {

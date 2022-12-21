@@ -312,7 +312,8 @@ void pcKeyInput() {
 			animalEffectFlag = 0;
 		}
 		deleteDieEnemyEffect();
-
+		animalMoveSetting();
+		enemyMoveSetting();
 		Sleep(20);
 	}
 }
