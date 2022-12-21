@@ -33,7 +33,7 @@ clock_t checkKeyInputTime;
 
 extern int loadFlag;
 extern int dieFlag;
-int dieTime;
+float dieTime;
 
 //PC 그리기
 void showPC(struct _Player player);

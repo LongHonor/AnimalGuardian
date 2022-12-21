@@ -16,7 +16,7 @@ posStruct *dieEnemyPos = NULL;
 int bulletItem = 0;
 int enemySpeedItemFlag = 0;
 loadFlag = 0;
-dieTime = 2;
+dieTime = 0.5f;
 dieFlag = 0;
 int animalEffectFlag = 0;
 
