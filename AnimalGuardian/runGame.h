@@ -22,6 +22,7 @@ boolean stage(int i) {
 
     //PC출력
     showPC(player);
+    loadBullet();
 
     //animalNPC 정보 갱신
     setAllAnimalCount(3);
@@ -34,16 +35,15 @@ boolean stage(int i) {
     }
 
     //enemyNPC 정보 갱신
-    if (i == 3) {
+
+    if (i == 2) {
         enemyModel[0][0] = 2;
-    }
-    else if (i == 2) {
-        setAllEnemyCount(20);
+        setAllEnemyCount(1);
         resetEnemySpawnCount();
         makeEnemyListStage3(allEnemyCount);
     }
     else {
-        setAllEnemyCount(15+ 5 * i);
+        setAllEnemyCount(10+5*i);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
@@ -61,8 +61,7 @@ boolean stage(int i) {
             }
             if (currentEnemyCount == 0) return TRUE;
             pcKeyInput();
-            animalMoveSetting();
-            enemyMoveSetting();
+            
         }
     }
     else {
@@ -71,7 +70,7 @@ boolean stage(int i) {
                 //gameover
                 return FALSE;
             }
-            if (currentEnemyCount == 0) return TRUE;
+            if (boss.hp==0) return TRUE;
             pcKeyInput();
             moveBoss();
             moveEnemySettingstage3();
@@ -94,7 +93,12 @@ void runGame() {
             gameStatus = stage(i);
             Sleep(1000);
             system("cls");
-            if(gameStatus) i++;
+
+            if (gameStatus) {
+                i++;
+                //스테이지 클리어 화면 출력
+                //if (i == 2) playAnimation();
+            }
             else{
                 //gameOver
                 //

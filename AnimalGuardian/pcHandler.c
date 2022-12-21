@@ -16,7 +16,7 @@ posStruct *dieEnemyPos = NULL;
 int bulletMode = 0;
 int enemySpeedItemFlag = 0;
 loadFlag = 0;
-dieTime = 2;
+dieTime = 0.5f;
 dieFlag = 0;
 int animalEffectFlag = 0;
 
@@ -341,7 +341,8 @@ void pcKeyInput() {
 			animalEffectFlag = 0;
 		}
 		deleteDieEnemyEffect();
-
+		animalMoveSetting();
+		enemyMoveSetting();
 		Sleep(20);
 	}
 }
