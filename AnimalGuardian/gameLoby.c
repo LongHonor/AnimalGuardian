@@ -235,7 +235,7 @@ void showTitle(char g[23][42]) {
 }
 int changeColorText(int i,int check[], int startX, int startY, int sizeWidth, int sizeHeight) {
 	clock_t startTime = clock();
-	double settime = 0.2;
+	double settime = 0.1;
 	returnkeyShowLobyTitle = 0;
 	while (check[i] == 0 && (double)(clock() - startTime) / CLOCKS_PER_SEC <= settime) {
 		changeConsoleColor(titleColor[(i - 1) % 7]);
@@ -252,12 +252,13 @@ int showLobyTitle() {
 	clock_t startTime = clock();
 	double settime = 0.5;
 	while (1) {
+		removeCursor();
 		if (checkGameTitle[0] == 0) {	//reset title color 
 			showTitle(gameBoardTitle[0]);
 			checkGameTitle[0] = 1;
 		}
 		if (changeColorText(1, checkGameTitle, 7, 2, 5, 4)!=0) {
-			return returnkeyShowLobyTitle;
+			return returnkeyShowLobyTitle; 
 		}
 		if (changeColorText(2, checkGameTitle, 13, 2, 4, 4) != 0) {
 			return returnkeyShowLobyTitle;
