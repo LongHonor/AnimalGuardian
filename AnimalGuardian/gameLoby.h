@@ -40,3 +40,8 @@ void drawSquare();
 void drawRectangle();
 //타이틀 색상 여부 확인
 void initCheckGameTitle();
+
+//스테이지 클리어 화면
+void drawStageClear();
+//게임 클리어 화면
+void drawGameClear();
