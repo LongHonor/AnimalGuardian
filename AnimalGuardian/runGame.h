@@ -83,28 +83,37 @@ void runGame() {
     boolean gameStatus = TRUE;
     int gInt;
     int i=0;
+    int retryFlag = 0;
     initSetting();
 
-    gInt = drawGameLoby();
+    while (1) {
+        system("cls");
+        gInt = drawGameLoby();
 
-    if(gInt != 2){
-        deleteBoard();
-        while(1){
-            gameStatus = stage(i);
-            Sleep(1000);
-            system("cls");
+        if (gInt != 2) {
+            deleteBoard();
+            while (1) {
+                gameStatus = stage(i);
+                Sleep(1000);
+                system("cls");
 
-            if (gameStatus) {
-                i++;
-                //스테이지 클리어 화면 출력
-                //if (i == 2) playAnimation();
-            }
-            else{
-                //gameOver
-                //
-                break;
+                if (gameStatus) {
+                    //스테이지 클리어 화면 출력
+                    
+                    system("cls");
+                    i++;
+                    if (i == 2) playAnimation();
+                }
+                else {
+                    //gameOver
+                    retryFlag = drawGameOver();
+                    if (retryFlag == 0) i = 0;
+                    else
+                        break;
+                }
             }
         }
+        else return;
     }
-    else return;
+   
 }
