@@ -73,10 +73,9 @@ boolean stage(int i) {
                 deleteBoss();
                 return FALSE;
             }
-<<<<<<< HEAD
-=======
+
             if (boss.hp==0) return TRUE;
->>>>>>> origin/main
+
             pcKeyInput();
             moveKing();
             moveBoss();
