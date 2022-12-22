@@ -22,8 +22,6 @@ int animalEffectFlag = 0;
 
 void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime);
 
-
-
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
 	printf("＠");
@@ -86,6 +84,12 @@ void moveBullet(Bullet* bullet) {
 	Sleep(bullet->speed);
 	eraseBullet(bullet->pos);
 }
+void checkDyingEnemy(Bullet* newbullet) {
+	checkdieStartTime = clock(); dieFlag = 1;
+	findDieEnemy(newbullet->pos, checkdieStartTime);
+	drawDieEnemyEffect(newbullet->pos);
+	printEnemyCount();
+}
 void shootBullet() {
 	Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 	newbullet->pos = player.pos;
@@ -124,29 +128,20 @@ void shootBullet() {
 				itemDrop();
 				moveBullet(newbullet);
 				newbullet->pos.Y += 1;
-				checkdieStartTime = clock(); dieFlag = 1;
-				findDieEnemy(newbullet->pos, checkdieStartTime);
-				drawDieEnemyEffect(newbullet->pos);
-				printEnemyCount();
+				checkDyingEnemy(newbullet);
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
 				moveBullet(newbullet);
-				checkdieStartTime = clock(); dieFlag = 1;
-				findDieEnemy(newbullet->pos, checkdieStartTime);
-				drawDieEnemyEffect(newbullet->pos);
-				printEnemyCount();
+				checkDyingEnemy(newbullet);
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
 				itemDrop();
 				newbullet->pos.Y -= 1;
 				moveBullet(newbullet);
-				checkdieStartTime = clock(); dieFlag = 1;
-				findDieEnemy(newbullet->pos, checkdieStartTime);
-				drawDieEnemyEffect(newbullet->pos);
-				printEnemyCount();
+				checkDyingEnemy(newbullet);
 				return;
 			}
 			//바로 위 충돌
