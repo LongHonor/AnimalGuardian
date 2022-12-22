@@ -43,8 +43,7 @@ boolean stage(int i) {
         makeEnemyListStage3(allEnemyCount);
     }
     else {
-        //setAllEnemyCount(10+i*5);
-        setAllEnemyCount(1);
+        setAllEnemyCount(10+i*5);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
