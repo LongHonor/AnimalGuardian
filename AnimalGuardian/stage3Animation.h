@@ -19,8 +19,7 @@ void drawKingAnimal(int x, int y, int direction){
 		for (j = 0; j < 4; j++) {
 			setCurrentCursorPos(cursorX +j*2, y + i);
 			if (kingAnimalModel[direction][i][j] == 1) printf("■");
-			else if (kingAnimalModel[direction][i][j] == 2) printf("▲");
-			else printf("  ");
+			else printf("▲");
 		}
 	}
 	restoreConsoleColor();
@@ -368,8 +367,8 @@ void drawbombedBossEnemy(int posX, int posY) {
 				else printf(" X");
 				break;
 			case 2:
-				if (j == 1 || j == 2) printf("■");
-				else printf("─");
+				if (j == 1 || j == 2) printf("─");
+				else printf("■");
 				break;
 			case 3:
 				if(j==0)printf("■");
