@@ -19,6 +19,7 @@ loadFlag = 0;
 dieTime = 0.5f;
 dieFlag = 0;
 int animalEffectFlag = 0;
+int keyBollean = 1;
 
 void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime);
 
@@ -90,6 +91,48 @@ void checkDyingEnemy(Bullet* newbullet) {
 	drawDieEnemyEffect(newbullet->pos);
 	printEnemyCount();
 }
+void drawBossBarricade() {
+	for (int i = -1; i <= 1; i++) {
+		if (i == 0) {
+			setCurrentCursorPos(player.pos.X, player.pos.Y + 1);
+			printf("▩");
+		}
+		else {
+			setCurrentCursorPos(player.pos.X + 2 * i, player.pos.Y);
+			printf("▩");
+			setCurrentCursorPos(player.pos.X + 2 * i, player.pos.Y + 1);
+			printf("▩");
+		}
+	}
+}
+void deleteBossBarricade() {
+	for (int i = -1; i <= 1; i++) {
+		if (i == 0) {
+			setCurrentCursorPos(player.pos.X, player.pos.Y + 1);
+			printf("  ");
+		}
+		else {
+			setCurrentCursorPos(player.pos.X + 2 * i, player.pos.Y);
+			printf("  ");
+			setCurrentCursorPos(player.pos.X + 2 * i, player.pos.Y + 1);
+			printf("  ");
+		}
+	}
+}
+void bossAttack() {
+	int num = rand() % 3;
+	if (num == 0) {
+		keyBollean = 0;
+		drawBossBarricade();
+		//int arrX = (player.pos.X - gBoardOx) / 2;
+		//int arrY = (player.pos.Y - gBoardOy);
+		////pc충돌 리턴 0
+		//if (currentGameBoard[arrY][arrX] == 1) {
+		//	return 0;
+		//}
+		checkStopPC = clock();
+	}
+}
 void shootBullet() {
 	Bullet* newbullet = (Bullet*)malloc(sizeof(Bullet));
 	newbullet->pos = player.pos;
@@ -104,17 +147,20 @@ void shootBullet() {
 			if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 3) {
 				moveBullet(newbullet);
 				boss.hp--;
+				bossAttack();	//1.5초 동안 효과 적용
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 3) {
 				moveBullet(newbullet);
 				boss.hp--;
+				bossAttack();
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 3) {
 				newbullet->pos.Y -= 1;
 				moveBullet(newbullet);
 				boss.hp--;
+				bossAttack();
 				return;
 			}
 			//animal 충돌 검사-> animal 위치 수정으로 인하여 수정
@@ -265,52 +311,60 @@ void pcKeyInput() {
 	int key;
 	for (int i = 0; i < 20; i++) {
 		//_kbhit 은 입력시 1 리턴	
-		if (_kbhit() != 0) {
-			key = _getch();
-			checkKeyInputTime = clock();
-			switch (key) {
-			case left:
-				shiftLeftPc();
-				break;
-			case right:
-				shiftRightPc();
-				break;
-			case space:
-				if (loadFlag == 0 && bulletCount > 0) {
-					shootBullet();
-				}
-				break;
-			case load:
-				checkLoadStartTime = clock();
-				loadFlag = 1;
-				break;
-			case item:
-				if (player.itemNum == 1) {	//에네미 속도 감소
-					enemySpeedItemFlag = 1;
-					enemyMoveSpeed = 1;
-					checkSlowEnemySpeedTime = clock();
-					player.itemNum = 0;
-					printCurrentItem();
-				}
-				if (player.itemNum == 2) {	//장전 속도 감소
-					player.reloadSpeed = 1;
+		if (keyBollean == 1) {
+			if (_kbhit() != 0) {
+				key = _getch();
+				checkKeyInputTime = clock();
+				switch (key) {
+				case left:
+					shiftLeftPc();
+					break;
+				case right:
+					shiftRightPc();
+					break;
+				case space:
+					if (loadFlag == 0 && bulletCount > 0) {
+						shootBullet();
+					}
+					break;
+				case load:
 					checkLoadStartTime = clock();
 					loadFlag = 1;
+					break;
+				case item:
+					if (player.itemNum == 1) {	//에네미 속도 감소
+						enemySpeedItemFlag = 1;
+						enemyMoveSpeed = 1;
+						checkSlowEnemySpeedTime = clock();
+						player.itemNum = 0;
+
+						printCurrentItem();
+					}
+					if (player.itemNum == 2) {	//장전 속도 감소
+						player.reloadSpeed = 1;
+						checkLoadStartTime = clock();
+						loadFlag = 1;
+					}
+					if (player.itemNum == 3) {	//바리게이트 설치
+						placeBarricade();
+						drawGameBoard();
+						player.itemNum = 0;
+						printCurrentItem();
+					}
+					//if (player.itemNum == 4) {	//관통 총알로 체인지
+					//	bulletMode = 1;
+					//	player.itemNum = 0;
+					//	printCurrentItem();
+					//}
+					//아이템 종류당 번호 할당
+					//번호에 해당하는 아이템 사용
+					break;
 				}
-				if (player.itemNum == 3) {	//바리게이트 설치
-					placeBarricade();
-					drawGameBoard();
-					player.itemNum = 0;
-					printCurrentItem();
-				}
-				//if (player.itemNum == 4) {	//관통 총알로 체인지
-				//	bulletMode = 1;
-				//	player.itemNum = 0;
-				//	printCurrentItem();
-				//}
-				//아이템 종류당 번호 할당
-				//번호에 해당하는 아이템 사용
-				break;
+			}
+		}
+		else if(keyBollean == 0) {
+			if (_kbhit() != 0) {
+				key = _getch();
 			}
 		}
 		//장전2초
@@ -334,6 +388,11 @@ void pcKeyInput() {
 			deleteDieAnimalEffect();
 			currentAnimalCount--;
 			animalEffectFlag = 0;
+		}
+		//보스모드일 경우 보스 공격시 일정확률로 pc 공격 불가능
+		if (keyBollean == 0 && (double)(clock() - checkStopPC) / CLOCKS_PER_SEC >= 1.5) {
+			deleteBossBarricade();
+			keyBollean = 1;
 		}
 		deleteDieEnemyEffect();
 		animalMoveSetting();
