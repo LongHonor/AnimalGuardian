@@ -299,24 +299,6 @@ void makeNormalEnemy(int x) {
         lastEnemy->next = enemyNpc;
         enemyNpc->id = count;
         enemyNpc->type = 1;
-
-        enemyNpc->pos.X = x;
-        enemyNpc->pos.Y = gBoardOy + 1;
-        enemyNpc->next = NULL;
-        enemyNpc->direction = 0;
-        enemyNpc->dodgeDirection = 1;
-        enemyNpc->id = 1;
-        enemyNpc->dodgeCount = 5;
-        enemyNpc->type = 2;
-        enemyNpc->hp = 2;
-        enemyNpc->activeStatus = TRUE;
-        enemyNpc->dieFlag = FALSE;
-        if (enemyList->enemyHeader == NULL) {
-            enemyList->enemyHeader = enemyNpc;
-            enemyNpc = 0;
-            return;
-
-        }
     }
 
 }
