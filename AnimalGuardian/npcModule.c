@@ -381,6 +381,11 @@ kingStruct king = { {38,1},1 };
 posStruct barricadePos = { 38,6 };
 int barricadeDetectCount = 0;
 
+void resetBossStatus() {
+    boss.hp = 10;
+    boss.pos.X = 38;
+    boss.pos.Y = 15;
+}
 void makeEnemyListStage3(int enemyCount) {
     enemyList = (enemyNPCList*)malloc(sizeof(enemyNPCList));
 

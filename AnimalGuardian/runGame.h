@@ -29,21 +29,19 @@ boolean stage(int i) {
     if (i < 2) {
         makeAnimal();
     }
-    else {
-        drawBoss();
-        drawKing();
-    }
 
     //enemyNPC 정보 갱신
 
     if (i == 2) {
         enemyModel[0][0] = 2;
+        resetBossStatus();
         setAllEnemyCount(20);
         resetEnemySpawnCount();
         makeEnemyListStage3(allEnemyCount);
     }
     else {
-        setAllEnemyCount(10+i*5);
+        enemyModel[0][0] = 1;
+        setAllEnemyCount(1);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
@@ -68,10 +66,15 @@ boolean stage(int i) {
     else {
         while (1) {
             if (currentAnimalCount == 0) {
+                deleteBoss();
                 return FALSE;
             }
-            if (boss.hp==0) return FALSE;
+            if (boss.hp == 0) {
+                deleteBoss();
+                return FALSE;
+            }
             pcKeyInput();
+            moveKing();
             moveBoss();
             moveEnemySettingstage3();
         }
