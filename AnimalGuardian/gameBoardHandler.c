@@ -142,7 +142,7 @@ void drawKing() {
 			if (kingAnimalModel[0][posY][posX] == 1) printf("■");
 			else if (kingAnimalModel[0][posY][posX] == 2) printf("▲");
 			else printf("  ");
-
+			currentGameBoard[arrY + posY][arrX] = 3;
 		}
 	}
 	restoreConsoleColor();
@@ -157,7 +157,7 @@ void deleteKing() {
 		for (posY = 0; posY < 2; posY++) {
 			setCurrentCursorPos(king.pos.X + posX * 2, king.pos.Y + posY);
 			printf("  ");
-
+			currentGameBoard[arrY + posY][arrX] = 0;
 		}
 	}
 
