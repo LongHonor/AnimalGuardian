@@ -107,7 +107,10 @@ void runGame() {
                 else {
                     //gameOver
                     retryFlag = drawGameOver();
-                    if (retryFlag == 0) i = 0;
+					if (retryFlag == 0) {
+						system("cls");
+						i = 0;
+					}
                     else
                         break;
                 }
