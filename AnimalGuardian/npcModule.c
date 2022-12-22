@@ -281,6 +281,7 @@ void makeNormalEnemy(int x) {
         enemyNpc->id = 1;
         enemyNpc->dodgeCount = 5;
         enemyNpc->type = 3;
+        enemyNpc->hp = 2;
         enemyNpc->activeStatus = TRUE;
         enemyNpc->dieFlag = FALSE;
         if (enemyList->enemyHeader == NULL) {
@@ -298,7 +299,8 @@ void makeNormalEnemy(int x) {
 
         lastEnemy->next = enemyNpc;
         enemyNpc->id = count;
-        enemyNpc->type = 1;
+        enemyNpc->type = 2;
+        enemyNpc->hp = 2;
     }
 
 }
