@@ -1,5 +1,6 @@
 ﻿#include "globalVariable.h"
 #include "npcModule.h"
+#include "pcHandler.h"
 #include "detectCollision.h"
 #include "gameBoardHandler.h"
 #include "barricadeHandler.h"
@@ -61,39 +62,163 @@ int setDirection(enemyNPC* enemy) {
         enemy->direction = -randomDirection;
         return 1;
     }
+    
 
     return 0;
 }
 
 //지정된 방향으로 움직입니다 성공여부를 반환합니다.
 int tryMove(enemyNPC* enemy) {
-    if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1 &&
-        enemy->direction == 0) {
-
-        enemy->pos.Y += 1;
-
-        return 1;
-    }
-
-    if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->direction)), enemy->pos.Y) == 1 &&
-        enemy->direction != 0) {
-        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1) {
+    if (enemy->type == 1) {
+        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1 &&
+            enemy->direction == 0) {
 
             enemy->pos.Y += 1;
 
             return 1;
         }
-        enemy->pos.X += 2 * (enemy->direction);
 
-        return 1;
+        if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->direction)), enemy->pos.Y) == 1 &&
+            enemy->direction != 0) {
+            if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1) {
+
+                enemy->pos.Y += 1;
+
+                return 1;
+            }
+            enemy->pos.X += 2 * (enemy->direction);
+
+            return 1;
+        }
+        return 0;
     }
+    else if(enemy->type == 2) {
+
+        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1 &&
+            enemy->direction == 0) {
+
+            enemy->pos.Y += 1;
+
+            return 1;
+        }
+        else if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 9 &&
+            enemy->direction == 0) {
+            int i = 1;
+            while (1) {
+                if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + i) == 1) {
+                    break;
+                }
+                i++;
+            }
+            enemy->pos.Y += i;
+            return 1;
+        }
+        if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->direction)), enemy->pos.Y) == 1 &&
+            enemy->direction != 0) {
+            if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1) {
+
+                enemy->pos.Y += 1;
+
+                return 1;
+            }
+            enemy->pos.X += 2 * (enemy->direction);
+
+            return 1;
+        }
+    }
+    else if (enemy->type == 3) {
+        if (enemy->pos.X == player.pos.X && enemy->dodgeCount > 0 && enemy->pos.Y < player.pos.Y - 2) {
+            if (enemyNPCDetectCollision(enemy->pos.X + 2, enemy->pos.Y) == 9
+                || enemyNPCDetectCollision(enemy->pos.X + 2, enemy->pos.Y) == 0) {
+                int flag = 0;
+                for (int i = enemy->pos.Y + 1; i < player.pos.Y; i++) {
+                    if (enemyNPCDetectCollision(enemy->pos.X, i) == 9) {
+                        flag = 1;
+                    }
+                }
+                if (flag == 0) {
+                    enemy->pos.X -= 2;
+                    enemy->dodgeCount -= 1;
+                    return 1;
+                }
+            }
+            else if (enemyNPCDetectCollision(enemy->pos.X - 2, enemy->pos.Y) == 9
+                || enemyNPCDetectCollision(enemy->pos.X - 2, enemy->pos.Y) == 0) {
+                int flag = 0;
+                for (int i = enemy->pos.Y + 1; i < player.pos.Y; i++) {
+                    if (enemyNPCDetectCollision(enemy->pos.X, i) == 9) {
+                        flag = 1;
+                    }
+                }
+                if (flag == 0) {
+                    enemy->pos.X += 2;
+                    enemy->dodgeCount -= 1;
+                    return 1;
+                }
+            }
+            else {
+                if (enemyNPCDetectCollision(enemy->pos.X + 4 * enemy->dodgeDirection, enemy->pos.Y) == 9
+                    || enemyNPCDetectCollision(enemy->pos.X + 4 * enemy->dodgeDirection, enemy->pos.Y) == 0 ) {
+                    int flag = 0;
+                    for (int i = enemy->pos.Y + 1; i < player.pos.Y; i++) {
+                        if (enemyNPCDetectCollision(enemy->pos.X, i) == 9) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 0) {
+                        enemy->pos.X -= 2 * enemy->dodgeDirection;
+                        enemy->dodgeDirection *= -1;
+                        enemy->dodgeCount -= 1;
+                        return 1;
+                    }
+                }
+                else {
+                    int flag = 0;
+                    for (int i = enemy->pos.Y + 1; i < player.pos.Y; i++) {
+                        if (enemyNPCDetectCollision(enemy->pos.X,i) == 9) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 0) {
+                        enemy->pos.X += 4 * enemy->dodgeDirection;
+                        enemy->dodgeDirection *= -1;
+                        enemy->dodgeCount -= 1;
+                        return 1;
+                    }
+                }
+            }
+        }
+        if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1 &&
+            enemy->direction == 0) {
+
+            enemy->pos.Y += 1;
+
+            return 1;
+        }
+
+        if (enemyNPCDetectCollision(enemy->pos.X + (2 * (enemy->direction)), enemy->pos.Y) == 1 &&
+            enemy->direction != 0) {
+            if (enemyNPCDetectCollision(enemy->pos.X, enemy->pos.Y + 1) == 1) {
+
+                enemy->pos.Y += 1;
+
+                return 1;
+            }
+            enemy->pos.X += 2 * (enemy->direction);
+
+            return 1;
+        }
+        return 0;
+    }
+
     return 0;
 }
 
 void moveOneEnemy(enemyNPC* enemy) {
     if (!tryMove(enemy)) {
-        if (!setDirection(enemy)) //방향 지정 실패시 갇힌 몬스터이다.
+        if (!setDirection(enemy)) {
             return;
+        } //방향 지정 실패시 갇힌 몬스터이다.
         else tryMove(enemy);
     }
 }
@@ -120,7 +245,10 @@ void makeNormalEnemy(int x) {
     enemyNpc->pos.Y = gBoardOy + 1;
     enemyNpc->next = NULL;
     enemyNpc->direction = 0;
+    enemyNpc->dodgeDirection = 1;
     enemyNpc->id = 1;
+    enemyNpc->dodgeCount = 5;
+    enemyNpc->type = 3;
     enemyNpc->activeStatus = TRUE;
 	enemyNpc->dieFlag = FALSE;
     if (enemyList->enemyHeader == NULL) {
@@ -135,8 +263,10 @@ void makeNormalEnemy(int x) {
         lastEnemy = lastEnemy->next;
         count++;
     }
+
     lastEnemy->next = enemyNpc;
     enemyNpc->id = count;
+    enemyNpc->type = 1;
 }
 
 //enemyCount의 조절로 enemy의 수를 변경할 수 있습니다.
@@ -247,7 +377,7 @@ void animalMoveSetting() {
     }
 }
 bossStruct boss = { {38,15},1,10,TRUE };
-kingStruct king = { {38,1} };
+kingStruct king = { {38,1},1 };
 posStruct barricadePos = { 38,6 };
 int barricadeDetectCount = 0;
 
@@ -359,3 +489,47 @@ void moveBoss() {
     }
 }
 
+void moveKing() {
+    if ((double)(clock() - kingAnimalMoveTimePerSec) / CLOCKS_PER_SEC >= 1) {
+        if (kingAnimalDetectCollision(king.pos.X + 2, king.pos.Y) == 0) {
+            king.direction *= -1;
+            deleteKing();
+            king.pos.X += king.direction * 2;
+            kingAnimalMoveTimePerSec = clock();
+            drawKing();
+        }
+        else if (kingAnimalDetectCollision(king.pos.X - 2, king.pos.Y) == 0) {
+            king.direction *= -1;
+            deleteKing();
+            king.pos.X += king.direction * 2;
+            kingAnimalMoveTimePerSec = clock();
+            drawKing();
+        }
+        else {
+            deleteKing();
+            king.pos.X += king.direction*2;
+            kingAnimalMoveTimePerSec = clock();
+            drawKing();
+        }
+    }
+}
+
+
+int kingAnimalDetectCollision(int posX, int posY) {
+    int x, y;
+    int arrX = (posX - gBoardOx)/2;
+    int arrY = posY - gBoardOy;
+    for (x = 0; x < 4; x++)
+    {
+        for (y = 0; y < 2; y++)
+        {
+            //gameBoard line
+            if (kingAnimalModel[0][y][x] != 0 && (currentGameBoard[arrY + y][arrX + x] == 5)) {
+                return 0;
+            }
+
+
+        }
+    }
+    return 1;
+}

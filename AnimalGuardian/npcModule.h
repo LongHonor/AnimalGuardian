@@ -14,6 +14,7 @@ int enemySpawnTime;
 
 typedef struct _kingAnimal {
     posStruct pos;
+    int direction;
 }kingStruct;
 
 kingStruct king;
@@ -29,6 +30,7 @@ clock_t animalMoveTimePerSec;
 clock_t enemyMoveTimePerSec;
 //bossEnemy의 움직임 조절하여 시간당 움직이게 해줄 변수
 clock_t bossEnemyMoveTimePerSec;
+clock_t kingAnimalMoveTimePerSec;
 //배열을 돌 index
 int spawnedEnemyCount;
 
@@ -93,3 +95,5 @@ void moveEnemySettingstage3();
 void setRandomArrayStage3(int* arr,const int count);
 void makeNormalEnemyStage3(int x);
 void makeEnemyListStage3(int enemyCount);
+void moveKing();
+int kingAnimalDetectCollision(int posX, int posY);
