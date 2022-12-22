@@ -262,8 +262,14 @@ void drawBoss() {
 	for (posX = 0; posX < 4; posX++) {
 		for (posY = 0; posY < 4; posY++) {
 			setCurrentCursorPos(boss.pos.X + posX * 2, boss.pos.Y+ posY);
-			if (bossEnemyModel[posY][posX] == 2) printf("※");
-			else printf("■");
+			if (boss.hp > 5) {
+				if (bossEnemyModel[posY][posX] == 2) printf("※");
+				else printf("■");
+			}
+			else {
+				if (bossEnemyModel[posY][posX] == 2) printf("※");
+				else printf("▒");
+			}
 			currentGameBoard[arrY + posY][arrX + posX] = 8;
 		}
 	}

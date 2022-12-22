@@ -25,15 +25,17 @@ PC player;
 extern int bulletCount;
 extern int bulletItem;
 
+
 clock_t checkLoadStartTime;
 clock_t checkdieStartTime;
 clock_t checkSlowEnemySpeedTime;
 clock_t checkEffectAnimalDyingTime;
 clock_t checkKeyInputTime;
+clock_t checkStopPC;
 
 extern int loadFlag;
 extern int dieFlag;
-int dieTime;
+float dieTime;
 
 //PC 그리기
 void showPC(struct _Player player);
@@ -59,3 +61,11 @@ void itemDrop();
 void printCurrentItem();
 //총알 이동
 void moveBullet(struct _Bullet* bullet);
+//에네미 죽는 효과
+void checkDyingEnemy(Bullet* newbullet);
+//보스 바리케이드 그리는 함수
+void drawBossBarricade();
+//보스 바리케이드 지우는 함수
+void deleteBossBarricade();
+//보스 공격 함수
+void bossAttack();
