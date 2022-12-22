@@ -73,6 +73,10 @@ boolean stage(int i) {
                 deleteBoss();
                 return FALSE;
             }
+<<<<<<< HEAD
+=======
+            if (boss.hp==0) return TRUE;
+>>>>>>> origin/main
             pcKeyInput();
             moveKing();
             moveBoss();
@@ -92,6 +96,7 @@ void runGame() {
     while (1) {
         system("cls");
         gInt = drawGameLoby();
+        i = 0;
 
         if (gInt != 2) {
             deleteBoard();
@@ -101,25 +106,40 @@ void runGame() {
                 system("cls");
 
                 if (gameStatus) {
-                    //스테이지 클리어 화면 출력
-                    
-                    system("cls");
-                    i++;
-                    if (i == 2) playAnimation();
+                    if (i == 2) {
+                        drawGameClear();
+                        Sleep(3000);
+                        system("cls");
+                        break;
+                    }
+
+                    else {
+                        //스테이지 클리어 화면 출력
+                        drawStageClear();
+                        Sleep(1000);
+                        system("cls");
+                        i++;
+                        if (i == 2) playAnimation();
+                    }
                 }
                 else {
                     //gameOver
+                    system("cls");
                     retryFlag = drawGameOver();
-					if (retryFlag == 0) {
-						system("cls");
-						i = 0;
-					}
+                    if (retryFlag == 0) {
+                        i = 0;
+                        system("cls");
+                        continue;
+                    }
                     else
                         break;
                 }
             }
         }
-        else return;
+        else {
+            system("cls");
+            return;
+        }
     }
    
 }

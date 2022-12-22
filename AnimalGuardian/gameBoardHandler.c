@@ -206,7 +206,7 @@ void drawEnemy() {
 
 	enemyNPC * search = enemyList->enemyHeader;
 
-
+	changeConsoleColor(red);
 	while (search != NULL) {
 		if (search->activeStatus == TRUE) {
 			posStruct enemyCurPos = getEnemyCurrentPos(search->id);
@@ -214,13 +214,8 @@ void drawEnemy() {
 			arrY = (enemyCurPos.Y - gBoardOy);
 			//enemyNPC 위치 받아와서 setCurrentCursorPos()호출
 
-			if (search->type == 2) changeConsoleColor(1);
-			else if (search->type == 3)changeConsoleColor(12);
-			else changeConsoleColor(red);
-
 			for (posY = 0; posY < 1; posY++) {
 				setCurrentCursorPos(enemyCurPos.X, enemyCurPos.Y + posY);
-				
 				if (enemyModel[posY][0] == 1) printf("▼");
 				else printf("▲");
 				currentGameBoard[arrY + posY][arrX] = 6;

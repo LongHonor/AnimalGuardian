@@ -32,6 +32,7 @@ clock_t checkSlowEnemySpeedTime;
 clock_t checkEffectAnimalDyingTime;
 clock_t checkKeyInputTime;
 clock_t checkStopPC;
+clock_t checkMessageTime;
 
 extern int loadFlag;
 extern int dieFlag;
@@ -69,3 +70,11 @@ void drawBossBarricade();
 void deleteBossBarricade();
 //보스 공격 함수
 void bossAttack();
+//적 처치 안내 메시지 출력
+void printKillingEnemyMessage();
+//게임 안내 메시지 지우기
+void deleteGameStatusMessage();
+//동물 처치 안내 메시지 출력
+void printKillingAnimalMessage();
+//메세지 리셋
+void resetMessage();

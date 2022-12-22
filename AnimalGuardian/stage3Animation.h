@@ -61,10 +61,10 @@ void scene1() {
 	setCurrentGameBoard(3);
 	drawGameBoard();
 
-	shiftKingAnimal(18, leftDirection, 5);
-	shiftKingAnimal(13, rightDirection, 10);
-	shiftKingAnimal(23, leftDirection, 5);
-	drawKingAnimal(18, 1, leftDirection);
+	shiftKingAnimal(19, leftDirection, 5);
+	shiftKingAnimal(14, rightDirection, 10);
+	shiftKingAnimal(24, leftDirection, 5);
+	drawKingAnimal(19, 1, leftDirection);
 }
 
 void drawWall(int posX, int posY) {
