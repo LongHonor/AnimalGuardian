@@ -20,6 +20,7 @@ dieTime = 0.5f;
 dieFlag = 0;
 int animalEffectFlag = 0;
 int keyBollean = 1;
+int messageBoolean = 0;
 
 void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime);
 
@@ -167,6 +168,7 @@ void shootBullet() {
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y) == 6) {
 				moveBullet(newbullet);
 				drawDieAnimalEffect(findDieAnimal(newbullet->pos.X));
+				printKillingAnimalMessage();
 				return;
 			}
 			//enemy 충돌 검사
@@ -175,12 +177,14 @@ void shootBullet() {
 				moveBullet(newbullet);
 				newbullet->pos.Y += 1;
 				checkDyingEnemy(newbullet);
+				printKillingEnemyMessage();
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
 				moveBullet(newbullet);
 				checkDyingEnemy(newbullet);
+				printKillingEnemyMessage();
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
@@ -188,6 +192,7 @@ void shootBullet() {
 				newbullet->pos.Y -= 1;
 				moveBullet(newbullet);
 				checkDyingEnemy(newbullet);
+				printKillingEnemyMessage();
 				return;
 			}
 			//바로 위 충돌
@@ -337,7 +342,6 @@ void pcKeyInput() {
 						enemyMoveSpeed = 1;
 						checkSlowEnemySpeedTime = clock();
 						player.itemNum = 0;
-
 						printCurrentItem();
 					}
 					if (player.itemNum == 2) {	//장전 속도 감소
@@ -395,7 +399,7 @@ void pcKeyInput() {
 			keyBollean = 1;
 		}
 		deleteDieEnemyEffect();
-
+		deleteGameStatusMessage();
 		Sleep(20);
 	}
 }
@@ -423,11 +427,38 @@ void itemDrop() {
 		break;
 	}
 }
+void resetMessage() {
+	setCurrentCursorPos(44 * 2, 18);
+	printf("                         ");
+	setCurrentCursorPos(44 * 2, 19);
+	printf("                         ");
+}
+void printKillingEnemyMessage() {
+	resetMessage();
+	setCurrentCursorPos(44 * 2, 18);
+	printf("적을 처치하였습니다.");
+	checkMessageTime = clock();
+	messageBoolean = 0;
+}
+void printKillingAnimalMessage() {
+	resetMessage();
+	setCurrentCursorPos(44 * 2, 18);
+	printf("동물을 처치하였습니다.");
+	setCurrentCursorPos(44 * 2, 19);
+	printf("동물은 지켜야합니다!");
+	checkMessageTime = clock();
+	messageBoolean = 0;
+}
+void deleteGameStatusMessage() {
+	if (messageBoolean == 0 && (double)(clock() - checkMessageTime) / CLOCKS_PER_SEC >= 1.5) {
+		resetMessage();
+		messageBoolean = 1;
+	}
+}
 //현재 아이템 출력
 void printCurrentItem() {
 	int i, j;
 	int curX = 44 * 2, curY = 15;
-
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 3; j++) {
 			setCurrentCursorPos(curX + j * 2, curY + i);
