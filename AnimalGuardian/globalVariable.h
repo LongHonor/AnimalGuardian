@@ -81,6 +81,7 @@ typedef struct _EnemyNPC {
 	posStruct pos;
 	int speed;
 	int id;
+	int hp;
 	int type;
 	int dodgeDirection;
 	int dodgeCount;

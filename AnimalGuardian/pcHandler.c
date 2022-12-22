@@ -297,11 +297,25 @@ void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
 	while (search != NULL) {
 		if (search->activeStatus == TRUE) {
 			if (search->pos.X == enemyCurPos.X && search->pos.Y == enemyCurPos.Y - 1) {
-				search->activeStatus = FALSE;
-				search->deadPos.X = search->pos.X;
-				search->deadPos.Y = search->pos.Y;
-				search->deadTime = checkdieStartTime;
-				currentEnemyCount -= 1;
+				if (search->type == 2) {
+					if (search->hp == 0) {
+						search->activeStatus = FALSE;
+						search->deadPos.X = search->pos.X;
+						search->deadPos.Y = search->pos.Y;
+						search->deadTime = checkdieStartTime;
+						currentEnemyCount -= 1;
+					}
+					else {
+						search->hp -= 1;
+					}
+				}
+				else {
+					search->activeStatus = FALSE;
+					search->deadPos.X = search->pos.X;
+					search->deadPos.Y = search->pos.Y;
+					search->deadTime = checkdieStartTime;
+					currentEnemyCount -= 1;
+				}
 			}
 		}
 		search = search->next;
