@@ -38,12 +38,12 @@ boolean stage(int i) {
 
     if (i == 2) {
         enemyModel[0][0] = 2;
-        setAllEnemyCount(1);
+        setAllEnemyCount(20);
         resetEnemySpawnCount();
         makeEnemyListStage3(allEnemyCount);
     }
     else {
-        setAllEnemyCount(10+5*i);
+        setAllEnemyCount(10+i*5);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
@@ -61,16 +61,16 @@ boolean stage(int i) {
             }
             if (currentEnemyCount == 0) return TRUE;
             pcKeyInput();
-            
+            animalMoveSetting();
+            enemyMoveSetting();
         }
     }
     else {
         while (1) {
             if (currentAnimalCount == 0) {
-                //gameover
                 return FALSE;
             }
-            if (boss.hp==0) return TRUE;
+            if (boss.hp==0) return FALSE;
             pcKeyInput();
             moveBoss();
             moveEnemySettingstage3();

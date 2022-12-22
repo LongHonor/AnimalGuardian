@@ -395,8 +395,7 @@ void pcKeyInput() {
 			keyBollean = 1;
 		}
 		deleteDieEnemyEffect();
-		animalMoveSetting();
-		enemyMoveSetting();
+
 		Sleep(20);
 	}
 }
