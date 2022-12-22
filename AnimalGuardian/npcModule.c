@@ -299,7 +299,12 @@ void makeNormalEnemy(int x) {
 
         lastEnemy->next = enemyNpc;
         enemyNpc->id = count;
-        enemyNpc->type = 2;
+        if (count % 2 == 0) {
+            enemyNpc->type = 2;
+        }
+        else {
+            enemyNpc->type = 3;
+        }
         enemyNpc->hp = 2;
     }
 
