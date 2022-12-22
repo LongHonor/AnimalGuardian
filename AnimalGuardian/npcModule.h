@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <time.h>
+
+int stageNumber;
 //스테이지별로 마릿수를 지정해줄 전역변수입니다
 int allAnimalCount;
 int allEnemyCount;

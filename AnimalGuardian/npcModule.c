@@ -241,32 +241,67 @@ void moveEnemy() {
 void makeNormalEnemy(int x) {
     enemyNPC* enemyNpc = (enemyNPC*)malloc(sizeof(enemyNPC));
 
-    enemyNpc->pos.X = x;
-    enemyNpc->pos.Y = gBoardOy + 1;
-    enemyNpc->next = NULL;
-    enemyNpc->direction = 0;
-    enemyNpc->dodgeDirection = 1;
-    enemyNpc->id = 1;
-    enemyNpc->dodgeCount = 5;
-    enemyNpc->type = 3;
-    enemyNpc->activeStatus = TRUE;
-	enemyNpc->dieFlag = FALSE;
-    if (enemyList->enemyHeader == NULL) {
-        enemyList->enemyHeader = enemyNpc;
-        enemyNpc = 0;
-        return;
+    if (stageNumber == 0) {
+
+
+        enemyNpc->pos.X = x;
+        enemyNpc->pos.Y = gBoardOy + 1;
+        enemyNpc->next = NULL;
+        enemyNpc->direction = 0;
+        enemyNpc->dodgeDirection = 1;
+        enemyNpc->id = 1;
+        enemyNpc->dodgeCount = 5;
+        enemyNpc->type = 1;
+        enemyNpc->activeStatus = TRUE;
+        enemyNpc->dieFlag = FALSE;
+        if (enemyList->enemyHeader == NULL) {
+            enemyList->enemyHeader = enemyNpc;
+            enemyNpc = 0;
+            return;
+        }
+
+        int count = 2;
+        enemyNPC* lastEnemy = enemyList->enemyHeader;
+        while (lastEnemy->next != NULL) {
+            lastEnemy = lastEnemy->next;
+            count++;
+        }
+
+        lastEnemy->next = enemyNpc;
+        enemyNpc->id = count;
+        enemyNpc->type = 1;
+    }
+    if (stageNumber == 1) {
+
+
+        enemyNpc->pos.X = x;
+        enemyNpc->pos.Y = gBoardOy + 1;
+        enemyNpc->next = NULL;
+        enemyNpc->direction = 0;
+        enemyNpc->dodgeDirection = 1;
+        enemyNpc->id = 1;
+        enemyNpc->dodgeCount = 5;
+        enemyNpc->type = 3;
+        enemyNpc->activeStatus = TRUE;
+        enemyNpc->dieFlag = FALSE;
+        if (enemyList->enemyHeader == NULL) {
+            enemyList->enemyHeader = enemyNpc;
+            enemyNpc = 0;
+            return;
+        }
+
+        int count = 2;
+        enemyNPC* lastEnemy = enemyList->enemyHeader;
+        while (lastEnemy->next != NULL) {
+            lastEnemy = lastEnemy->next;
+            count++;
+        }
+
+        lastEnemy->next = enemyNpc;
+        enemyNpc->id = count;
+        enemyNpc->type = 1;
     }
 
-    int count = 2;
-    enemyNPC* lastEnemy = enemyList->enemyHeader;
-    while (lastEnemy->next != NULL) {
-        lastEnemy = lastEnemy->next;
-        count++;
-    }
-
-    lastEnemy->next = enemyNpc;
-    enemyNpc->id = count;
-    enemyNpc->type = 1;
 }
 
 //enemyCount의 조절로 enemy의 수를 변경할 수 있습니다.
