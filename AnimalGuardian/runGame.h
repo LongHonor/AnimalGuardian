@@ -41,7 +41,7 @@ boolean stage(int i) {
     }
     else {
         enemyModel[0][0] = 1;
-        setAllEnemyCount(1);
+        setAllEnemyCount(10+ 5*i);
         resetEnemySpawnCount();
         makeEnemyList(allEnemyCount);
     }
@@ -96,7 +96,7 @@ void runGame() {
         system("cls");
         gInt = drawGameLoby();
         i = 0;
-
+        stageNumber = i;
         if (gInt != 2) {
             deleteBoard();
             while (1) {
@@ -118,6 +118,7 @@ void runGame() {
                         Sleep(1000);
                         system("cls");
                         i++;
+                        stageNumber = i;
                         if (i == 2) playAnimation();
                     }
                 }
@@ -127,6 +128,7 @@ void runGame() {
                     retryFlag = drawGameOver();
                     if (retryFlag == 0) {
                         i = 0;
+                        stageNumber = i;
                         system("cls");
                         continue;
                     }
