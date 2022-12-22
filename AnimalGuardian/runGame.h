@@ -113,7 +113,10 @@ void runGame() {
                 }
             }
         }
-        else return;
+        else {
+            system("cls");
+            return;
+        }
     }
    
 }
