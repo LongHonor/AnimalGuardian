@@ -6,9 +6,10 @@
 FMOD_SYSTEM *g_System; //FMOD system 변수선언
 FMOD_SOUND *g_Sound[5];
 FMOD_CHANNEL *channel=NULL;
+FMOD_CHANNEL *channel2 = NULL;
 
 FMOD_BOOL IsPlaying;
-
+FMOD_BOOL Paused = FALSE;
 
 
 
@@ -23,14 +24,16 @@ void Init(void)
 	/*사운드 생성*/
 	FMOD_System_CreateSound(g_System, ".\\sound\\main.mp3", FMOD_LOOP_NORMAL, 0, &g_Sound[0]);
 	FMOD_System_CreateSound(g_System, ".\\sound\\shoot.wav", FMOD_DEFAULT, 0, &g_Sound[1]);
+	FMOD_System_CreateSound(g_System, ".\\sound\\playing.wav", FMOD_LOOP_NORMAL, 0, &g_Sound[2]);
 
 }
 
 
 
-void StopSound(void)
+void StopSound()
 {
 	FMOD_Channel_Stop(channel); //채널의 소리 모두정지 
+	FMOD_Channel_Stop(channel2);
 }
 
 
@@ -48,10 +51,17 @@ void SoundUpdate(void)
 
 
 
+void SoundPaused(void) {
+	//Paused = !Paused;
+	FMOD_Channel_SetPaused(channel2, Paused);
+}
+
 /*-----해당 사운드 재생-----*/
 void Sound_Play(int n)
-{
-	FMOD_System_PlaySound(g_System, g_Sound[n], NULL, 0, &channel);
+{	if(n==2)
+		FMOD_System_PlaySound(g_System, g_Sound[n], NULL, 0, &channel2);
+	else
+		FMOD_System_PlaySound(g_System, g_Sound[n], NULL, 0, &channel);
 }
 
 void Release()

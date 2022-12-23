@@ -18,6 +18,7 @@ void initSetting() {
 }
 
 boolean stage(int i) {
+
     //스테이지 설정
     //맵 설정
     setCurrentGameBoard(i);
@@ -73,7 +74,7 @@ boolean stage(int i) {
             }
             if (boss.hp == 0) {
                 deleteBoss();
-                return FALSE;
+                //return FALSE;
             }
 
             if (boss.hp==0) return TRUE;
@@ -105,14 +106,19 @@ void runGame() {
 
         if (gInt != 2) {
             deleteBoard();
+			Sound_Play(2);
+			VolumeSetSound();
             while (1) {
                 fflush(stdin);
+				
+				
                 gameStatus = stage(i);
                 Sleep(1000);
                 system("cls");
 
                 if (gameStatus) {
                     if (i == 2) {
+						StopSound();
                         drawGameClear();
                         Sleep(3000);
                         system("cls");
@@ -127,10 +133,12 @@ void runGame() {
                         i++;
                         stageNumber = i;
                         if (i == 2) playAnimation();
+
                     }
                 }
                 else {
                     //gameOver
+					StopSound();
                     fflush(stdin);
                     system("cls");
                     retryFlag = drawGameOver();
@@ -138,6 +146,8 @@ void runGame() {
                         i = 0;
                         stageNumber = i;
                         system("cls");
+						Sound_Play(2);
+						VolumeSetSound();
                         continue;
                     }
                     else
@@ -146,6 +156,7 @@ void runGame() {
             }
         }
         else {
+			StopSound();
             system("cls");
             return;
         }
