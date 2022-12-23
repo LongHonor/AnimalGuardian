@@ -4,6 +4,7 @@
 #include "gameBoardHandler.h"
 #include "detectCollision.h"
 #include "npcModule.h"
+#include "sound.h"
 #include <stdio.h>
 #include <conio.h>
 #include <time.h>
@@ -22,7 +23,7 @@ int animalEffectFlag = 0;
 int keyBollean = 1;
 int messageBoolean = 0;
 
-void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime);
+void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime,Bullet* newbullet);
 
 void showPC(PC player) {
 	setCurrentCursorPos(player.pos.X, player.pos.Y);
@@ -88,9 +89,7 @@ void moveBullet(Bullet* bullet) {
 }
 void checkDyingEnemy(Bullet* newbullet) {
 	checkdieStartTime = clock(); dieFlag = 1;
-	findDieEnemy(newbullet->pos, checkdieStartTime);
-	drawDieEnemyEffect(newbullet->pos);
-	printEnemyCount();
+	findDieEnemy(newbullet->pos, checkdieStartTime, newbullet);
 }
 void drawBossBarricade() {
 	for (int i = -1; i <= 1; i++) {
@@ -177,14 +176,12 @@ void shootBullet() {
 				moveBullet(newbullet);
 				newbullet->pos.Y += 1;
 				checkDyingEnemy(newbullet);
-				printKillingEnemyMessage();
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 1) == 5) {
 				itemDrop();
 				moveBullet(newbullet);
 				checkDyingEnemy(newbullet);
-				printKillingEnemyMessage();
 				return;
 			}
 			else if (detectCollisionBullet(newbullet->pos.X, newbullet->pos.Y - 2) == 5) {
@@ -192,7 +189,6 @@ void shootBullet() {
 				newbullet->pos.Y -= 1;
 				moveBullet(newbullet);
 				checkDyingEnemy(newbullet);
-				printKillingEnemyMessage();
 				return;
 			}
 			//바로 위 충돌
@@ -292,7 +288,7 @@ void shootBullet() {
 	}
 }
 //bullet - enemy 충돌 검사
-void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
+void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime,Bullet* newbullet) {
 	enemyNPC * search = enemyList->enemyHeader;
 	while (search != NULL) {
 		if (search->activeStatus == TRUE) {
@@ -304,6 +300,9 @@ void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
 						search->deadPos.Y = search->pos.Y;
 						search->deadTime = checkdieStartTime;
 						currentEnemyCount -= 1;
+						drawDieEnemyEffect(newbullet->pos);
+						printEnemyCount();
+						printKillingEnemyMessage();
 					}
 					else {
 						search->hp -= 1;
@@ -315,6 +314,9 @@ void findDieEnemy(posStruct enemyCurPos, clock_t checkdieStartTime) {
 					search->deadPos.Y = search->pos.Y;
 					search->deadTime = checkdieStartTime;
 					currentEnemyCount -= 1;
+					drawDieEnemyEffect(newbullet->pos);
+					printEnemyCount();
+					printKillingEnemyMessage();
 				}
 			}
 		}
@@ -343,10 +345,13 @@ void pcKeyInput() {
 					break;
 				case space:
 					if (loadFlag == 0 && bulletCount > 0) {
+						Sound_Play(1);
+						VolumeSetSound();
 						shootBullet();
 					}
 					break;
 				case load:
+					printLoadMessage();
 					checkLoadStartTime = clock();
 					loadFlag = 1;
 					break;
@@ -450,21 +455,35 @@ void resetMessage() {
 void printKillingEnemyMessage() {
 	resetMessage();
 	setCurrentCursorPos(44 * 2, 18);
-	printf("적을 처치하였습니다.");
+	printf("적을 처치하였습니다!");
+	if (player.itemNum >= 1 && player.itemNum <= 3) {
+		setCurrentCursorPos(44 * 2, 19);
+		printf("아이템을 획득하였습니다!");
+	}
 	checkMessageTime = clock();
 	messageBoolean = 0;
 }
 void printKillingAnimalMessage() {
 	resetMessage();
 	setCurrentCursorPos(44 * 2, 18);
-	printf("동물을 처치하였습니다.");
+	printf("동물을 처치하였습니다!");
 	setCurrentCursorPos(44 * 2, 19);
 	printf("동물은 지켜야합니다!");
 	checkMessageTime = clock();
 	messageBoolean = 0;
 }
+void printLoadMessage() {
+	resetMessage();
+	setCurrentCursorPos(44 * 2, 18);
+	printf("─  장전중  ─");
+	checkMessageTime = clock();
+	messageBoolean = 0;
+}
+void printItemMessage() {
+
+}
 void deleteGameStatusMessage() {
-	if (messageBoolean == 0 && (double)(clock() - checkMessageTime) / CLOCKS_PER_SEC >= 1.5) {
+	if (messageBoolean == 0 && (double)(clock() - checkMessageTime) / CLOCKS_PER_SEC >= 2.0) {
 		resetMessage();
 		messageBoolean = 1;
 	}
