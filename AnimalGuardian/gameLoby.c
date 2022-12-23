@@ -5,6 +5,8 @@
 #include "globalVariable.h"
 #include "sound.h"
 
+int checkTimeSpace;
+clock_t startTimeSpace;
 int titleColor[7] = { 4,6,14,2,1,9,5 };
 char gameBoardTitle[][23][42] = {
 	//0:게임 로비
@@ -195,44 +197,44 @@ void initCheckGameTitle() {
 	}
 }
 void showStartDirectionInLoby() {
-	setCurrentCursorPos(35, 13);
+	setCurrentCursorPos(34, 13);
 	printf("▶");
 }
 void deleteStartDirectionInLoby() {
-	setCurrentCursorPos(35, 13);
+	setCurrentCursorPos(34, 13);
 	printf("  ");
 }
 void showInsrtuctionDirectionInLoby() {
-	setCurrentCursorPos(35, 16);
+	setCurrentCursorPos(34, 16);
 	printf("▶");
 }
 void deleteInstructionDirectionInLoby() {
-	setCurrentCursorPos(35, 16);
+	setCurrentCursorPos(34, 16);
 	printf("  ");
 }
 void showExitDirectionInLoby() {
-	setCurrentCursorPos(35, 19);
+	setCurrentCursorPos(34, 19);
 	printf("▶");
 }
 void deleteExitDirectionInLoby() {
-	setCurrentCursorPos(35, 19);
+	setCurrentCursorPos(34, 19);
 	printf("  ");
 }
 
 void showRestartDirectionGameOver() {
-	setCurrentCursorPos(35, 15);
+	setCurrentCursorPos(34, 15);
 	printf("▶");
 }
 void deleteRestartDirectionGameOver() {
-	setCurrentCursorPos(35, 15);
+	setCurrentCursorPos(34, 15);
 	printf("  ");
 }
 void showExitDirectionGameOver() {
-	setCurrentCursorPos(35, 19);
+	setCurrentCursorPos(34, 19);
 	printf("▶");
 }
 void deleteExitDirectionGameOver() {
-	setCurrentCursorPos(35, 19);
+	setCurrentCursorPos(34, 19);
 	printf("  ");
 }
 
@@ -289,6 +291,7 @@ int changeColorText(int i,int check[], int startX, int startY, int sizeWidth, in
 	double settime = 0.1;
 	returnkeyShowLobyTitle = 0;
 	while (check[i] == 0 && (double)(clock() - startTime) / CLOCKS_PER_SEC <= settime) {
+		printSpaceInputMessage();
 		changeConsoleColor(titleColor[(i - 1) % 7]);
 		showTitleCharacter(startX, startY, sizeWidth, sizeHeight);
 		if (_kbhit() != 0) {
@@ -299,6 +302,22 @@ int changeColorText(int i,int check[], int startX, int startY, int sizeWidth, in
 	restoreConsoleColor();
 	return returnkeyShowLobyTitle;
 }
+void printSpaceInputMessage() {
+	if (checkTimeSpace == 0 && (double)(clock() - startTimeSpace) / CLOCKS_PER_SEC > 0.8) {
+		setCurrentCursorPos(60, 21);
+		changeConsoleColor(14);
+		printf("스페이스바를 눌러 시작");
+		changeConsoleColor(white);
+		checkTimeSpace = 1;
+		startTimeSpace = clock();
+	}
+	else if (checkTimeSpace == 1 && (double)(clock() - startTimeSpace) / CLOCKS_PER_SEC > 0.8) {
+		setCurrentCursorPos(60, 21);
+		printf("                      ");
+		checkTimeSpace = 0;
+		startTimeSpace = clock();
+	}
+}
 int showLobyTitle() {
 	clock_t startTime = clock();
 	double settime = 0.5;
@@ -307,6 +326,7 @@ int showLobyTitle() {
 		if (checkGameTitle[0] == 0) {	//reset title color 
 			showTitle(gameBoardTitle[0]);
 			checkGameTitle[0] = 1;
+			printSpaceInputMessage();
 		}
 		if (changeColorText(1, checkGameTitle, 7, 2, 5, 4)!=0) {
 			return returnkeyShowLobyTitle; 
@@ -355,18 +375,18 @@ int showLobyTitle() {
 int drawGameLoby() {
 	drawSide();
 	initCheckGameTitle();
+	int directionY = 13;
+	int gameModeNum = 0;	//0:게임 시작, 1:게임 설명, 2:게임 종료
 	setCurrentCursorPos(38, 13);
 	printf("시작하기");
 	setCurrentCursorPos(38, 16);
-	printf("게임 설명");
+	printf("게임설명");
 	setCurrentCursorPos(38, 19);
-	printf("게임 종료");
+	printf("게임종료");
+	checkTimeSpace = 0;
+	startTimeSpace = clock();
 	showStartDirectionInLoby();
-	int directionY = 13;
-	int gameModeNum = 0;	//0:게임 시작, 1:게임 설명, 2:게임 종료
 	while (1) {
-
-
 		int key = showLobyTitle();
 		if (key == down) {
 			if (directionY == 13) {

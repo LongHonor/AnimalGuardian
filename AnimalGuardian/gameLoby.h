@@ -47,3 +47,5 @@ void drawStageClear();
 void drawGameClear();
 //게임 상세설명서 출력
 int drawInstruction2();
+//스페이스 입력 메시지 출력
+void printSpaceInputMessage();
