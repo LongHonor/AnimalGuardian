@@ -98,6 +98,7 @@ void runGame() {
         system("cls");
 		Sound_Play(0);
 		VolumeSetSound();
+        fflush(stdin);
         gInt = drawGameLoby();
         i = 0;
         stageNumber = i;
@@ -105,6 +106,7 @@ void runGame() {
         if (gInt != 2) {
             deleteBoard();
             while (1) {
+                fflush(stdin);
                 gameStatus = stage(i);
                 Sleep(1000);
                 system("cls");
@@ -129,6 +131,7 @@ void runGame() {
                 }
                 else {
                     //gameOver
+                    fflush(stdin);
                     system("cls");
                     retryFlag = drawGameOver();
                     if (retryFlag == 0) {
