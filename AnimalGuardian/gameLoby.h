@@ -45,3 +45,5 @@ void initCheckGameTitle();
 void drawStageClear();
 //게임 클리어 화면
 void drawGameClear();
+//게임 상세설명서 출력
+int drawInstruction2();

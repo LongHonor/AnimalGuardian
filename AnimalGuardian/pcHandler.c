@@ -479,9 +479,6 @@ void printLoadMessage() {
 	checkMessageTime = clock();
 	messageBoolean = 0;
 }
-void printItemMessage() {
-
-}
 void deleteGameStatusMessage() {
 	if (messageBoolean == 0 && (double)(clock() - checkMessageTime) / CLOCKS_PER_SEC >= 2.0) {
 		resetMessage();
