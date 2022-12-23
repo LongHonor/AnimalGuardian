@@ -9,6 +9,8 @@
 #include "npcModule.h"
 #include "stage3Animation.h"
 #include "gameLoby.h"
+#include "sound.h"
+
 
 void initSetting() {
     removeCursor();                     //커서 표시 지우기
@@ -91,12 +93,15 @@ void runGame() {
     int i=0;
     int retryFlag = 0;
     initSetting();
-
+	Init();
     while (1) {
         system("cls");
+		Sound_Play(0);
+		VolumeSetSound();
         gInt = drawGameLoby();
         i = 0;
         stageNumber = i;
+
         if (gInt != 2) {
             deleteBoard();
             while (1) {
@@ -141,6 +146,7 @@ void runGame() {
             system("cls");
             return;
         }
+		SoundUpdate();
     }
    
 }

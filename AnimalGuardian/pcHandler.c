@@ -4,6 +4,7 @@
 #include "gameBoardHandler.h"
 #include "detectCollision.h"
 #include "npcModule.h"
+#include "sound.h"
 #include <stdio.h>
 #include <conio.h>
 #include <time.h>
@@ -343,6 +344,8 @@ void pcKeyInput() {
 					break;
 				case space:
 					if (loadFlag == 0 && bulletCount > 0) {
+						Sound_Play(1);
+						VolumeSetSound();
 						shootBullet();
 					}
 					break;

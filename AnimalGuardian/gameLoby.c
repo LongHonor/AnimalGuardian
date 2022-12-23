@@ -3,6 +3,7 @@
 #include <time.h>
 #include "gameLoby.h"
 #include "globalVariable.h"
+#include "sound.h"
 
 int titleColor[7] = { 4,6,14,2,1,9,5 };
 char gameBoardTitle[][23][42] = {
@@ -364,6 +365,8 @@ int drawGameLoby() {
 	int directionY = 13;
 	int gameModeNum = 0;	//0:게임 시작, 1:게임 설명, 2:게임 종료
 	while (1) {
+
+
 		int key = showLobyTitle();
 		if (key == down) {
 			if (directionY == 13) {
@@ -399,6 +402,7 @@ int drawGameLoby() {
 				return drawInstruction();
 			}
 			else {
+				StopSound();
 				return gameModeNum;
 			}
 		}
