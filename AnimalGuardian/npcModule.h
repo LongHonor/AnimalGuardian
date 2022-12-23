@@ -98,5 +98,4 @@ void setRandomArrayStage3(int* arr,const int count);
 void makeNormalEnemyStage3(int x);
 void makeEnemyListStage3(int enemyCount);
 void moveKing();
-int kingAnimalDetectCollision(int posX, int posY);
 void resetBossStatus();
