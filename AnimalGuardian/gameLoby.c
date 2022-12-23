@@ -461,7 +461,7 @@ int drawInstruction() {
 	setCurrentCursorPos(10, 5);
 	printf("특급요원 J는 위기에 빠진 동물들을 구하라는 명을 받게 되는데...");
 	setCurrentCursorPos(20, 8);
-	printf("<게임 방법>");
+	printf("<조작 방법>");
 	int directionKeyX = 14, directionKeyY = 10;
 	setCurrentCursorPos(directionKeyX + 2, directionKeyY + 1);
 	printf("←");
@@ -501,7 +501,59 @@ int drawInstruction() {
 	setCurrentCursorPos(46, 15);
 	printf("R↓ : 장전 속도 감소");
 	setCurrentCursorPos(74, 21);
-	printf("▶ Back");
+	printf("▶ NEXT");
+	while (1) {
+		int key = _getch();
+		if (key == space) {
+			deleteBoard();
+			return drawInstruction2();
+		}
+	}
+}
+int drawInstruction2() {
+	drawSide();
+	setCurrentCursorPos(36, 1);
+	printf("<게임 방법>");
+	setCurrentCursorPos(8, 3);
+	printf("위에서 내려오는 몬스터들이 동물들을 잡아가기 전에 적들을 처치하십시오!");
+	setCurrentCursorPos(18, 5);
+	printf("동물들이 총알에 맞고 죽을수 있습니다! 조심하세요!");
+	setCurrentCursorPos(34, 7);
+	printf("<스테이지 구성>");
+	setCurrentCursorPos(12, 9);
+	printf("<스테이지 1> : 일반 몬스터(");
+	changeConsoleColor(red);
+	printf("▼");
+	changeConsoleColor(white);
+	printf(") 등장");
+	setCurrentCursorPos(12, 11);
+	printf("<스테이지 2> : 강화형 몬스터(");
+	changeConsoleColor(1);
+	printf("▼ ");
+	changeConsoleColor(12);
+	printf("▼");
+	changeConsoleColor(white);
+	printf(") 등장");
+	setCurrentCursorPos(27, 13);
+	changeConsoleColor(1);
+	printf("▼ ");
+	changeConsoleColor(white);
+	printf("→ 3번을 적중시켜야 죽습니다!");
+	setCurrentCursorPos(27, 15);
+	changeConsoleColor(12);
+	printf("▼ ");
+	changeConsoleColor(white);
+	printf("→ 총알을 피합니다!");
+	setCurrentCursorPos(12, 17);
+	printf("<보스 스테이지> : 보스 몬스터가 킹 애니멀을 노리고 있습니다!");
+	setCurrentCursorPos(30, 19);
+	printf("보스 몬스터와 에네미 모두 잡아야 합니다!");
+	setCurrentCursorPos(34, 21);
+	changeConsoleColor(14);
+	printf("※보스 공격 조심※");
+	changeConsoleColor(white);
+	setCurrentCursorPos(66, 21);
+	printf("▶ Back To Loby");
 	while (1) {
 		int key = _getch();
 		if (key == space) {
