@@ -76,5 +76,7 @@ void printKillingEnemyMessage();
 void deleteGameStatusMessage();
 //동물 처치 안내 메시지 출력
 void printKillingAnimalMessage();
+//장전메시지 출력
+void printLoadMessage();
 //메세지 리셋
 void resetMessage();

@@ -350,6 +350,7 @@ void pcKeyInput() {
 					}
 					break;
 				case load:
+					printLoadMessage();
 					checkLoadStartTime = clock();
 					loadFlag = 1;
 					break;
@@ -453,21 +454,35 @@ void resetMessage() {
 void printKillingEnemyMessage() {
 	resetMessage();
 	setCurrentCursorPos(44 * 2, 18);
-	printf("적을 처치하였습니다.");
+	printf("적을 처치하였습니다!");
+	if (player.itemNum >= 1 && player.itemNum <= 3) {
+		setCurrentCursorPos(44 * 2, 19);
+		printf("아이템을 획득하였습니다!");
+	}
 	checkMessageTime = clock();
 	messageBoolean = 0;
 }
 void printKillingAnimalMessage() {
 	resetMessage();
 	setCurrentCursorPos(44 * 2, 18);
-	printf("동물을 처치하였습니다.");
+	printf("동물을 처치하였습니다!");
 	setCurrentCursorPos(44 * 2, 19);
 	printf("동물은 지켜야합니다!");
 	checkMessageTime = clock();
 	messageBoolean = 0;
 }
+void printLoadMessage() {
+	resetMessage();
+	setCurrentCursorPos(44 * 2, 18);
+	printf("─  장전중  ─");
+	checkMessageTime = clock();
+	messageBoolean = 0;
+}
+void printItemMessage() {
+
+}
 void deleteGameStatusMessage() {
-	if (messageBoolean == 0 && (double)(clock() - checkMessageTime) / CLOCKS_PER_SEC >= 1.5) {
+	if (messageBoolean == 0 && (double)(clock() - checkMessageTime) / CLOCKS_PER_SEC >= 2.0) {
 		resetMessage();
 		messageBoolean = 1;
 	}
